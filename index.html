@@ -1,0 +1,1110 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>WORKLE</title>
+        <meta_remove name="description" content="">
+        <meta_remove name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" ohref="wordle4.css">
+        <script osrc="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap" rel="stylesheet">
+
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.1/knockout-latest.debug.min.js" integrity="sha512-+9kgaOpvAGdLyaCeMWkYXt4R8m/fRgbGud4wzsJQ1cwhNYrQj+a8E3pstfc6E9zuHhbyzSiC+AHxeZ5SFVyDmQ==" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout.mapping/2.3.2/knockout.mapping.min.js" integrity="sha512-sCLnmp1UrJki3R9zwZMLXg9lXlGxJ6yFVuiSJ1pi1qRST3CJPAkJIhOHEQZz10P2gWgY3H8Y33na5Ak9PV5PLA==" crossorigin="anonymous"></script>
+        
+        <script osrc='scripts/arrayfunctions.js'></script>
+        <script src='scripts/words.js'></script>
+        <script osrc='scripts/townshipwords.js'></script>
+        <script src='scripts/scrabblewords.js'></script>
+        <script osrc='scripts/wordle.js'></script>
+
+        
+        <!--
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        -->
+
+        <style>
+            /* -- general styles */
+            body{
+                font-family: Arial, Helvetica, sans-serif;
+            }
+
+            /* -- title_bar */
+            .icon_instructions { cursor: pointer; }
+            .icon_stats { cursor: pointer; }
+            .icon_tasks { cursor: pointer; }
+            #title_bar{
+                z-index:1001;
+                /* height:45px; */
+                display:flex;
+                justify-content:center;
+                margin-bottom:2px;
+            }
+
+            /* -- game container */
+            #gamecontainer {
+                width: 30%;
+                text-align: center;
+                max-width: 1100px;
+                min-width: 412px;
+            }
+            .letter {
+                width:66px;
+                min-width:66px;
+                max-width:66px;
+                height:56px;
+                border:1px solid black;
+                border-radius:4px;
+                display:inline-block;
+                margin-bottom:8px;
+                text-align:center;
+                color:black;
+                font-size:26px;
+                orig_padding:15px 0px;
+                padding:10px 0px;
+                font-weight:bold;
+                margin-left:6px;
+                margin-right:6px;
+            }
+            .upcoming{
+                border:1px solid rgb(167, 167, 167);
+            }
+            .none{
+                background-color:black;
+                color:white !important;
+            }
+            .place{
+                background-color:#DC6A46;
+                color:white !important;
+            }
+            .correct{
+                background-color:#0076be;
+                color:white !important;
+            }
+            .tbd{
+                background-color:#3D3D3E;
+                color:white;
+            }
+            .row{
+                position:relative;
+                transition:transform .7s;
+            }
+
+            /* -- modal_info */
+            .icon{
+                orig_height:20px;
+                height:23px;
+                width:20px;
+                orig_padding:3px;
+                border:1px solid gray;
+                color:white;
+                font-weight:bold;
+                border-radius:3px;
+                justify-content: center;
+                align-items: center;
+                vertical-align: middle;
+                text-align: center;
+                display: inline-block;
+                width: 20px;
+            }
+
+            /* -- modal_stats */
+            #numberbar{
+                display:flex;
+                justify-content: center; 
+            }
+            .numbertab{
+                /* justify-content:center; */
+                width:12%;
+                border:1px solid black;
+                cursor: pointer;
+                text-align: center;
+            }
+            #statsmessage{
+                font-size:12px;
+                display:flex;
+            }
+            .guesscontainer{
+                width:100%;
+                text-align:left;
+                display:flex;
+                justify-content:flex-start;
+                font-size:14px;
+                padding:1px 0px;
+            }
+            .guessbar{
+                background-color: #3D3D3E;
+                text-align:right;
+                padding:0px 5px;
+                color:white;
+                margin-left:7px;
+            }
+            .hlguessbar{ background-color:green; }
+            .statblock{
+                margin-top:10px;
+                justify-content: space-around;
+                width:20%;
+                padding:4px;
+            }
+            .statnum{
+                font-size:25px;
+                font-weight:bold;
+            }
+            .highlight{
+                background-color:#0076be;
+                color:white;
+            }
+
+            /* -- modal_endgame */
+            #sharearea{
+                width:80%;
+                height:220px;
+            }
+
+            /* -- modal_notaword */
+            #modal_notaword{ text-align: center; }
+
+            /* -- keyboard */
+            #keyboardrow3, #keyboardrow2, #keyboardrow1, #keyboardrow0{
+                width:100%;
+                text-align:center;
+            }
+            .key{
+                width:25px;
+                height:25px;
+                border:1px solid black;
+                border-radius:4px;
+                display:inline-block;
+                margin:2px 0px;
+                text-align:center;
+                color:black;
+                font-size:16px;
+                padding:1px;
+                font-weight:bold;
+                cursor: pointer;
+                -webkit-touch-callout: none; /* iOS Safari */
+                -webkit-user-select: none; /* Safari */
+                -khtml-user-select: none; /* Konqueror HTML */
+                -moz-user-select: none; /* Old versions of Firefox */
+                    -ms-user-select: none; /* Internet Explorer/Edge */
+                        user-select: none; /* Non-prefixed version, currently
+                                            supported by Chrome, Edge, Opera and Firefox */
+            }
+            .keylong{
+                width:65px;
+                height:25px;
+                border:1px solid black;
+                border-radius:4px;
+                display:inline-block;
+                margin:2px 0px;
+                text-align:center;
+                color:black;
+                font-size:16px;
+                padding:1px;
+                font-weight:bold;
+                cursor: pointer;
+                -webkit-touch-callout: none; /* iOS Safari */
+                -webkit-user-select: none; /* Safari */
+                -khtml-user-select: none; /* Konqueror HTML */
+                -moz-user-select: none; /* Old versions of Firefox */
+                    -ms-user-select: none; /* Internet Explorer/Edge */
+                        user-select: none; /* Non-prefixed version, currently
+                                            supported by Chrome, Edge, Opera and Firefox */
+            }
+        
+            /* -- media styles */
+            @media only screen and (max-width: 600px) {
+                .letter {
+                    width:56px;
+                    height:30px;
+                    font-size:26px;
+                    margin-left:3px;
+                    margin-right:3px;
+                }
+            }
+            @media only screen and (max-width: 500px) {
+                .letter {
+                    width:50px;
+                    height:24px;
+                    font-size:22px;
+                    padding:10px 0px;
+                    margin-left:2px;
+                    margin-right:2px;
+                }
+            }
+            @media only screen and (max-width: 420px) {
+                .letter {
+                    width:10%;
+                    height:24px;
+                    font-size:22px;
+                    padding:10px 0px;
+                    margin-left:2px;
+                    margin-right:2px;
+                }
+                #keyboardrow3, #keyboardrow2, #keyboardrow1{
+                    display:flex;
+                    justify-content:center;
+                    max-width: 1100px;
+                    min-width: 412px;
+                }
+                .key{
+                    box-sizing: border-box;
+                    width:8.8%;
+                    margin:2px 0px;
+                    height:45px;
+                    flex: 1;
+                    
+                }
+                .keylong{
+                    width:33%;
+                    height:28px;
+                }
+                
+            }
+            /*@media (prefers-color-scheme: dark) {
+                .key, .keylong{
+                    color:white;
+                    background-color:black;
+                    border:1px solid grey;
+                }
+                body{
+                    background-color:black;
+                }
+                .letter{
+                    color:white;
+                    border-color:white;
+                }
+                .none{
+                    background-color:rgb(75, 75, 75);
+                }
+            }
+            */
+        </style>
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        <div class="modal" id="modal_tasks" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">TO DO</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div style="font-size: 10pt;">
+                            <span><b>Note:</b> Please direct all bugs/issue/enhancements to <a href="mailto:brad.gebert@shrm.org">Brad Gebert</a></span>
+                            <hr>
+                            <h3>Look and Feel</h3>
+                            <ul>
+                                <li>Get input from others</li>
+                                <li>The gameboard is not always over the keyboard depending on the screen width</li>
+                                <li>Question:  If the word of the day is only 4 letters, should the user have 5 tries vs 6?<br>What if the word length is 6, should they get 7 tries?</li>
+                            </ul>
+                
+                            <hr>
+                            <h3>Features not yet added</h3>
+                            <ul>
+                                <li>Ability to toggle light/dark mode
+                                    <ul>
+                                        <li>Default to system setting</li>
+                                        <li>Add toggle to change from light/dark</li>
+                                    </ul>
+                                </li>
+                                <li>When comparing if a user's input is a word, we currently only compare against the word list dictionary.
+                                    <ul>
+                                        <li>Add the functionality to compare against words contained in the scheduler</li>
+                                        <li>This will allow someone to add a word, or acronym without having to double check it is contained in the word list dictionary</li>
+                                    </ul>
+                                </li>
+                                <li>Create a scheduler file that contains the following:
+                                    <ul>
+                                        <li>id (must be unique)</li>
+                                        <li>date (can have the same date repeated)</li>
+                                        <li>word</li>
+                                        <li>clue (not required)</li>
+                                        <li>factoid (not required, but has a specific format - percent|some_text)</li>
+                                        <li>url (not required)</li>
+                                    </ul>
+                                    The scheduler must be in the following format, and could be created from an Excel sheet that is completed by multiple individuals.<br>
+                                    {"<b>id</b>":"1","<b>date</b>":"03/01/2022","<b>word</b>":"raise","<b>clue</b>":"Clue goes here.","<b>factoid</b>":"78%|Did you know factoid goes here","<b>url</b>":"https://www.shrm.org/hr-today/trends-and-forecasting/research-and-surveys/pages/paid-leave.aspx"}
+                                    ,{"<b>id</b>":"2","<b>date</b>":"03/02/2022","<b>word</b>":"union","<b>clue</b>":"Clue goes here.","<b>factoid</b>":"78%|Did you know factoid goes here","<b>url</b>":"https://www.shrm.org/hr-today/trends-and-forecasting/research-and-surveys/pages/paid-leave.aspx"}
+                                    ,{"<b>id</b>":"3","<b>date</b>":"03/03/2022","<b>word</b>":"leave","<b>clue</b>":"Clue goes here.","<b>factoid</b>":"78%|Did you know factoid goes here","<b>url</b>":"https://www.shrm.org/hr-today/trends-and-forecasting/research-and-surveys/pages/paid-leave.aspx"}
+                                    ,{"<b>id</b>":"4","<b>date</b>":"03/03/2022","<b>word</b>":"fmla","<b>clue</b>":"Clue goes here.","<b>factoid</b>":"78%|Did you know factoid goes here","<b>url</b>":"https://www.shrm.org/hr-today/trends-and-forecasting/research-and-surveys/pages/paid-leave.aspx"}
+                                    ,{"<b>id</b>":"5","<b>date</b>":"03/04/2022","<b>word</b>":"expert","<b>clue</b>":"Clue goes here.","<b>factoid</b>":"78%|Did you know factoid goes here","<b>url</b>":"https://www.shrm.org/hr-today/trends-and-forecasting/research-and-surveys/pages/paid-leave.aspx"}
+                                </li>
+                                <li>Once scheduler is created, change code to pull the word of the day from the scheduler.
+                                    <ul>
+                                        <li>If game is started without any url params passed in, use current date to select word</li>
+                                        <li>If current date has multiple words to choose from, remove any the user has already played, and then randomize remaining choices</li>
+                                        <li>If the user has played all of the games for a given date, remove any the user has already played (ever), and then randomize remaining choices from previous dates</li>
+                                        <li>If game is started with a url param, play that word</li>
+                                        <li>Store the id of each played game in the browser's cache</li>
+                                        <li>Change the "Share" link to include the id of the word pulled from the scheduler</li>
+                                        <li><b>Note:</b> This has an impact on many of the exisitng functioins that are looking at global variables.</li>
+                                    </ul>
+                                </li>
+                                <li>Find, clean, and create a word list dictionary with lengths of 4, 5, and 6.</li>
+                                <li>Adjust gameboard size, word list comparison, and number of tries based off the word of the day</li>
+                                <li>Show a clue, if present in the scheduler file. For example:<br>
+                                    <br>
+                                    <fieldset>
+                                        <legend>Clue</legend>
+                                        <span>It's an acronym for the law allowing employees to take unpaid leave, for a period of time, to take care of a loved one without fear of losing thier job.</span>
+                                        <br>
+                                        <span>Interesting in learning more?  Contact a SHRM Knowledge Advisor for all of your questions.</span>
+                                    </fieldset>
+                                    <br>
+                                    <b>Note:</b> Until Creative Servives, or Marketing, takes this project over, create a standardized layout for all clues.<br><br>
+                                </li>
+                                <li>Show a factoid, if present in the scheduler file. For example:<br>
+                                    <br>
+                                    <fieldset>
+                                        <legend>Factoid</legend>
+                                        <span style="font-size: 36pt;">78%</span> <span>of organizations expanded employee options for telework</span>
+                                        <span style="font-size: 10pt;"><a href="https://shrm-res.cloudinary.com/image/upload/v1630503564/2020%20Employee%20Benefits/Benefits_Exec_Summ_FINAL.pdf">Learn more</a></span>
+                                    </fieldset>
+                                    <br>
+                                    <b>Note:</b> Until Creative Servives, or Marketing, takes this project over, create a standardized layout for all factoids.<br><br>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="modal-footer"">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal" id="modal_info" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">HOW TO PLAY</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div>
+                            <ul>
+                                <li>Guess the correct word in 6 tries.</li>
+                                <li>Each guess is submitted by pressing the 'ENTER' button.</li>
+                                <li>The tiles will change color to show how close your guess was to the answer.</li>
+                            </ul>
+                            <hr>
+                            <b>Examples:</b></br></br>
+                            <div style="text-align: left;">
+                                <span class="icon correct">R</span>
+                                <span class="icon tbd">A</span>
+                                <span class="icon tbd">I</span>
+                                <span class="icon tbd">S</span>
+                                <span class="icon tbd">E</span></br>
+                                The letter <b>R</b> is in the answer and in the correct place.
+                            </div>
+                            </br>
+                            <div style="text-align: left;">
+                                <span class="icon tbd">V</span>
+                                <span class="icon tbd">A</span>
+                                <span class="icon place">L</span>
+                                <span class="icon tbd">U</span>
+                                <span class="icon tbd">E</span></br>
+                                The letter <b>L</b> is in the answer but in the wrong place.
+                            </div>
+                            </br>
+                            <div style="text-align: left;">
+                                <span class="icon tbd">U</span>
+                                <span class="icon tbd">N</span>
+                                <span class="icon tbd">I</span>
+                                <span class="icon tbd">T</span>
+                                <span class="icon none">Y</span></br>
+                                The letter <b>Y</b> is in not the answer.
+                            </div>
+                            <br><br>
+                            <div style="display: none;">
+                                    Start game with 
+                                    <select id="pickwordlength" name="select" >
+                                        <option value="4" >4</option>
+                                        <option value="5" selected>5</option>
+                                        <option value="6" >6</option> 
+                                    </select>
+                                -letter word and start guessing.<br><br>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer" style="display: none;">
+                        <button type="button" class="btn btn-primary">Play Game</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal" id="modal_stats" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">STATISTICS</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                    <div id="numberbar">
+                        <div class="numbertab" id="s_4">4</div>
+                        <div class="numbertab" id="s_5">5</div>
+                        <div class="numbertab" id="s_6">6</div>
+                        <div class="numbertab" id="s_All">All</div>
+                    </div>
+                    <div id="statsmessage">
+                    <div class="statblock"><span id="games" class="statnum"></span><br><span >games played</span></div>
+                    <div class="statblock"><span id="wins" class="statnum"></span><br><span >wins</span></div>
+                    <div class="statblock"><span id="winpct" class="statnum"></span><br><span >win rate</span></div>
+                    <div class="statblock"><span id="streak" class="statnum"></span><br><span >current streak</span></div>
+                    <div class="statblock"><span id="beststreak" class="statnum"></span><br><span >best streak</span></div>
+                    </div>
+                    <br>
+                    <div id="guessdisplay">
+                        Guess Distribution
+                        <div class="guesscontainer">1<div class="guessbar" id="g_1">0</div></div>
+                        <div class="guesscontainer">2<div class="guessbar" id="g_2">0</div></div>
+                        <div class="guesscontainer">3<div class="guessbar" id="g_3">0</div></div>
+                        <div class="guesscontainer">4<div class="guessbar" id="g_4">0</div></div>
+                        <div class="guesscontainer">5<div class="guessbar" id="g_5">0</div></div>
+                        <div class="guesscontainer">6<div class="guessbar" id="g_6">0</div></div>
+                    </div>
+                </div>
+              </div>
+            </div>
+        </div>
+
+        <div class="modal" id="modal_endgame" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">GAME OVER</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <br><span id="resultsstring"></span>
+                    </div>
+                    <br>
+                    <textarea id="sharearea"></textarea>
+                    </br>
+                    <button id="copy" type="button" class="btn btn-info btn-clipboard" data-clipboard-action="copy" data-clipboard-target="#sharearea">Copy</button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" onclick="playAgainButton();" class="btn btn-primary">Play Again</button>
+                    <button type="button" onclick="share()" class="btn btn-primary" id="share">Share Results</button>
+                    <button type="button" onclick="showStats(wordLength);" class="btn btn-primary" data-dismiss="modal">Show Stats</button>
+                </div>
+              </div>
+            </div>
+        </div>
+
+        <div id="modal_notaword" class="modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-body">
+                    <br>
+                    <p>Not a word.</p>
+                </div>
+              </div>
+            </div>
+        </div>
+
+        <div id="title_bar">
+            <div style="font-weight: bold;padding:3px;font-size: 30px;">
+                <span style="background-color: #1b3c69;color:#FFFFFF;border: 1pt solid black">WORK</span><span style="background-color: #0076be;color:#FFFFFF;border: 1pt solid black">LE</span>
+                <i class="fa fa-info-circle icon_instructions"></i>
+                <i class="fa fa-chart-bar icon_stats" aria-hidden="true"></i>
+                <i class="fas fa-tasks icon_tasks" aria-hidden="true"></i>
+            </div>
+        </div>
+
+        <div id="gamecontainer" class="container"></div>
+
+        <div id="keyboard">
+            <div id="keyboardrow3">
+                <div class="key" id="q" onclick="onKeyPress(this.id)">Q</div>
+                <div class="key" id="w" onclick="onKeyPress(this.id)">W</div>
+                <div class="key" id="e" onclick="onKeyPress(this.id)">E</div>
+                <div class="key" id="r" onclick="onKeyPress(this.id)">R</div>
+                <div class="key" id="t" onclick="onKeyPress(this.id)">T</div>
+                <div class="key" id="y" onclick="onKeyPress(this.id)">Y</div>
+                <div class="key" id="u" onclick="onKeyPress(this.id)">U</div>
+                <div class="key" id="i" onclick="onKeyPress(this.id)">I</div>
+                <div class="key" id="o" onclick="onKeyPress(this.id)">O</div>
+                <div class="key" id="p" onclick="onKeyPress(this.id)">P</div>
+            </div>
+            <div id="keyboardrow2">
+                <div class="key" id="a" onclick="onKeyPress(this.id)">A</div>
+                <div class="key" id="s" onclick="onKeyPress(this.id)">S</div>
+                <div class="key" id="d" onclick="onKeyPress(this.id)">D</div>
+                <div class="key" id="f" onclick="onKeyPress(this.id)">F</div>
+                <div class="key" id="g" onclick="onKeyPress(this.id)">G</div>
+                <div class="key" id="h" onclick="onKeyPress(this.id)">H</div>
+                <div class="key" id="j" onclick="onKeyPress(this.id)">J</div>
+                <div class="key" id="k" onclick="onKeyPress(this.id)">K</div>
+                <div class="key" id="l" onclick="onKeyPress(this.id)">L</div>    
+            </div>
+            <div id="keyboardrow1">
+                <div class="key" id="z" onclick="onKeyPress(this.id)">Z</div>
+                <div class="key" id="x" onclick="onKeyPress(this.id)">X</div>
+                <div class="key" id="c" onclick="onKeyPress(this.id)">C</div>
+                <div class="key" id="v" onclick="onKeyPress(this.id)">V</div>
+                <div class="key" id="b" onclick="onKeyPress(this.id)">B</div>
+                <div class="key" id="n" onclick="onKeyPress(this.id)">N</div>
+                <div class="key" id="m" onclick="onKeyPress(this.id)">M</div>   
+            </div>
+            <div id="keyboardrow0">
+                <div class="keylong" id="Enter" onclick="onKeyPress(this.id)">Enter</div>
+                <div class="keylong" id="Backspace" onclick="onKeyPress(this.id)">Delete</div>
+            </div>
+        </div>
+ 
+        <script>
+            gameover=true;
+            tries=6;
+            wordLength=5;
+            letters=['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
+            wordlistlengths=[300,1580,3040,4865,4060];
+
+            var SHRM = SHRM || {};
+            SHRM.utils = {};
+            SHRM.utils.data = {}
+
+            json_schedule = [
+                {"id":"1","date":"03/01/2022","word":"raise","clue":"Clue goes here.","factoid":"Did you know factoid goes here","url":"https://www.shrm.org/hr-today/trends-and-forecasting/research-and-surveys/pages/paid-leave.aspx"}
+                ,{"id":"2","date":"03/02/2022","word":"union","clue":"Clue goes here.","factoid":"Did you know factoid goes here","url":"https://www.shrm.org/hr-today/trends-and-forecasting/research-and-surveys/pages/paid-leave.aspx"}
+                ,{"id":"3","date":"03/03/2022","word":"leave","clue":"Clue goes here.","factoid":"Did you know factoid goes here","url":"https://www.shrm.org/hr-today/trends-and-forecasting/research-and-surveys/pages/paid-leave.aspx"}
+                ,{"id":"4","date":"03/03/2022","word":"covid","clue":"Clue goes here.","factoid":"Did you know factoid goes here","url":"https://www.shrm.org/hr-today/trends-and-forecasting/research-and-surveys/pages/paid-leave.aspx"}
+                ,{"id":"5","date":"03/04/2022","word":"expert","clue":"Clue goes here.","factoid":"Did you know factoid goes here","url":"https://www.shrm.org/hr-today/trends-and-forecasting/research-and-surveys/pages/paid-leave.aspx"}
+            ]
+
+            if (json_schedule){
+                if (!(SHRM.utils.data.schedule)){
+                    SHRM.utils.data.schedule = json_schedule
+                }
+            }
+
+            if (SHRM.utils.data.schedule){
+                id = 1
+                var filtered_by = SHRM.utils.data.schedule.filter(a => a.id == id);
+                if (filtered_by.length == 1){
+                    // do nothing
+                }else{
+                    filtered_by = SHRM.utils.data.schedule.filter(a => a.date == new Date().toLocaleString("en-US", {year: 'numeric', month: '2-digit', day: '2-digit'}));
+                    if (filtered_by.length > 1){
+                        filtered_by = filtered_by[Math.floor(Math.random()*filtered_by.length)]
+                    }else{
+                        filtered_by = SHRM.utils.data.schedule[Math.floor(Math.random()*SHRM.utils.data.schedule.length)]
+                    }
+                }
+
+                if (filtered_by instanceof Array){
+                    SHRM.workle = filtered_by[0]
+                }else{
+                    SHRM.workle = filtered_by
+                }
+            }
+
+
+            function fillArray(num,element){
+                ar2=[];
+                for (var i=0;i<num;i++){
+                    ar2.push(element);
+                }
+                return ar2;
+            }
+
+            function sumArray(ar){
+                // add all elements of array together returns one number
+                var ar3 = 0;
+                for(var i in ar){
+                    ar3+=ar[i];
+                }
+                return ar3;
+            }
+
+            function maxArray(ar){
+                var max = 0;
+                for(var i in ar)
+                    if(ar[i]>max){
+                        max=ar[i];
+                    }
+                return max;
+            }
+
+            function endGame(){
+                alert('endGame() can be REMOVED')
+                debugger
+                $('#copy').hide()
+                $('#modal_endgame').modal('show')
+            }
+
+            function getCode(){
+                debugger
+                if ($('#pickwordlength option:selected').val()=='rand'){
+                    wordLength=Math.floor(Math.random()*4.8+3);
+                } else {
+                    wordLength=parseInt($('#pickwordlength option:selected').val());
+                }       
+                
+                index=wordLength-3;
+                
+                challengecode="?challenge="+letters[Math.floor(Math.random()*26)]+letters[Math.floor(Math.random()*26)]+letters[Math.floor(Math.random()*26)]+wordLength;
+                console.log(challengecode);
+                return challengecode
+            }
+
+            function parseURL(){
+                debugger
+                isInIframe = (parent !== window);
+                if (isInIframe){
+                     thisURL = document.referrer;
+                } else{
+                     thisURL = window.location.href;
+                }
+                
+                //thisURL = 'file:///Users/bgebert/Sites/workle/index.html?challenge=yps5'    // REMOVE
+
+                parseUrl = new URL(thisURL);
+
+                chalparamval=parseUrl.searchParams.get('challenge');
+                
+                if (chalparamval!==null){
+                    challenge=true;
+                    custom=false;
+                    console.log(chalparamval)
+                    challengecode="?challenge="+chalparamval;
+                    //return parseCode(chalparamval)
+                    return chalparamval
+                }else{
+                    return
+                }
+            }
+            
+            function parseCode(code){
+                // get word based on code from parseURL
+                // example="qje6";
+                
+                if (typeof code == 'undefined'){
+                    challengecode=getCode();
+                    code = challengecode.split('=')[1]
+                }
+
+                //check code for validity (3 letters and one number)
+                // code=example;
+                wordLength=parseInt(code.slice(3,4));
+                number=convertCode(code);
+                wordlistsize=wordlistlengths[wordLength-3]
+                wordind=number%wordlistsize;
+                wordlist=window["words"+wordLength];
+                word=wordlist[wordind]
+                return word
+            }
+
+            function convertCode(code){
+                l1=code.slice(0,1);
+                l2=code.slice(1,2);
+                l3=code.slice(2,3);
+                n1=letters.indexOf(l1);
+                n2=letters.indexOf(l2);
+                n3=letters.indexOf(l3);
+
+                number=26*26*n1+26*n2+n3;
+                console.log(l1,l2,l3,n1,n2,n3,number)
+                return number
+            }
+
+            function startGame(startword){
+                debugger
+                won=false;
+                gamehistory=[];
+                
+                $("#sharearea").hide();
+                $('#modal_endgame').modal('hide');
+                $('#modal_stats').modal('hide');
+
+                if (typeof startword == 'undefined'){
+                    //clearURLparams();
+                    word = parseCode(parseURL());
+                } else {
+                    word = startword;
+                }
+
+                console.log('WORKLE - ' + word)     // REMOVE
+                //alert(word)                         // REMOVE
+                
+                makeBoard();
+                
+                wordarr=word.toUpperCase().split("");
+                row=1;
+                tile=0;
+                guess="";
+                gameover=false;
+
+                $( ".icon_instructions" ).click(function() {
+                    $('#modal_info').modal('show')
+                });
+
+                $( ".icon_stats" ).click(function() {
+                    $('#modal_stats').modal('show')
+                    showStats('All');
+                });
+
+                $( ".icon_tasks" ).click(function() {
+                    $('#modal_tasks').modal('show')
+                });
+            }
+
+            function onKeyPress(key){
+                if (!gameover){
+                    // console.log(event.key);
+                    if (isLetter(key)){
+                        letter =key.toUpperCase();
+                        if(tile<wordLength){
+                            tile++;
+                            guess=guess+letter;
+                            $("#r"+row+"l"+tile).html(letter.toUpperCase());
+                        }  
+                        // console.log(row,tile,letter)
+                    } else if (key=="Backspace"){   
+                        $("#r"+row+"l"+tile).html("&nbsp;");
+                        guess=guess.slice(0,-1);
+                        if(tile>0){
+                            tile--;
+                        }
+                        // console.log('Backspace')
+                    } else if (key=="Enter"){
+                        debugger
+                        // console.log('Enter')
+                        if (guess.length==wordLength){
+                            if (isWord(guess)){
+                                won=checkGuess(guess);
+
+                                if (won){
+                                    numtries=row;
+                                }
+                                if (row==tries){
+                                    gameover=true;
+                                }
+                                row++;
+                                guess="";
+                                tile=0;
+                                for (var j=0;j<wordLength;j++){
+                                    $("#r"+(row)+"l"+(j+1)).toggleClass('upcoming');
+                                }
+                                if (gameover){
+                                    if (!won){
+                                        resultsstring = "The word is " + word;
+                                        $("#resultsstring").html(resultsstring);
+                                    } else {
+                                        if (numtries == 1){
+                                            resultsstring = "You got it on the first guess!";
+                                        }else{
+                                            resultsstring = "You got it in " + numtries + " guesses.";
+                                        }
+                                        $("#resultsstring").html(resultsstring);
+                                    } 
+                                    
+                                    updateStats();
+                                    $('#copy').hide()
+                                    $('#modal_endgame').modal('show');
+                                }
+                            } else {
+                                notWord();
+                            }
+                        }
+                    }                    
+                    // console.log(tile)
+                } else {
+                    // console.log("gameover")
+                }
+            }
+
+            function clearKeyboard(){
+                for (letter of letters){
+                    $("#"+letter).removeClass("none place correct")
+                }
+            }
+
+            function notWord(){
+                $('#modal_notaword').modal('show')
+                setTimeout(function(a){$('#modal_notaword').modal('hide')},2000);
+            };
+            
+            function clearURLparams(){
+                debugger
+                baseurl=thisURL.split("?")[0]
+                    console.log(baseurl)
+                if (isInIframe){
+                    window.parent.history.pushState("", "", baseurl);
+                } else {
+                    history.pushState("", "", baseurl);
+                }        
+            }
+
+            function isWord(guess){
+                debugger
+                return (scrabblewords.includes(guess.toLowerCase())|| wordlist.includes(guess.toLowerCase()));
+            }
+
+            function makeBoard(){
+                $( "#gamecontainer" ).empty();
+                for (var i=0;i<tries;i++){
+                    $("#gamecontainer").append('<div class="row" id="row'+(i+1)+'"></div>');
+                    
+                    for (var j=0;j<wordLength;j++){
+                        $("#row"+(i+1)).append('<div class="col letter" id="r'+(i+1)+'l'+(j+1)+'">&nbsp;</div>');
+                        if (i>0){
+                            $("#r"+(i+1)+"l"+(j+1)).addClass('upcoming');
+                        }  
+                    }
+                }
+            }
+            
+            function initStats(){
+                if (typeof localStorage.gameStats == 'undefined'){
+                    gameStats={
+                        winDist:[[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0]],
+                        games:[0,0,0,0,0,0],
+                        losses:[0,0,0,0,0,0],
+                        wins:[0,0,0,0,0,0],
+                        streak:[0,0,0,0,0,0],
+                        beststreak:[0,0,0,0,0,0],
+                        winpct:[0,0,0,0,0,0]
+                    }
+                    localStorage.gameStats=JSON.stringify(gameStats);
+                }
+                gameStats=JSON.parse(localStorage.gameStats);
+
+                $( ".numbertab" ).on( "click", function() {
+                    shownum= $( this ).text();
+                    // console.log(shownum);
+                    showStats(shownum);
+                });
+            }
+
+            function writeStats(numletters){
+                $("#games").html(gameStats.games[numletters-3]);
+                $("#wins").html(gameStats.wins[numletters-3]);
+                $("#winpct").html(gameStats.winpct[numletters-3]+"%");
+                $("#streak").html(gameStats.streak[numletters-3]);
+                $("#beststreak").html(gameStats.beststreak[numletters-3]);
+
+                minwidth=4;
+                maxwidth=95;
+
+                for (var i=0;i<6;i++){
+                    maxlength=maxArray(gameStats.winDist[numletters-3]);
+                    if(maxlength==0){
+                        maxlength=1;
+                    }
+                    tmpwidth=gameStats.winDist[numletters-3][i]/maxlength*maxwidth+minwidth;
+                    // console.log(tmpwidth);
+                    $("#g_"+(i+1)).width(tmpwidth+"%");
+                    $("#g_"+(i+1)).html(gameStats.winDist[numletters-3][i])
+                }
+                $(".guessbar").removeClass('hlguessbar');
+                
+                if (numletters==wordLength||numletters==8){
+                    if (won){
+                        $("#g_"+numtries).addClass('hlguessbar');
+                    }
+                }
+            }
+
+            function updateStats(){
+                allindex=5;
+                if (true){
+                    gameStats=JSON.parse(localStorage.gameStats);
+                    gameStats.games[wordLength-3]++;
+                    gameStats.games[allindex]++;
+                    if (won){
+                        gameStats.wins[wordLength-3]++;
+                        gameStats.wins[allindex]++;
+                        gameStats.streak[wordLength-3]++;
+                        gameStats.streak[allindex]++;
+                        if (gameStats.streak[wordLength-3]>gameStats.beststreak[wordLength-3]){
+                            gameStats.beststreak[wordLength-3]=gameStats.streak[wordLength-3];
+                        }
+                        if (gameStats.streak[allindex]>gameStats.beststreak[allindex]){
+                            gameStats.beststreak[allindex]=gameStats.streak[allindex];
+                        }
+                        gameStats.winDist[wordLength-3][numtries-1]++
+                        gameStats.winDist[allindex][numtries-1]++
+                    } else{
+                        gameStats.losses[wordLength-3]++;
+                        gameStats.losses[allindex]++;
+                        gameStats.streak[wordLength-3]=0;
+                        gameStats.streak[allindex]=0;
+                    }
+                    gameStats.winpct[wordLength-3]=Math.round(gameStats.wins[wordLength-3]/gameStats.games[wordLength-3]*100);
+                    gameStats.winpct[allindex]=Math.round(gameStats.wins[allindex]/gameStats.games[allindex]*100);
+                    localStorage.gameStats=JSON.stringify(gameStats);
+                    console.log(gameStats);
+                }
+            }
+
+            function showStats(num){
+                // console.log(num);
+                if (num=="All"){
+                    writeStats(8);
+                } else {
+                    writeStats(num);
+                }
+                $('#modal_stats').modal('show')
+                $(".numbertab").removeClass('highlight');
+                $("#s_"+num).addClass('highlight');   
+            }
+            
+            function playAgainButton(){
+                debugger
+                clearKeyboard();
+                clearURLparams()
+                startGame();
+            }
+
+            function checkGuess(guess){
+                guessarr=guess.split("");
+                guessarr2=guessarr.slice();
+                wordarr2=wordarr.slice();
+
+                colorarr=fillArray(wordLength,0);
+                
+                for (var i=0;i<guessarr.length;i++){
+                    //check for correct letter placement first
+                    if (guessarr[i]==wordarr[i]){
+                        colorarr[i]=1;
+                        guessarr2[i]='*';
+                        wordarr2[i]='&';
+                        $("#"+guessarr[i].toLowerCase()).addClass('correct');
+                    } 
+                }
+
+                for (var i=0;i<guessarr.length;i++){
+                    if (colorarr[i]==1){
+
+                    } else if (wordarr2.includes(guessarr2[i])){
+                        colorarr[i]=-1;
+                        tmploc=wordarr2.indexOf(guessarr2[i]);
+                        guessarr2[i]='*'; 
+                        wordarr2[tmploc]='&';
+                        $("#"+guessarr[i].toLowerCase()).addClass('place');
+                    } else {
+                        $("#"+guessarr[i].toLowerCase()).addClass('none');
+                    }
+                    // console.log(guessarr2,wordarr2)
+                }
+                
+                for (var i=0;i<guessarr.length;i++){
+                    $("#r"+row+"l"+(i+1)).removeClass("none place correct")
+
+                    $("#r"+row+"l"+(i+1)).html(guess[i].toUpperCase());
+                    if (colorarr[i]==0){
+                        code="none"
+                    } else if (colorarr[i]==-1){
+                        code="place"
+                    } else {
+                        code="correct"
+                    }
+                    $("#r"+row+"l"+(i+1)).addClass(code)
+                }
+                
+                // console.log(colorarr);
+                gamehistory.push(colorarr);
+                if (sumArray(colorarr)==wordLength){
+                    gameover=true;
+                    
+                    return true
+                } else{
+                    return false
+                }
+            }
+            
+            function isLetter(guess){
+                return /^[A-Z]$/i.test(guess);
+            }
+            
+            function share(){
+                debugger
+                custom = false
+                sharestring=`Try SHRM's WORKLE Challenge (${wordLength} letters)\n${(won?"I did it in "+numtries+" out of 6 tries.":"I failed :(")}\n`
+                for (var i=0;i<gamehistory.length;i++){
+                    sharestring+=''
+
+                    for (var j=0;j<wordLength;j++){
+                        sharestring+=getEmoji(gamehistory[i][j])
+                    }
+                    sharestring+='\n'
+                }
+                sharestring+='\nTry the same exact puzzle here:\n'   
+                debugger
+                baseurl=thisURL.split("?")[0];
+                /*
+                if (challenge){
+                    urlstring=baseurl+challengecode;
+                } else if (custom){
+                    urlstring=baseurl+customcode;
+                } else{
+                    //challengecode = ''
+                    urlstring=thisURL+challengecode;
+                }
+                */
+                urlstring=thisURL+challengecode;
+
+                console.log(urlstring);
+                sharestring+=urlstring;
+                console.log("copying "+sharestring)
+                $("#sharearea").show();
+                $("#sharearea").val(sharestring);
+                $("#sharearea").select();
+                document.execCommand("copy");
+                $('#copy').show();
+            } 
+
+            function getEmoji(guess){
+                gbox='&#128998;'
+                obox="&#128999;"
+                bbox="&#11035;"
+                gbox='🟦'
+                obox="🟧"
+                bbox="⬛"
+
+                if (guess==1){
+                    return gbox
+                } else if (guess==-1){
+                    return obox
+                } else {
+                    return bbox
+                }
+            }
+
+            $(this).on('keydown', function(event) {
+                onKeyPress(event.key)
+            })
+
+            $(document).ready(function(){
+                initStats();
+                startGame();
+                $('#modal_info').modal('show')
+            });
+        </script>
+    </body>
+</html>
