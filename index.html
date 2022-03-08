@@ -34,6 +34,7 @@
             /* -- general styles */
             body{
                 font-family: Arial, Helvetica, sans-serif;
+                min-width: 850px;
             }
 
             /* -- title_bar */
@@ -50,10 +51,9 @@
 
             /* -- game container */
             #gamecontainer {
-                width: 50%;
+                owidth: 50%;
                 text-align: center;
                 max-width: 100%;
-                min-width: 500px;
             }
             .letter {
                 width:66px;
@@ -76,6 +76,11 @@
             }
             .upcoming{
                 border:1px solid rgb(167, 167, 167);
+            }
+            .letter_borderless {
+                border: none;
+                min-width: 20px;
+                max-width: 20px;
             }
             .none{
                 background-color:black;
@@ -324,6 +329,7 @@
                             <h3>New fixes/features as of 2022.03.08</h3>
                             <ul>
                                 <li>Factoids now appear on the "end game" window</li>
+                                <li>Answer can be a compound word with a space or a dash.  The only exception is neither word can be less than 3 letters or more than 7 letters.</li>
                             </ul>
                             <hr>
                             <h3>New fixes/features as of 2022.03.07</h3>
@@ -454,6 +460,7 @@
                         <div class="numbertab" id="s_4">4</div>
                         <div class="numbertab" id="s_5">5</div>
                         <div class="numbertab" id="s_6">6</div>
+                        <div class="numbertab" id="s_7">7+</div>
                         <div class="numbertab" id="s_All">All</div>
                     </div>
                     <div id="statsmessage">
@@ -651,8 +658,8 @@
                 {"id":"A","date":"03/05/2022","word":"fmla","clue":"","factoid":"","url":""}
                 ,{"id":"B","date":"03/06/2022","word":"expert","clue":"Clue goes here.","factoid":"","url":""}
                 ,{"id":"C","date":"03/07/2022","word":"star","clue":"Service Teamwork and Recognition","factoid":"","url":""}
-                ,{"id":"D","date":"03/08/2022","word":"admire","clue":"With high regard","factoid":"","url":""}
-                ,{"id":"D","date":"03/09/2022","word":"values","clue":"U.S workers said this helped guide their organization through the pandemic.","factoid":"Workers are leaning on their workplace culture and trusting in organizational values, as 74% of working Americans believe their organizational values helped guide them through the pandemic.","url":"https://shrm.org/hr-today/trends-and-forecasting/research-and-surveys/Pages/2021-Workplace-Culture-Report.aspx?_ga=2.199475630.1465254891.1646658387-1459168090.1638458997&_gac=1.170664212.1643650642.EAIaIQobChMIoIiX4sPc9QIVzgaICR2QlA20EAAYASAAEgJZnPD_BwE"}
+                ,{"id":"D","date":"03/08/2022","word":"respect","clue":"With high regard","factoid":"","url":""}
+                ,{"id":"D.1","date":"03/09/2022","word":"core values","clue":"U.S workers said this helped guide their organization through the pandemic.","factoid":"Workers are leaning on their workplace culture and trusting in organizational values, as 74% of working Americans believe their organizational values helped guide them through the pandemic.","url":"https://shrm.org/hr-today/trends-and-forecasting/research-and-surveys/Pages/2021-Workplace-Culture-Report.aspx?_ga=2.199475630.1465254891.1646658387-1459168090.1638458997&_gac=1.170664212.1643650642.EAIaIQobChMIoIiX4sPc9QIVzgaICR2QlA20EAAYASAAEgJZnPD_BwE"}
                 ,{"id":"E","date":"03/10/2022","word":"left","clue":"U.S. workers said they did this at a job because of a negative relationship with a manager.","factoid":"53%|of U.S. workers have left a job due to their relationship with their manager.","url":"https://shrm.org/hr-today/trends-and-forecasting/research-and-surveys/Pages/2021-Workplace-Culture-Report.aspx?_ga=2.199475630.1465254891.1646658387-1459168090.1638458997&_gac=1.170664212.1643650642.EAIaIQobChMIoIiX4sPc9QIVzgaICR2QlA20EAAYASAAEgJZnPD_BwE"}
                 ,{"id":"F","date":"03/11/2022","word":"hours","clue":"A unit of time","factoid":"52%|of people managers spend an average of 1 to 10 hours per week managing their workplace culture.","url":"https://shrm.org/hr-today/trends-and-forecasting/research-and-surveys/Pages/2021-Workplace-Culture-Report.aspx?_ga=2.199475630.1465254891.1646658387-1459168090.1638458997&_gac=1.170664212.1643650642.EAIaIQobChMIoIiX4sPc9QIVzgaICR2QlA20EAAYASAAEgJZnPD_BwE"}
                 ,{"id":"G","date":"03/12/2022","word":"tired","clue":"Another word for exhausted","factoid":"54%|of people managers report that they leave work feeling exhausted.","url":"https://shrm.org/hr-today/trends-and-forecasting/research-and-surveys/Pages/2021-Workplace-Culture-Report.aspx?_ga=2.199475630.1465254891.1646658387-1459168090.1638458997&_gac=1.170664212.1643650642.EAIaIQobChMIoIiX4sPc9QIVzgaICR2QlA20EAAYASAAEgJZnPD_BwE"}
@@ -775,13 +782,31 @@
                     $('.fact').show()
                 }
 
+                SHRM.workle.word_original = SHRM.workle.word
+                SHRM.workle.word = SHRM.workle.word.replace(' ', '').replace('-', '')
                 SHRM.workle.wordLength = SHRM.workle.word.length
                 wordLength = SHRM.workle.word.length
 
-                //add word to wordlist
-                wordlist = window["words" + SHRM.workle.wordLength]
-                wordlist.push(SHRM.workle.word)
-
+                //add word(s) to wordlist
+                arr = SHRM.workle.word_original.split(' ')
+                if (SHRM.workle.word_original.indexOf(' ') > -1){
+                    arr = SHRM.workle.word_original.split(' ')
+                }
+                if (SHRM.workle.word_original.indexOf('-') > -1){
+                    arr = SHRM.workle.word_original.split('-')
+                }
+                if (arr.length == 1){
+                    wordlist = window["words" + SHRM.workle.wordLength]
+                    wordlist.push(SHRM.workle.word)
+                }else{
+                    wordlist = window["words" + arr[0].length]
+                    if (arr[0].length != arr[1].length) {
+                        wordlist = wordlist.concat(window["words" + arr[1].length])
+                    }
+                    wordlist.push(arr[0])
+                    wordlist.push(arr[1])
+                }
+                
                 SHRM.workle.wordlist = wordlist
                 return SHRM.workle.word
             }
@@ -883,7 +908,7 @@
                                 }
                                 if (gameover){
                                     if (!won){
-                                        resultsstring = "The word is " + word;
+                                        resultsstring = "The word is " + SHRM.workle.word_original.toUpperCase();
                                         $("#resultsstring").html(resultsstring);
                                     } else {
                                         if (numtries == 1){
@@ -939,16 +964,39 @@
             }
 
             function isWord(guess){
+                spacing_location = SHRM.workle.word_original.indexOf(' ')
+                if (spacing_location > -1){
+                    word1 = guess.substring(0,spacing_location)
+                    word2 = guess.substring(spacing_location)
+                    return (wordlist.includes(word1.toLowerCase()) && wordlist.includes(word2.toLowerCase()));
+                }
+
+                dash_location = SHRM.workle.word_original.indexOf('-')
+                if (dash_location > -1){
+                    word1 = guess.substring(0,dash_location)
+                    word2 = guess.substring(dash_location)
+                    return (wordlist.includes(word1.toLowerCase()) && wordlist.includes(word2.toLowerCase()));
+                }
+
                 //return (scrabblewords.includes(guess.toLowerCase())|| wordlist.includes(guess.toLowerCase()));
                 return wordlist.includes(guess.toLowerCase());
             }
 
             function makeBoard(){
+                spacing_location = SHRM.workle.word_original.indexOf(' ')
+                dash_location = SHRM.workle.word_original.indexOf('-')
+                
                 $( "#gamecontainer" ).empty();
                 for (var i=0;i<tries;i++){
                     $("#gamecontainer").append('<div class="row" id="row'+(i+1)+'"></div>');
                     
-                    for (var j=0;j<wordLength;j++){
+                    for (var j=0;j<wordLength;j++){ 
+                        if (spacing_location == j){
+                            $("#row"+(i+1)).append('<div class="col letter letter_borderless" id="r'+(i+1)+'lspace'+'">&nbsp;</div>');
+                        }
+                        if (dash_location == j){
+                            $("#row"+(i+1)).append('<div class="col letter letter_borderless" id="r'+(i+1)+'ldash'+'"><span class="letter_dash">-</span></div>');
+                        }
                         $("#row"+(i+1)).append('<div class="col letter" id="r'+(i+1)+'l'+(j+1)+'">&nbsp;</div>');
                         if (i>0){
                             $("#r"+(i+1)+"l"+(j+1)).addClass('upcoming');
@@ -981,6 +1029,8 @@
             }
 
             function writeStats(numletters){
+                numletters = String(numletters).replace('+','')
+
                 $("#games").html(gameStats.games[numletters-3]);
                 $("#wins").html(gameStats.wins[numletters-3]);
                 $("#winpct").html(gameStats.winpct[numletters-3]+"%");
@@ -1003,9 +1053,11 @@
                 $(".guessbar").removeClass('hlguessbar');
                 
                 if (numletters==wordLength||numletters==8){
-                    if (won){
-                        $("#g_"+numtries).addClass('hlguessbar');
-                    }
+                    try{
+                        if (won){
+                            $("#g_"+numtries).addClass('hlguessbar');
+                        }
+                    }catch(err){}
                 }
             }
 
@@ -1013,6 +1065,9 @@
                 allindex=5;
                 if (true){
                     gameStats=JSON.parse(localStorage.gameStats);
+                    if (SHRM.workle.word_original.indexOf(' ') > -1 || SHRM.workle.word_original.indexOf('-') > -1){
+                        wordLength = 7
+                    }
                     gameStats.games[wordLength-3]++;
                     gameStats.games[allindex]++;
                     if (won){
@@ -1065,6 +1120,7 @@
             }
 
             function checkGuess(guess){
+                debugger
                 guessarr=guess.split("");
                 guessarr2=guessarr.slice();
                 wordarr2=wordarr.slice();
