@@ -321,6 +321,11 @@
                         <div style="font-size: 10pt;">
                             <span><b>Note:</b> Please direct all bugs/issue/enhancements/questions to <a href="mailto:brad.gebert@shrm.org">Brad Gebert</a></span>
                             <hr>
+                            <h3>New fixes/features as of 2022.03.08</h3>
+                            <ul>
+                                <li>Factoids now appear on the "end game" window</li>
+                            </ul>
+                            <hr>
                             <h3>New fixes/features as of 2022.03.07</h3>
                             <ul>
                                 <li>The gameboard is now always centered over the keyboard depending on the screen width</li>
@@ -495,6 +500,11 @@
                     <button type="button" onclick="playAgainButton();" class="btn btn-primary">Play Another</button>
                     <button type="button" onclick="share()" class="btn btn-primary" id="share">Share Results</button>
                     <button type="button" onclick="showStats(wordLength);" class="btn btn-primary" data-dismiss="modal">Show Stats</button>
+                    <hr>
+                    <fieldset class="fact" style="display: none;">
+                        <span class="fact_percent" style="font-size: 36pt;"></span> <span class="fact_text" ></span>
+                        <span class="fact_url" style="font-size: 14pt;"><a href="">Learn more</a></span>
+                    </fieldset>
                 </div>
               </div>
             </div>
@@ -638,15 +648,20 @@
             SHRM.utils.data = {}
             
             json_schedule = [
-                {"id":"A","date":"03/05/2022","word":"fmla","clue":"","factoid":"Did you know factoid goes here","url":"https://www.shrm.org/hr-today/trends-and-forecasting/research-and-surveys/pages/paid-leave.aspx"}
-                ,{"id":"B","date":"03/06/2022","word":"expert","clue":"Clue goes here.","factoid":"Did you know factoid goes here","url":"https://www.shrm.org/hr-today/trends-and-forecasting/research-and-surveys/pages/paid-leave.aspx"}
-                ,{"id":"C","date":"03/07/2022","word":"star","clue":"Service Teamwork and Recognition","factoid":"Did you know factoid goes here","url":"https://www.shrm.org/hr-today/trends-and-forecasting/research-and-surveys/pages/paid-leave.aspx"}
-                ,{"id":"D","date":"03/08/2022","word":"admire","clue":"With high regard","factoid":"Did you know factoid goes here","url":"https://www.shrm.org/hr-today/trends-and-forecasting/research-and-surveys/pages/paid-leave.aspx"}
-                ,{"id":"E","date":"03/09/2022","word":"people","clue":"A company's most important resource","factoid":"Did you know factoid goes here","url":"https://www.shrm.org/hr-today/trends-and-forecasting/research-and-surveys/pages/paid-leave.aspx"}
-                ,{"id":"F","date":"03/10/2022","word":"raise","clue":"Clue goes here.","factoid":"Did you know factoid goes here","url":"https://www.shrm.org/hr-today/trends-and-forecasting/research-and-surveys/pages/paid-leave.aspx"}
-                ,{"id":"G","date":"03/11/2022","word":"union","clue":"Clue goes here.","factoid":"Did you know factoid goes here","url":"https://www.shrm.org/hr-today/trends-and-forecasting/research-and-surveys/pages/paid-leave.aspx"}
-                ,{"id":"H","date":"03/12/2022","word":"leave","clue":"Clue goes here.","factoid":"Did you know factoid goes here","url":"https://www.shrm.org/hr-today/trends-and-forecasting/research-and-surveys/pages/paid-leave.aspx"}
-                ,{"id":"I","date":"03/13/2022","word":"covid","clue":"Clue goes here.","factoid":"Did you know factoid goes here","url":"https://www.shrm.org/hr-today/trends-and-forecasting/research-and-surveys/pages/paid-leave.aspx"}
+                {"id":"A","date":"03/05/2022","word":"fmla","clue":"","factoid":"","url":""}
+                ,{"id":"B","date":"03/06/2022","word":"expert","clue":"Clue goes here.","factoid":"","url":""}
+                ,{"id":"C","date":"03/07/2022","word":"star","clue":"Service Teamwork and Recognition","factoid":"","url":""}
+                ,{"id":"D","date":"03/08/2022","word":"admire","clue":"With high regard","factoid":"","url":""}
+                ,{"id":"D","date":"03/09/2022","word":"values","clue":"U.S workers said this helped guide their organization through the pandemic.","factoid":"Workers are leaning on their workplace culture and trusting in organizational values, as 74% of working Americans believe their organizational values helped guide them through the pandemic.","url":"https://shrm.org/hr-today/trends-and-forecasting/research-and-surveys/Pages/2021-Workplace-Culture-Report.aspx?_ga=2.199475630.1465254891.1646658387-1459168090.1638458997&_gac=1.170664212.1643650642.EAIaIQobChMIoIiX4sPc9QIVzgaICR2QlA20EAAYASAAEgJZnPD_BwE"}
+                ,{"id":"E","date":"03/10/2022","word":"left","clue":"U.S. workers said they did this at a job because of a negative relationship with a manager.","factoid":"53%|of U.S. workers have left a job due to their relationship with their manager.","url":"https://shrm.org/hr-today/trends-and-forecasting/research-and-surveys/Pages/2021-Workplace-Culture-Report.aspx?_ga=2.199475630.1465254891.1646658387-1459168090.1638458997&_gac=1.170664212.1643650642.EAIaIQobChMIoIiX4sPc9QIVzgaICR2QlA20EAAYASAAEgJZnPD_BwE"}
+                ,{"id":"F","date":"03/11/2022","word":"hours","clue":"A unit of time","factoid":"52%|of people managers spend an average of 1 to 10 hours per week managing their workplace culture.","url":"https://shrm.org/hr-today/trends-and-forecasting/research-and-surveys/Pages/2021-Workplace-Culture-Report.aspx?_ga=2.199475630.1465254891.1646658387-1459168090.1638458997&_gac=1.170664212.1643650642.EAIaIQobChMIoIiX4sPc9QIVzgaICR2QlA20EAAYASAAEgJZnPD_BwE"}
+                ,{"id":"G","date":"03/12/2022","word":"tired","clue":"Another word for exhausted","factoid":"54%|of people managers report that they leave work feeling exhausted.","url":"https://shrm.org/hr-today/trends-and-forecasting/research-and-surveys/Pages/2021-Workplace-Culture-Report.aspx?_ga=2.199475630.1465254891.1646658387-1459168090.1638458997&_gac=1.170664212.1643650642.EAIaIQobChMIoIiX4sPc9QIVzgaICR2QlA20EAAYASAAEgJZnPD_BwE"}
+                ,{"id":"H","date":"03/13/2022","word":"impact","clue":"Executives agree that they can make an ______ on workplace culture.","factoid":"97%|of executives agree that their actions have a direct impact on workplace culture.","url":"https://shrm.org/hr-today/trends-and-forecasting/research-and-surveys/Pages/2021-Workplace-Culture-Report.aspx?_ga=2.199475630.1465254891.1646658387-1459168090.1638458997&_gac=1.170664212.1643650642.EAIaIQobChMIoIiX4sPc9QIVzgaICR2QlA20EAAYASAAEgJZnPD_BwE"}
+                ,{"id":"E.1","date":"03/14/2022","word":"people","clue":"A company's most important resource","factoid":"","url":""}
+                ,{"id":"F.1","date":"03/15/2022","word":"raise","clue":"Clue goes here.","factoid":"","url":""}
+                ,{"id":"G.1","date":"03/16/2022","word":"union","clue":"Clue goes here.","factoid":"","url":""}
+                ,{"id":"H.1","date":"03/17/2022","word":"leave","clue":"Clue goes here.","factoid":"","url":""}
+                ,{"id":"I.1","date":"03/18/2022","word":"covid","clue":"Clue goes here.","factoid":"","url":""}
             ]
 
             if (json_schedule){
@@ -740,6 +755,24 @@
                 //add clue text if present
                 if (SHRM.workle.clue != ''){
                     $('#clue_text').html(SHRM.workle.clue);
+                }
+
+                //add factoid if present
+                if (SHRM.workle.factoid != ''){
+                    factoid_arr = SHRM.workle.factoid.split("|")
+                    if (factoid_arr.length == 1){
+                        $('.fact_text').html(factoid_arr[0]);
+                    }else{
+                        $('.fact_percent').html(factoid_arr[0]);
+                        $('.fact_text').html(factoid_arr[1]);
+                        $('.fact_percent').show()
+                    }
+                    $('.fact_text').show()
+                    if (SHRM.workle.url != ''){
+                        $('.fact_url').prop('href', SHRM.workle.url);
+                        $('.fact_url').show()
+                    }
+                    $('.fact').show()
                 }
 
                 SHRM.workle.wordLength = SHRM.workle.word.length
