@@ -50,7 +50,7 @@
 
             /* -- game container */
             #gamecontainer {
-                width: 30%;
+                width: 50%;
                 text-align: center;
                 max-width: 1100px;
                 min-width: 412px;
@@ -60,6 +60,8 @@
                 min-width:66px;
                 max-width:66px;
                 height:56px;
+                min-width:56px;
+                max-width:56px;
                 border:1px solid black;
                 border-radius:4px;
                 display:inline-block;
@@ -95,6 +97,7 @@
             .row{
                 position:relative;
                 transition:transform .7s;
+                display: inherit !important;
             }
 
             /* -- modal_info */
@@ -177,8 +180,8 @@
                 text-align:center;
             }
             .key{
-                width:25px;
-                height:25px;
+                width:35px;
+                height:35px;
                 border:1px solid black;
                 border-radius:4px;
                 display:inline-block;
@@ -217,6 +220,20 @@
                     -ms-user-select: none; /* Internet Explorer/Edge */
                         user-select: none; /* Non-prefixed version, currently
                                             supported by Chrome, Edge, Opera and Firefox */
+            }
+            .key_clue_disabled {
+                opacity: 20%;
+                cursor: not-allowed;
+                display: none;
+                background-color: #FFFFFF;
+                color: #000000;
+            }
+            .key_clue_enabled {
+                opacity: 100%;
+                cursor: pointer;
+                display: inline-block;
+                background-color: #00AD9D;
+                color: white;
             }
         
             /* -- media styles */
@@ -296,77 +313,51 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">TO DO</h5>
+                        <h5 class="modal-title">WHAT'S NEW && THINGS TO DO</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
                         <div style="font-size: 10pt;">
-                            <span><b>Note:</b> Please direct all bugs/issue/enhancements to <a href="mailto:brad.gebert@shrm.org">Brad Gebert</a></span>
+                            <span><b>Note:</b> Please direct all bugs/issue/enhancements/questions to <a href="mailto:brad.gebert@shrm.org">Brad Gebert</a></span>
                             <hr>
-                            <h3>Look and Feel</h3>
+                            <h3>New fixes/features as of 2022.03.07</h3>
                             <ul>
-                                <li>Get input from others</li>
-                                <li>The gameboard is not always over the keyboard depending on the screen width</li>
-                                <li>Question:  If the word of the day is only 4 letters, should the user have 5 tries vs 6?<br>What if the word length is 6, should they get 7 tries?</li>
+                                <li>The gameboard is now always centered over the keyboard depending on the screen width</li>
+                                <li>Increased the size of the keyboard</li>
+                                <li>Only 1 unique game per day, so everyone plays the same game on the same day.</li>
+                                <li>User's can play past games after they play today's game.</li>
+                                <li>Based on the previous 2 bullet points, the game selection order of precendence is...
+                                    <ul>
+                                        <li>1. Any game requested via URL parameter (sharing with a friend)</li>
+                                        <li>2. Today's game</li>
+                                        <li>3. An previous day's game that had NOT been played by the user.  Repeat as desired</li>
+                                        <li>4. Once all previous games have been played, the user would be presented with today's game again.</li>
+                                    </ul>
+                                </li>
+                                <li>Show a clue when present in the scheduler.  The clue button becomes visible when the user only has 1 try remaining.</li>
+                                <li>When validating if a user's input is a word, WORKLE now compares against the word list dictionary AND the scheduler.
+                                </li>
+                                <li>Created a scheduler file that contains the following:</li>
+                                <li>Word of the day is now pulled from the scheduler.</li>
+                                <li>Adjust gameboard size, word list comparison, and number of tries based off the word of the day</li>
+                                <li>Present a clue, if present in the scheduler file AND the user is down to 1 guess remaining </li>
+                                <li>Present a shout out to Alex and the Research team for all of their amazing help and ideas.</li>
                             </ul>
-                
                             <hr>
-                            <h3>Features not yet added</h3>
+                            <h3>Bug Fixes/Features not yet added</h3>
                             <ul>
+                                <li>Create a leaderboard</li>
+                                <li>Allow for compound words.  For example, "pay raise"</li>
+                                <li>Built out a year's worth of words for the scheduler</li>
                                 <li>Ability to toggle light/dark mode
                                     <ul>
                                         <li>Default to system setting</li>
                                         <li>Add toggle to change from light/dark</li>
                                     </ul>
                                 </li>
-                                <li>When comparing if a user's input is a word, we currently only compare against the word list dictionary.
-                                    <ul>
-                                        <li>Add the functionality to compare against words contained in the scheduler</li>
-                                        <li>This will allow someone to add a word, or acronym without having to double check it is contained in the word list dictionary</li>
-                                    </ul>
-                                </li>
-                                <li>Create a scheduler file that contains the following:
-                                    <ul>
-                                        <li>id (must be unique)</li>
-                                        <li>date (can have the same date repeated)</li>
-                                        <li>word</li>
-                                        <li>clue (not required)</li>
-                                        <li>factoid (not required, but has a specific format - percent|some_text)</li>
-                                        <li>url (not required)</li>
-                                    </ul>
-                                    The scheduler must be in the following format, and could be created from an Excel sheet that is completed by multiple individuals.<br>
-                                    {"<b>id</b>":"1","<b>date</b>":"03/01/2022","<b>word</b>":"raise","<b>clue</b>":"Clue goes here.","<b>factoid</b>":"78%|Did you know factoid goes here","<b>url</b>":"https://www.shrm.org/hr-today/trends-and-forecasting/research-and-surveys/pages/paid-leave.aspx"}
-                                    ,{"<b>id</b>":"2","<b>date</b>":"03/02/2022","<b>word</b>":"union","<b>clue</b>":"Clue goes here.","<b>factoid</b>":"78%|Did you know factoid goes here","<b>url</b>":"https://www.shrm.org/hr-today/trends-and-forecasting/research-and-surveys/pages/paid-leave.aspx"}
-                                    ,{"<b>id</b>":"3","<b>date</b>":"03/03/2022","<b>word</b>":"leave","<b>clue</b>":"Clue goes here.","<b>factoid</b>":"78%|Did you know factoid goes here","<b>url</b>":"https://www.shrm.org/hr-today/trends-and-forecasting/research-and-surveys/pages/paid-leave.aspx"}
-                                    ,{"<b>id</b>":"4","<b>date</b>":"03/03/2022","<b>word</b>":"fmla","<b>clue</b>":"Clue goes here.","<b>factoid</b>":"78%|Did you know factoid goes here","<b>url</b>":"https://www.shrm.org/hr-today/trends-and-forecasting/research-and-surveys/pages/paid-leave.aspx"}
-                                    ,{"<b>id</b>":"5","<b>date</b>":"03/04/2022","<b>word</b>":"expert","<b>clue</b>":"Clue goes here.","<b>factoid</b>":"78%|Did you know factoid goes here","<b>url</b>":"https://www.shrm.org/hr-today/trends-and-forecasting/research-and-surveys/pages/paid-leave.aspx"}
-                                </li>
-                                <li>Once scheduler is created, change code to pull the word of the day from the scheduler.
-                                    <ul>
-                                        <li>If game is started without any url params passed in, use current date to select word</li>
-                                        <li>If current date has multiple words to choose from, remove any the user has already played, and then randomize remaining choices</li>
-                                        <li>If the user has played all of the games for a given date, remove any the user has already played (ever), and then randomize remaining choices from previous dates</li>
-                                        <li>If game is started with a url param, play that word</li>
-                                        <li>Store the id of each played game in the browser's cache</li>
-                                        <li>Change the "Share" link to include the id of the word pulled from the scheduler</li>
-                                        <li><b>Note:</b> This has an impact on many of the exisitng functioins that are looking at global variables.</li>
-                                    </ul>
-                                </li>
                                 <li>Find, clean, and create a word list dictionary with lengths of 4, 5, and 6.</li>
-                                <li>Adjust gameboard size, word list comparison, and number of tries based off the word of the day</li>
-                                <li>Show a clue, if present in the scheduler file. For example:<br>
-                                    <br>
-                                    <fieldset>
-                                        <legend>Clue</legend>
-                                        <span>It's an acronym for the law allowing employees to take unpaid leave, for a period of time, to take care of a loved one without fear of losing thier job.</span>
-                                        <br>
-                                        <span>Interesting in learning more?  Contact a SHRM Knowledge Advisor for all of your questions.</span>
-                                    </fieldset>
-                                    <br>
-                                    <b>Note:</b> Until Creative Servives, or Marketing, takes this project over, create a standardized layout for all clues.<br><br>
-                                </li>
                                 <li>Show a factoid, if present in the scheduler file. For example:<br>
                                     <br>
                                     <fieldset>
@@ -432,14 +423,8 @@
                                 The letter <b>Y</b> is in not the answer.
                             </div>
                             <br><br>
-                            <div style="display: none;">
-                                    Start game with 
-                                    <select id="pickwordlength" name="select" >
-                                        <option value="4" >4</option>
-                                        <option value="5" selected>5</option>
-                                        <option value="6" >6</option> 
-                                    </select>
-                                -letter word and start guessing.<br><br>
+                            <div>
+                                <span>WORKLE is brought to you by Alex and SHRM Research.</span>
                             </div>
                         </div>
                     </div>
@@ -493,11 +478,11 @@
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title">GAME OVER</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
+                    <h5 class="modal-title">GAME OVER</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
                 <div class="modal-body">
                     <div>
                         <br><span id="resultsstring"></span>
@@ -508,7 +493,7 @@
                     <button id="copy" type="button" class="btn btn-info btn-clipboard" data-clipboard-action="copy" data-clipboard-target="#sharearea">Copy</button>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" onclick="playAgainButton();" class="btn btn-primary">Play Again</button>
+                    <button type="button" onclick="playAgainButton();" class="btn btn-primary">Play Another</button>
                     <button type="button" onclick="share()" class="btn btn-primary" id="share">Share Results</button>
                     <button type="button" onclick="showStats(wordLength);" class="btn btn-primary" data-dismiss="modal">Show Stats</button>
                 </div>
@@ -527,9 +512,28 @@
             </div>
         </div>
 
+        <div id="modal_clue" class="modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Clue</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <br>
+                    <p id="clue_text"></p>
+                </div>
+              </div>
+            </div>
+        </div>
+
         <div id="title_bar">
-            <div style="font-weight: bold;padding:3px;font-size: 30px;">
+            <div style="font-weight: bold;padding:3px;font-size: 40px;">
                 <span style="background-color: #1b3c69;color:#FFFFFF;border: 1pt solid black">WORK</span><span style="background-color: #0076be;color:#FFFFFF;border: 1pt solid black">LE</span>
+            </div>
+            <div style="font-weight: bold;padding:3px;font-size: 25px;width: 100%;position: absolute; text-align: right;">
                 <i class="fa fa-info-circle icon_instructions"></i>
                 <i class="fa fa-chart-bar icon_stats" aria-hidden="true"></i>
                 <i class="fas fa-tasks icon_tasks" aria-hidden="true"></i>
@@ -574,26 +578,31 @@
             <div id="keyboardrow0">
                 <div class="keylong" id="Enter" onclick="onKeyPress(this.id)">Enter</div>
                 <div class="keylong" id="Backspace" onclick="onKeyPress(this.id)">Delete</div>
+                <div class="keylong key_clue_disabled" id="Clue" onclick="onKeyPress(this.id)">Clue</div>
             </div>
         </div>
  
         <script>
             gameover=true;
             tries=6;
-            wordLength=5;
+            wordLength=0;
             letters=['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
-            wordlistlengths=[300,1580,3040,4865,4060];
-
+            
             var SHRM = SHRM || {};
             SHRM.utils = {};
+            SHRM.utils.playagain = false;
             SHRM.utils.data = {}
-
+            
             json_schedule = [
-                {"id":"1","date":"03/01/2022","word":"raise","clue":"Clue goes here.","factoid":"Did you know factoid goes here","url":"https://www.shrm.org/hr-today/trends-and-forecasting/research-and-surveys/pages/paid-leave.aspx"}
-                ,{"id":"2","date":"03/02/2022","word":"union","clue":"Clue goes here.","factoid":"Did you know factoid goes here","url":"https://www.shrm.org/hr-today/trends-and-forecasting/research-and-surveys/pages/paid-leave.aspx"}
-                ,{"id":"3","date":"03/03/2022","word":"leave","clue":"Clue goes here.","factoid":"Did you know factoid goes here","url":"https://www.shrm.org/hr-today/trends-and-forecasting/research-and-surveys/pages/paid-leave.aspx"}
-                ,{"id":"4","date":"03/03/2022","word":"covid","clue":"Clue goes here.","factoid":"Did you know factoid goes here","url":"https://www.shrm.org/hr-today/trends-and-forecasting/research-and-surveys/pages/paid-leave.aspx"}
-                ,{"id":"5","date":"03/04/2022","word":"expert","clue":"Clue goes here.","factoid":"Did you know factoid goes here","url":"https://www.shrm.org/hr-today/trends-and-forecasting/research-and-surveys/pages/paid-leave.aspx"}
+                {"id":"A","date":"03/05/2022","word":"fmla","clue":"","factoid":"Did you know factoid goes here","url":"https://www.shrm.org/hr-today/trends-and-forecasting/research-and-surveys/pages/paid-leave.aspx"}
+                ,{"id":"B","date":"03/06/2022","word":"expert","clue":"Clue goes here.","factoid":"Did you know factoid goes here","url":"https://www.shrm.org/hr-today/trends-and-forecasting/research-and-surveys/pages/paid-leave.aspx"}
+                ,{"id":"C","date":"03/07/2022","word":"star","clue":"Service Teamwork and Recognition","factoid":"Did you know factoid goes here","url":"https://www.shrm.org/hr-today/trends-and-forecasting/research-and-surveys/pages/paid-leave.aspx"}
+                ,{"id":"D","date":"03/08/2022","word":"admire","clue":"With high regard","factoid":"Did you know factoid goes here","url":"https://www.shrm.org/hr-today/trends-and-forecasting/research-and-surveys/pages/paid-leave.aspx"}
+                ,{"id":"E","date":"03/09/2022","word":"people","clue":"A company's most important resource","factoid":"Did you know factoid goes here","url":"https://www.shrm.org/hr-today/trends-and-forecasting/research-and-surveys/pages/paid-leave.aspx"}
+                ,{"id":"F","date":"03/10/2022","word":"raise","clue":"Clue goes here.","factoid":"Did you know factoid goes here","url":"https://www.shrm.org/hr-today/trends-and-forecasting/research-and-surveys/pages/paid-leave.aspx"}
+                ,{"id":"G","date":"03/11/2022","word":"union","clue":"Clue goes here.","factoid":"Did you know factoid goes here","url":"https://www.shrm.org/hr-today/trends-and-forecasting/research-and-surveys/pages/paid-leave.aspx"}
+                ,{"id":"H","date":"03/12/2022","word":"leave","clue":"Clue goes here.","factoid":"Did you know factoid goes here","url":"https://www.shrm.org/hr-today/trends-and-forecasting/research-and-surveys/pages/paid-leave.aspx"}
+                ,{"id":"I","date":"03/13/2022","word":"covid","clue":"Clue goes here.","factoid":"Did you know factoid goes here","url":"https://www.shrm.org/hr-today/trends-and-forecasting/research-and-surveys/pages/paid-leave.aspx"}
             ]
 
             if (json_schedule){
@@ -602,14 +611,17 @@
                 }
             }
 
+            /*
             if (SHRM.utils.data.schedule){
-                id = 1
+                id = null
                 var filtered_by = SHRM.utils.data.schedule.filter(a => a.id == id);
                 if (filtered_by.length == 1){
                     // do nothing
                 }else{
                     filtered_by = SHRM.utils.data.schedule.filter(a => a.date == new Date().toLocaleString("en-US", {year: 'numeric', month: '2-digit', day: '2-digit'}));
-                    if (filtered_by.length > 1){
+                    if (filtered_by.length == 1){
+                        // do nothing
+                    }else if (filtered_by.length > 1){
                         filtered_by = filtered_by[Math.floor(Math.random()*filtered_by.length)]
                     }else{
                         filtered_by = SHRM.utils.data.schedule[Math.floor(Math.random()*SHRM.utils.data.schedule.length)]
@@ -622,7 +634,7 @@
                     SHRM.workle = filtered_by
                 }
             }
-
+            */
 
             function fillArray(num,element){
                 ar2=[];
@@ -650,30 +662,79 @@
                 return max;
             }
 
-            function endGame(){
-                alert('endGame() can be REMOVED')
-                debugger
-                $('#copy').hide()
-                $('#modal_endgame').modal('show')
+            function getPrevAvailableGameID(current_game_id){
+                current_game_id = current_game_id
+                gameStats=JSON.parse(localStorage.gameStats)
+                
+                if (gameStats.played.includes(current_game_id) &&  current_game_id > 0){
+                    return getPrevAvailableGameID(--current_game_id)
+                }else{
+                    return current_game_id
+                }
+                
             }
 
-            function getCode(){
-                debugger
-                if ($('#pickwordlength option:selected').val()=='rand'){
-                    wordLength=Math.floor(Math.random()*4.8+3);
-                } else {
-                    wordLength=parseInt($('#pickwordlength option:selected').val());
-                }       
+            function getWord(){
+                // Order of precendence:
+                // 1. Challenge code via URL params, then by
+                // 2. Today's date, then by
+                // 3. Most recent to least recent games NOT played
                 
-                index=wordLength-3;
-                
-                challengecode="?challenge="+letters[Math.floor(Math.random()*26)]+letters[Math.floor(Math.random()*26)]+letters[Math.floor(Math.random()*26)]+wordLength;
-                console.log(challengecode);
-                return challengecode
+                code = getURLparam('challenge')   //get value from URL parameters
+
+                if (typeof code == 'undefined'){
+                    code = -1
+                }
+
+                var filtered_by = SHRM.utils.data.schedule.filter(a => a.id == code)
+                if (filtered_by.length == 1){
+                    // do nothing
+                }else{
+                    if (SHRM.utils.playagain && SHRM.utils.playagain == true){
+                        filtered_by = SHRM.utils.data.schedule.filter(a => a.date == new Date().toLocaleString("en-US", {year: 'numeric', month: '2-digit', day: '2-digit'}));
+                        available_game_id = getPrevAvailableGameID(filtered_by[0].id)
+                        if (available_game_id == 0){
+                            filtered_by = SHRM.utils.data.schedule.filter(a => a.date == new Date().toLocaleString("en-US", {year: 'numeric', month: '2-digit', day: '2-digit'}));
+                        }else{
+                            filtered_by = SHRM.utils.data.schedule.filter(a => a.id == available_game_id)
+                        }
+                    }else{
+                        
+                        filtered_by = SHRM.utils.data.schedule.filter(a => a.date == new Date().toLocaleString("en-US", {year: 'numeric', month: '2-digit', day: '2-digit'}));
+                    }
+
+                    if (filtered_by.length == 1){
+                        // do nothing
+                    }else if (filtered_by.length > 1){
+                        filtered_by = filtered_by[Math.floor(Math.random()*filtered_by.length)]
+                    }else{
+                        filtered_by = SHRM.utils.data.schedule[Math.floor(Math.random()*SHRM.utils.data.schedule.length)]
+                    }
+                }
+
+                if (filtered_by instanceof Array){
+                    SHRM.workle = filtered_by[0]
+                }else{
+                    SHRM.workle = filtered_by
+                }
+
+                //add clue text if present
+                if (SHRM.workle.clue != ''){
+                    $('#clue_text').html(SHRM.workle.clue);
+                }
+
+                SHRM.workle.wordLength = SHRM.workle.word.length
+                wordLength = SHRM.workle.word.length
+
+                //add word to wordlist
+                wordlist = window["words" + SHRM.workle.wordLength]
+                wordlist.push(SHRM.workle.word)
+
+                SHRM.workle.wordlist = wordlist
+                return SHRM.workle.word
             }
 
-            function parseURL(){
-                debugger
+            function getURLparam(parameter){
                 isInIframe = (parent !== window);
                 if (isInIframe){
                      thisURL = document.referrer;
@@ -681,75 +742,29 @@
                      thisURL = window.location.href;
                 }
                 
-                //thisURL = 'file:///Users/bgebert/Sites/workle/index.html?challenge=yps5'    // REMOVE
-
                 parseUrl = new URL(thisURL);
 
-                chalparamval=parseUrl.searchParams.get('challenge');
+                parameter_value=parseUrl.searchParams.get(parameter);
                 
-                if (chalparamval!==null){
-                    challenge=true;
-                    custom=false;
-                    console.log(chalparamval)
-                    challengecode="?challenge="+chalparamval;
-                    //return parseCode(chalparamval)
-                    return chalparamval
+                if (parameter_value !== null){
+                    console.log(parameter_value)
+                    return parameter_value
                 }else{
                     return
                 }
             }
-            
-            function parseCode(code){
-                // get word based on code from parseURL
-                // example="qje6";
-                
-                if (typeof code == 'undefined'){
-                    challengecode=getCode();
-                    code = challengecode.split('=')[1]
-                }
-
-                //check code for validity (3 letters and one number)
-                // code=example;
-                wordLength=parseInt(code.slice(3,4));
-                number=convertCode(code);
-                wordlistsize=wordlistlengths[wordLength-3]
-                wordind=number%wordlistsize;
-                wordlist=window["words"+wordLength];
-                word=wordlist[wordind]
-                return word
-            }
-
-            function convertCode(code){
-                l1=code.slice(0,1);
-                l2=code.slice(1,2);
-                l3=code.slice(2,3);
-                n1=letters.indexOf(l1);
-                n2=letters.indexOf(l2);
-                n3=letters.indexOf(l3);
-
-                number=26*26*n1+26*n2+n3;
-                console.log(l1,l2,l3,n1,n2,n3,number)
-                return number
-            }
 
             function startGame(startword){
-                debugger
-                won=false;
+                 swon=false;
                 gamehistory=[];
                 
                 $("#sharearea").hide();
                 $('#modal_endgame').modal('hide');
                 $('#modal_stats').modal('hide');
 
-                if (typeof startword == 'undefined'){
-                    //clearURLparams();
-                    word = parseCode(parseURL());
-                } else {
-                    word = startword;
-                }
+                word = getWord()
 
                 console.log('WORKLE - ' + word)     // REMOVE
-                //alert(word)                         // REMOVE
                 
                 makeBoard();
                 
@@ -784,6 +799,11 @@
                             $("#r"+row+"l"+tile).html(letter.toUpperCase());
                         }  
                         // console.log(row,tile,letter)
+                    } else if (key=="Clue"){   
+                        if ($( "#Clue" ).hasClass( "key_clue_enabled" )){
+                            $('#modal_clue').modal('show')
+                        }
+                        // console.log('Clue')
                     } else if (key=="Backspace"){   
                         $("#r"+row+"l"+tile).html("&nbsp;");
                         guess=guess.slice(0,-1);
@@ -792,7 +812,6 @@
                         }
                         // console.log('Backspace')
                     } else if (key=="Enter"){
-                        debugger
                         // console.log('Enter')
                         if (guess.length==wordLength){
                             if (isWord(guess)){
@@ -825,7 +844,14 @@
                                     
                                     updateStats();
                                     $('#copy').hide()
-                                    $('#modal_endgame').modal('show');
+                                    
+                                    window.setTimeout(function (){$('#modal_endgame').modal('show')}, 2000)
+                                }else{
+                                    if (row == tries){
+                                        if (SHRM.workle.clue != ''){
+                                            $('#Clue').addClass('key_clue_enabled')
+                                        }
+                                    }
                                 }
                             } else {
                                 notWord();
@@ -842,6 +868,7 @@
                 for (letter of letters){
                     $("#"+letter).removeClass("none place correct")
                 }
+                $('#Clue').addClass('key_clue_disabled')
             }
 
             function notWord(){
@@ -850,7 +877,6 @@
             };
             
             function clearURLparams(){
-                debugger
                 baseurl=thisURL.split("?")[0]
                     console.log(baseurl)
                 if (isInIframe){
@@ -861,8 +887,8 @@
             }
 
             function isWord(guess){
-                debugger
-                return (scrabblewords.includes(guess.toLowerCase())|| wordlist.includes(guess.toLowerCase()));
+                //return (scrabblewords.includes(guess.toLowerCase())|| wordlist.includes(guess.toLowerCase()));
+                return wordlist.includes(guess.toLowerCase());
             }
 
             function makeBoard(){
@@ -888,7 +914,8 @@
                         wins:[0,0,0,0,0,0],
                         streak:[0,0,0,0,0,0],
                         beststreak:[0,0,0,0,0,0],
-                        winpct:[0,0,0,0,0,0]
+                        winpct:[0,0,0,0,0,0],
+                        played:[]
                     }
                     localStorage.gameStats=JSON.stringify(gameStats);
                 }
@@ -957,6 +984,10 @@
                     }
                     gameStats.winpct[wordLength-3]=Math.round(gameStats.wins[wordLength-3]/gameStats.games[wordLength-3]*100);
                     gameStats.winpct[allindex]=Math.round(gameStats.wins[allindex]/gameStats.games[allindex]*100);
+                    if (!(gameStats.played instanceof Array)){
+                        gameStats.played = []
+                    }
+                    gameStats.played.push(SHRM.workle.id)
                     localStorage.gameStats=JSON.stringify(gameStats);
                     console.log(gameStats);
                 }
@@ -975,7 +1006,7 @@
             }
             
             function playAgainButton(){
-                debugger
+                SHRM.utils.playagain = true
                 clearKeyboard();
                 clearURLparams()
                 startGame();
@@ -1044,7 +1075,7 @@
             
             function share(){
                 debugger
-                custom = false
+                //custom = false
                 sharestring=`Try SHRM's WORKLE Challenge (${wordLength} letters)\n${(won?"I did it in "+numtries+" out of 6 tries.":"I failed :(")}\n`
                 for (var i=0;i<gamehistory.length;i++){
                     sharestring+=''
@@ -1057,17 +1088,8 @@
                 sharestring+='\nTry the same exact puzzle here:\n'   
                 debugger
                 baseurl=thisURL.split("?")[0];
-                /*
-                if (challenge){
-                    urlstring=baseurl+challengecode;
-                } else if (custom){
-                    urlstring=baseurl+customcode;
-                } else{
-                    //challengecode = ''
-                    urlstring=thisURL+challengecode;
-                }
-                */
-                urlstring=thisURL+challengecode;
+
+                urlstring=thisURL + '?challenge=' + SHRM.workle.id;
 
                 console.log(urlstring);
                 sharestring+=urlstring;
