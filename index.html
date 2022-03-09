@@ -53,7 +53,6 @@
 
             /* -- game container */
             #gamecontainer {
-                owidth: 50%;
                 text-align: center;
                 max-width: 100%;
             }
@@ -106,12 +105,16 @@
                 display: inherit !important;
             }
 
+            /* -- modal */
+            .modal-dialog {
+                max-width: 75%;
+                margin: 1.75rem auto;
+                font-size: 1em;
+            }
             /* -- modal_info */
             .icon{
-                orig_height:20px;
-                height:23px;
-                width:20px;
-                orig_padding:3px;
+                height:1.5em;
+                width:1.5em !important;
                 border:1px solid gray;
                 color:white;
                 font-weight:bold;
@@ -137,7 +140,7 @@
                 text-align: center;
             }
             #statsmessage{
-                font-size:12px;
+                font-size:1em;
                 display:flex;
             }
             .guesscontainer{
@@ -245,14 +248,27 @@
             /* -- media styles */
             @media only screen and (max-width: 1000px) {
                 .key {
-                    width:65px;
-                    height:55px;
+                    width:85px;
+                    height:75px;
+                    font-size: 36pt;
+                    margin: 10px 0px;
                 }
                 .keylong{
-                    width:125px;
-                    height:55px;
+                    width:200px;
+                    height:75px;
+                    font-size: 36pt;
+                    margin: 10px 10px;
                 }
-            }
+                .letter {
+                    height: 66px;
+                    max-height: inherit;
+                    min-height: inherit;
+                }
+                .modal-dialog {
+                    max-width: 75%;
+                    margin: 1.75rem auto;
+                    font-size: 1.5em;
+                }
             /*
             @media only screen and (max-width: 600px) {
                 .letter {
@@ -337,8 +353,15 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <div style="font-size: 10pt;">
+                        <div>
                             <span><b>Note:</b> Please direct all bugs/issue/enhancements/questions to <a href="mailto:brad.gebert@shrm.org">Brad Gebert</a></span>
+                            <hr>
+                            <h3>New fixes/features as of 2022.03.09</h3>
+                            <ul>
+                                <li>Fixed issue where "learn more" hyperlink did not have an href property</li>
+                                <li>Forced "use strict" on javascript</li>
+                                <li>Cleared out the factoid and clue areas at the start of each game</li>
+                            </ul>
                             <hr>
                             <h3>New fixes/features as of 2022.03.08</h3>
                             <ul>
@@ -373,7 +396,6 @@
                             <h3>Bug Fixes/Features not yet added</h3>
                             <ul>
                                 <li>Create a leaderboard</li>
-                                <li>Allow for compound words.  For example, "pay raise"</li>
                                 <li>Built out a year's worth of words for the scheduler</li>
                                 <li>Ability to toggle light/dark mode
                                     <ul>
@@ -382,16 +404,6 @@
                                     </ul>
                                 </li>
                                 <li>Find, clean, and create a word list dictionary with lengths of 4, 5, and 6.</li>
-                                <li>Show a factoid, if present in the scheduler file. For example:<br>
-                                    <br>
-                                    <fieldset>
-                                        <legend>Factoid</legend>
-                                        <span style="font-size: 36pt;">78%</span> <span>of organizations expanded employee options for telework</span>
-                                        <span style="font-size: 10pt;"><a href="https://shrm-res.cloudinary.com/image/upload/v1630503564/2020%20Employee%20Benefits/Benefits_Exec_Summ_FINAL.pdf">Learn more</a></span>
-                                    </fieldset>
-                                    <br>
-                                    <b>Note:</b> Until Creative Servives, or Marketing, takes this project over, create a standardized layout for all factoids.<br><br>
-                                </li>
                             </ul>
                         </div>
                     </div>
@@ -518,13 +530,13 @@
                     <button id="copy" type="button" class="btn btn-info btn-clipboard" data-clipboard-action="copy" data-clipboard-target="#sharearea">Copy</button>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" onclick="playAgainButton();" class="btn btn-primary">Play Another</button>
-                    <button type="button" onclick="share()" class="btn btn-primary" id="share">Share Results</button>
-                    <button type="button" onclick="showStats(wordLength);" class="btn btn-primary" data-dismiss="modal">Show Stats</button>
+                    <button type="button" onclick="SHRM.utils.playAgainButton();" class="btn btn-primary">Play Another</button>
+                    <button type="button" onclick="SHRM.utils.share()" class="btn btn-primary" id="share">Share Results</button>
+                    <button type="button" onclick="SHRM.utils.showStats(SHRM.workle.word.length);" class="btn btn-primary" data-dismiss="modal">Show Stats</button>
                     <hr>
                     <fieldset class="fact" style="display: none;">
                         <span class="fact_percent" style="font-size: 36pt;"></span> <span class="fact_text" ></span>
-                        <span class="fact_url" style="font-size: 14pt;"><a href="">Learn more</a></span>
+                        <span style="font-size: 14pt;"><a class="fact_url">Learn more</a></span>
                     </fieldset>
                 </div>
               </div>
@@ -619,56 +631,52 @@
 
         <div id="keyboard">
             <div id="keyboardrow3">
-                <div class="key" id="q" onclick="onKeyPress(this.id)">Q</div>
-                <div class="key" id="w" onclick="onKeyPress(this.id)">W</div>
-                <div class="key" id="e" onclick="onKeyPress(this.id)">E</div>
-                <div class="key" id="r" onclick="onKeyPress(this.id)">R</div>
-                <div class="key" id="t" onclick="onKeyPress(this.id)">T</div>
-                <div class="key" id="y" onclick="onKeyPress(this.id)">Y</div>
-                <div class="key" id="u" onclick="onKeyPress(this.id)">U</div>
-                <div class="key" id="i" onclick="onKeyPress(this.id)">I</div>
-                <div class="key" id="o" onclick="onKeyPress(this.id)">O</div>
-                <div class="key" id="p" onclick="onKeyPress(this.id)">P</div>
+                <div class="key" id="q" onclick="SHRM.utils.onKeyPress(this.id)">Q</div>
+                <div class="key" id="w" onclick="SHRM.utils.onKeyPress(this.id)">W</div>
+                <div class="key" id="e" onclick="SHRM.utils.onKeyPress(this.id)">E</div>
+                <div class="key" id="r" onclick="SHRM.utils.onKeyPress(this.id)">R</div>
+                <div class="key" id="t" onclick="SHRM.utils.onKeyPress(this.id)">T</div>
+                <div class="key" id="y" onclick="SHRM.utils.onKeyPress(this.id)">Y</div>
+                <div class="key" id="u" onclick="SHRM.utils.onKeyPress(this.id)">U</div>
+                <div class="key" id="i" onclick="SHRM.utils.onKeyPress(this.id)">I</div>
+                <div class="key" id="o" onclick="SHRM.utils.onKeyPress(this.id)">O</div>
+                <div class="key" id="p" onclick="SHRM.utils.onKeyPress(this.id)">P</div>
             </div>
             <div id="keyboardrow2">
-                <div class="key" id="a" onclick="onKeyPress(this.id)">A</div>
-                <div class="key" id="s" onclick="onKeyPress(this.id)">S</div>
-                <div class="key" id="d" onclick="onKeyPress(this.id)">D</div>
-                <div class="key" id="f" onclick="onKeyPress(this.id)">F</div>
-                <div class="key" id="g" onclick="onKeyPress(this.id)">G</div>
-                <div class="key" id="h" onclick="onKeyPress(this.id)">H</div>
-                <div class="key" id="j" onclick="onKeyPress(this.id)">J</div>
-                <div class="key" id="k" onclick="onKeyPress(this.id)">K</div>
-                <div class="key" id="l" onclick="onKeyPress(this.id)">L</div>    
+                <div class="key" id="a" onclick="SHRM.utils.onKeyPress(this.id)">A</div>
+                <div class="key" id="s" onclick="SHRM.utils.onKeyPress(this.id)">S</div>
+                <div class="key" id="d" onclick="SHRM.utils.onKeyPress(this.id)">D</div>
+                <div class="key" id="f" onclick="SHRM.utils.onKeyPress(this.id)">F</div>
+                <div class="key" id="g" onclick="SHRM.utils.onKeyPress(this.id)">G</div>
+                <div class="key" id="h" onclick="SHRM.utils.onKeyPress(this.id)">H</div>
+                <div class="key" id="j" onclick="SHRM.utils.onKeyPress(this.id)">J</div>
+                <div class="key" id="k" onclick="SHRM.utils.onKeyPress(this.id)">K</div>
+                <div class="key" id="l" onclick="SHRM.utils.onKeyPress(this.id)">L</div>    
             </div>
             <div id="keyboardrow1">
-                <div class="key" id="z" onclick="onKeyPress(this.id)">Z</div>
-                <div class="key" id="x" onclick="onKeyPress(this.id)">X</div>
-                <div class="key" id="c" onclick="onKeyPress(this.id)">C</div>
-                <div class="key" id="v" onclick="onKeyPress(this.id)">V</div>
-                <div class="key" id="b" onclick="onKeyPress(this.id)">B</div>
-                <div class="key" id="n" onclick="onKeyPress(this.id)">N</div>
-                <div class="key" id="m" onclick="onKeyPress(this.id)">M</div>   
+                <div class="key" id="z" onclick="SHRM.utils.onKeyPress(this.id)">Z</div>
+                <div class="key" id="x" onclick="SHRM.utils.onKeyPress(this.id)">X</div>
+                <div class="key" id="c" onclick="SHRM.utils.onKeyPress(this.id)">C</div>
+                <div class="key" id="v" onclick="SHRM.utils.onKeyPress(this.id)">V</div>
+                <div class="key" id="b" onclick="SHRM.utils.onKeyPress(this.id)">B</div>
+                <div class="key" id="n" onclick="SHRM.utils.onKeyPress(this.id)">N</div>
+                <div class="key" id="m" onclick="SHRM.utils.onKeyPress(this.id)">M</div>   
             </div>
             <div id="keyboardrow0">
-                <div class="keylong" id="Enter" onclick="onKeyPress(this.id)">Enter</div>
-                <div class="keylong" id="Backspace" onclick="onKeyPress(this.id)">Delete</div>
-                <div class="keylong key_clue_disabled" id="Clue" onclick="onKeyPress(this.id)">Clue</div>
+                <div class="keylong" id="Enter" onclick="SHRM.utils.onKeyPress(this.id)">Enter</div>
+                <div class="keylong" id="Backspace" onclick="SHRM.utils.onKeyPress(this.id)">Delete</div>
+                <div class="keylong key_clue_disabled" id="Clue" onclick="SHRM.utils.onKeyPress(this.id)">Clue</div>
             </div>
         </div>
  
         <script>
-            gameover=true;
-            tries=6;
-            wordLength=0;
-            letters=['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
+            
             
             var SHRM = SHRM || {};
             SHRM.utils = {};
-            SHRM.utils.playagain = false;
             SHRM.utils.data = {}
             
-            json_schedule = [
+            var json_schedule = [
                 {"id":"A","date":"03/05/2022","word":"fmla","clue":"","factoid":"","url":""}
                 ,{"id":"B","date":"03/06/2022","word":"expert","clue":"Clue goes here.","factoid":"","url":""}
                 ,{"id":"C","date":"03/07/2022","word":"star","clue":"Service Teamwork and Recognition","factoid":"","url":""}
@@ -691,562 +699,619 @@
                 }
             }
 
-            function fillArray(num,element){
-                ar2=[];
-                for (var i=0;i<num;i++){
-                    ar2.push(element);
-                }
-                return ar2;
-            }
-
-            function sumArray(ar){
-                // add all elements of array together returns one number
-                var ar3 = 0;
-                for(var i in ar){
-                    ar3+=ar[i];
-                }
-                return ar3;
-            }
-
-            function maxArray(ar){
-                var max = 0;
-                for(var i in ar)
-                    if(ar[i]>max){
-                        max=ar[i];
-                    }
-                return max;
-            }
-
-            function getPrevAvailableGameID(current_game_id){
-                current_game_id = current_game_id
-                gameStats=JSON.parse(localStorage.gameStats)
+            (function () {
+                'use strict';
                 
-                if (gameStats.played.includes(current_game_id) &&  current_game_id > 0){
-                    return getPrevAvailableGameID(--current_game_id)
-                }else{
-                    return current_game_id
-                }
-                
-            }
-
-            function getWord(){
-                // Order of precendence:
-                // 1. Challenge code via URL params, then by
-                // 2. Today's date, then by
-                // 3. Most recent to least recent games NOT played
-                
-                code = getURLparam('challenge')   //get value from URL parameters
-
-                if (typeof code == 'undefined'){
-                    code = -1
-                }
-
-                var filtered_by = SHRM.utils.data.schedule.filter(a => a.id == code)
-                if (filtered_by.length == 1){
-                    // do nothing
-                }else{
-                    if (SHRM.utils.playagain && SHRM.utils.playagain == true){
-                        filtered_by = SHRM.utils.data.schedule.filter(a => a.date == new Date().toLocaleString("en-US", {year: 'numeric', month: '2-digit', day: '2-digit'}));
-                        available_game_id = getPrevAvailableGameID(filtered_by[0].id)
-                        if (available_game_id == 0){
-                            filtered_by = SHRM.utils.data.schedule.filter(a => a.date == new Date().toLocaleString("en-US", {year: 'numeric', month: '2-digit', day: '2-digit'}));
-                        }else{
-                            filtered_by = SHRM.utils.data.schedule.filter(a => a.id == available_game_id)
-                        }
+                this.getRemoteData = function (path_to_csv){
+                    if (this.ajaxResults[path_to_csv]){
+                        return this.ajaxResults[path_to_csv]
                     }else{
-                        
-                        filtered_by = SHRM.utils.data.schedule.filter(a => a.date == new Date().toLocaleString("en-US", {year: 'numeric', month: '2-digit', day: '2-digit'}));
+                        var ajax = $.get(path_to_csv,function(response){
+                            //do nothing
+                        });
+                        console.log('Fetching new data: ' + path_to_csv)
+                        this.ajaxResults[path_to_csv] = ajax
+                        return ajax;
                     }
+                };
 
+                this.fillArray = function (num,element){
+                    var ar2=[];
+                    for (var i=0;i<num;i++){
+                        ar2.push(element);
+                    }
+                    return ar2;
+                };
+
+                this.sumArray = function (ar){
+                    // add all elements of array together returns one number
+                    var ar3 = 0;
+                    for(var i in ar){
+                        ar3+=ar[i];
+                    }
+                    return ar3;
+                };
+
+                this.maxArray = function (ar){
+                    var max = 0;
+                    for(var i in ar)
+                        if(ar[i]>max){
+                            max=ar[i];
+                        }
+                    return max;
+                };
+
+                this.getPrevAvailableGameID = function (current_game_index){
+                    var gameStats=JSON.parse(localStorage.gameStats)
+                    
+                    if (gameStats.played.includes(this.data.schedule[current_game_index].id) &&  current_game_index > 0){
+                        return this.getPrevAvailableGameID(--current_game_index)
+                    }else{
+                        return current_game_index
+                    }   
+                };
+
+                this.getWord = function (){
+                    // Order of precendence:
+                    // 1. Challenge code via URL params, then by
+                    // 2. Today's date, then by
+                    // 3. Most recent to least recent games NOT played
+                    
+                    var code = this.getURLparam('challenge')   //get value from URL parameters
+
+                    if (typeof code == 'undefined'){
+                        code = -1
+                    }
+                    
+                    var filtered_by = null
+                    SHRM.workle = null
+                    filtered_by = SHRM.utils.data.schedule.filter(a => a.id == code)
                     if (filtered_by.length == 1){
                         // do nothing
-                    }else if (filtered_by.length > 1){
-                        filtered_by = filtered_by[Math.floor(Math.random()*filtered_by.length)]
                     }else{
-                        filtered_by = SHRM.utils.data.schedule[Math.floor(Math.random()*SHRM.utils.data.schedule.length)]
+                        if (SHRM.utils.playagain && SHRM.utils.playagain == true){
+                            filtered_by = SHRM.utils.data.schedule.filter(a => a.date == new Date().toLocaleString("en-US", {year: 'numeric', month: '2-digit', day: '2-digit'}));
+                            var available_game_index = this.getPrevAvailableGameID(this.data.schedule.findIndex(x => x.id === filtered_by[0].id))
+                            if (available_game_index == 0){
+                                filtered_by = SHRM.utils.data.schedule.filter(a => a.date == new Date().toLocaleString("en-US", {year: 'numeric', month: '2-digit', day: '2-digit'}));
+                            }else{
+                                filtered_by = SHRM.utils.data.schedule.filter(a => a.id == available_game_index)
+                            }
+                        }else{
+                            
+                            filtered_by = SHRM.utils.data.schedule.filter(a => a.date == new Date().toLocaleString("en-US", {year: 'numeric', month: '2-digit', day: '2-digit'}));
+                        }
+
+                        if (filtered_by.length == 1){
+                            // do nothing
+                        }else if (filtered_by.length > 1){
+                            filtered_by = filtered_by[Math.floor(Math.random()*filtered_by.length)]
+                        }else{
+                            filtered_by = SHRM.utils.data.schedule[Math.floor(Math.random()*SHRM.utils.data.schedule.length)]
+                        }
                     }
-                }
 
-                if (filtered_by instanceof Array){
-                    SHRM.workle = filtered_by[0]
-                }else{
-                    SHRM.workle = filtered_by
-                }
-
-                //add clue text if present
-                if (SHRM.workle.clue != ''){
-                    $('#clue_text').html(SHRM.workle.clue);
-                }
-
-                //add factoid if present
-                if (SHRM.workle.factoid != ''){
-                    factoid_arr = SHRM.workle.factoid.split("|")
-                    if (factoid_arr.length == 1){
-                        $('.fact_text').html(factoid_arr[0]);
+                    if (filtered_by instanceof Array){
+                        //SHRM.workle = filtered_by[0]
+                        SHRM.workle = JSON.parse(JSON.stringify(filtered_by[0]))
                     }else{
-                        $('.fact_percent').html(factoid_arr[0]);
-                        $('.fact_text').html(factoid_arr[1]);
-                        $('.fact_percent').show()
+                        //SHRM.workle = filtered_by
+                        SHRM.workle = JSON.parse(JSON.stringify(filtered_by))
                     }
-                    $('.fact_text').show()
-                    if (SHRM.workle.url != ''){
-                        $('.fact_url').prop('href', SHRM.workle.url);
-                        $('.fact_url').show()
+
+                    //add clue text if present
+                    if (SHRM.workle.clue == ''){
+                        $('#clue_text').html('');
+                    }else{
+                        $('#clue_text').html(SHRM.workle.clue);
                     }
-                    $('.fact').show()
-                }
 
-                SHRM.workle.word_original = SHRM.workle.word
-                SHRM.workle.word = SHRM.workle.word.replace(' ', '').replace('-', '')
-                SHRM.workle.wordLength = SHRM.workle.word.length
-                wordLength = SHRM.workle.word.length
-
-                //add word(s) to wordlist
-                arr = SHRM.workle.word_original.split(' ')
-                if (SHRM.workle.word_original.indexOf(' ') > -1){
-                    arr = SHRM.workle.word_original.split(' ')
-                }
-                if (SHRM.workle.word_original.indexOf('-') > -1){
-                    arr = SHRM.workle.word_original.split('-')
-                }
-                if (arr.length == 1){
-                    wordlist = window["words" + SHRM.workle.wordLength]
-                    wordlist.push(SHRM.workle.word)
-                }else{
-                    wordlist = window["words" + arr[0].length]
-                    if (arr[0].length != arr[1].length) {
-                        wordlist = wordlist.concat(window["words" + arr[1].length])
-                    }
-                    wordlist.push(arr[0])
-                    wordlist.push(arr[1])
-                }
-                
-                SHRM.workle.wordlist = wordlist
-                return SHRM.workle.word
-            }
-
-            function getURLparam(parameter){
-                isInIframe = (parent !== window);
-                if (isInIframe){
-                     thisURL = document.referrer;
-                } else{
-                     thisURL = window.location.href;
-                }
-                
-                parseUrl = new URL(thisURL);
-
-                parameter_value=parseUrl.searchParams.get(parameter);
-                
-                if (parameter_value !== null){
-                    console.log(parameter_value)
-                    return parameter_value
-                }else{
-                    return
-                }
-            }
-
-            function startGame(startword){
-                 swon=false;
-                gamehistory=[];
-                
-                $("#sharearea").hide();
-                $('#modal_endgame').modal('hide');
-                $('#modal_stats').modal('hide');
-
-                word = getWord()
-
-                console.log('WORKLE - ' + word)     // REMOVE
-                
-                makeBoard();
-                
-                wordarr=word.toUpperCase().split("");
-                row=1;
-                tile=0;
-                guess="";
-                gameover=false;
-
-                $( ".icon_instructions" ).click(function() {
-                    $('#modal_info').modal('show')
-                });
-
-                $( ".icon_stats" ).click(function() {
-                    $('#modal_stats').modal('show')
-                    showStats('All');
-                });
-
-                $( ".icon_tasks" ).click(function() {
-                    $('#modal_tasks').modal('show')
-                });
-            }
-
-            function onKeyPress(key){
-                if (!gameover){
-                    // console.log(event.key);
-                    if (isLetter(key)){
-                        letter =key.toUpperCase();
-                        if(tile<wordLength){
-                            tile++;
-                            guess=guess+letter;
-                            $("#r"+row+"l"+tile).html(letter.toUpperCase());
-                        }  
-                        // console.log(row,tile,letter)
-                    } else if (key=="Clue"){   
-                        if ($( "#Clue" ).hasClass( "key_clue_enabled" )){
-                            $('#modal_clue').modal('show')
+                    //add factoid if present
+                    if (SHRM.workle.factoid == ''){
+                        $('.fact_text').html('');
+                        $('.fact_percent').html('');
+                        $('.fact_url').html('');
+                        $('.fact_text').hide()
+                        $('.fact_percent').hide()
+                        $('.fact_url').hide()
+                        $('.fact').hide()
+                    }else{
+                        var factoid_arr = SHRM.workle.factoid.split("|")
+                        if (factoid_arr.length == 1){
+                            $('.fact_text').html(factoid_arr[0]);
+                        }else{
+                            $('.fact_percent').html(factoid_arr[0]);
+                            $('.fact_text').html(factoid_arr[1]);
+                            $('.fact_percent').show()
                         }
-                        // console.log('Clue')
-                    } else if (key=="Backspace"){   
-                        $("#r"+row+"l"+tile).html("&nbsp;");
-                        guess=guess.slice(0,-1);
-                        if(tile>0){
-                            tile--;
+                        $('.fact_text').show()
+                        if (SHRM.workle.url != ''){
+                            $('.fact_url').prop('href', SHRM.workle.url);
+                            $('.fact_url').show()
                         }
-                        // console.log('Backspace')
-                    } else if (key=="Enter"){
-                        // console.log('Enter')
-                        if (guess.length==wordLength){
-                            if (isWord(guess)){
-                                won=checkGuess(guess);
+                        $('.fact').show()
+                    }
 
-                                if (won){
-                                    numtries=row;
-                                }
-                                if (row==tries){
-                                    gameover=true;
-                                }
-                                row++;
-                                guess="";
-                                tile=0;
-                                for (var j=0;j<wordLength;j++){
-                                    $("#r"+(row)+"l"+(j+1)).toggleClass('upcoming');
-                                }
-                                if (gameover){
-                                    if (!won){
-                                        resultsstring = "The word is " + SHRM.workle.word_original.toUpperCase();
-                                        $("#resultsstring").html(resultsstring);
-                                    } else {
-                                        if (numtries == 1){
-                                            resultsstring = "You got it on the first guess!";
-                                        }else{
-                                            resultsstring = "You got it in " + numtries + " guesses.";
-                                        }
-                                        $("#resultsstring").html(resultsstring);
-                                    } 
-                                    
-                                    updateStats();
-                                    $('#copy').hide()
-                                    
-                                    window.setTimeout(function (){$('#modal_endgame').modal('show')}, 2000)
-                                }else{
-                                    if (row == tries){
-                                        if (SHRM.workle.clue != ''){
-                                            $('#Clue').addClass('key_clue_enabled')
+                    SHRM.workle.word_original = SHRM.workle.word
+                    SHRM.workle.word = SHRM.workle.word.replace(' ', '').replace('-', '')
+                    SHRM.workle.wordarr = SHRM.workle.word.toUpperCase().split("");
+
+                    //add word(s) to wordlist
+                    var wordlist = []
+                    var arr = SHRM.workle.word_original.split(' ')
+                    if (SHRM.workle.word_original.indexOf(' ') > -1){
+                        arr = SHRM.workle.word_original.split(' ')
+                    }
+                    if (SHRM.workle.word_original.indexOf('-') > -1){
+                        arr = SHRM.workle.word_original.split('-')
+                    }
+                    if (arr.length == 1){
+                        wordlist = window["words" + SHRM.workle.word.length]
+                        wordlist.push(SHRM.workle.word)
+                    }else{
+                        wordlist = window["words" + arr[0].length]
+                        if (arr[0].length != arr[1].length) {
+                            wordlist = wordlist.concat(window["words" + arr[1].length])
+                        }
+                        wordlist.push(arr[0])
+                        wordlist.push(arr[1])
+                    }
+                    
+                    SHRM.workle.wordlist = wordlist
+                    return SHRM.workle.word
+                };
+
+                this.getURLparam = function (parameter){
+                    var isInIframe = (parent !== window);
+                    if (isInIframe){
+                        var thisURL = document.referrer;
+                    } else{
+                        var thisURL = window.location.href;
+                    }
+                    
+                    var parseUrl = new URL(thisURL);
+
+                    var parameter_value=parseUrl.searchParams.get(parameter);
+                    
+                    if (parameter_value !== null){
+                        console.log(parameter_value)
+                        return parameter_value
+                    }else{
+                        return
+                    }
+                };
+
+                this.startGame = function (startword){
+                    this.won=false;
+                    this.gamehistory=[];
+                    this.gameover = false;
+                    this.tries=6;
+                    this.numtries = 0;
+                    if (typeof this.playagain == 'undefined'){
+                        this.playagain = false;
+                    }
+                    
+                    $("#sharearea").hide();
+                    $('#modal_endgame').modal('hide');
+                    $('#modal_stats').modal('hide');
+
+                    this.getWord()
+
+                    console.log('WORKLE - ' + SHRM.workle.word)
+                    
+                    this.row=1;
+                    this.tile=0;
+                    this.guess="";
+
+                    this.makeBoard(this.tries);
+                    
+                    $( ".icon_instructions" ).click(function() {
+                        $('#modal_info').modal('show')
+                    });
+
+                    $( ".icon_stats" ).click(function() {
+                        $('#modal_stats').modal('show')
+                        SHRM.utils.showStats('All');
+                    });
+
+                    $( ".icon_tasks" ).click(function() {
+                        $('#modal_tasks').modal('show')
+                    });
+                };
+
+                this.onKeyPress = function (key){
+                    var letter = '';
+                    var resultsstring = '';
+
+                    if (!this.gameover){
+                        // console.log(event.key);
+                        if (this.isLetter(key)){
+                            letter = key.toUpperCase();
+                            if(this.tile < SHRM.workle.word.length){
+                                this.tile++;
+                                this.guess = this.guess + letter;
+                                $("#r"+this.row+"l"+this.tile).html(letter.toUpperCase());
+                            }  
+                            // console.log(row,tile,letter)
+                        } else if (key=="Clue"){   
+                            if ($( "#Clue" ).hasClass( "key_clue_enabled" )){
+                                $('#modal_clue').modal('show')
+                            }
+                            // console.log('Clue')
+                        } else if (key=="Backspace"){   
+                            $("#r"+this.row+"l"+this.tile).html("&nbsp;");
+                            this.guess = this.guess.slice(0,-1);
+                            if(this.tile>0){
+                                this.tile--;
+                            }
+                            // console.log('Backspace')
+                        } else if (key=="Enter"){
+                            // console.log('Enter')
+                            if (this.guess.length==SHRM.workle.word.length){
+                                if (this.isWord(this.guess)){
+                                    this.won=this.checkGuess(this.guess);
+
+                                    if (this.won){
+                                        this.numtries=this.row;
+                                    }
+                                    if (this.row==this.tries){
+                                        this.gameover=true;
+                                    }
+                                    this.row++;
+                                    this.guess="";
+                                    this.tile=0;
+                                    for (var j=0;j<SHRM.workle.word.length;j++){
+                                        $("#r"+(this.row)+"l"+(j+1)).toggleClass('upcoming');
+                                    }
+                                    if (this.gameover){
+                                        if (!this.won){
+                                            resultsstring = "The word is " + SHRM.workle.word_original.toUpperCase();
+                                            $("#resultsstring").html(resultsstring);
+                                        } else {
+                                            if (this.numtries == 1){
+                                                resultsstring = "You got it on the first guess!";
+                                            }else{
+                                                resultsstring = "You got it in " + this.numtries + " guesses.";
+                                            }
+                                            $("#resultsstring").html(resultsstring);
+                                        } 
+                                        
+                                        this.updateStats();
+                                        $('#copy').hide()
+                                        
+                                        window.setTimeout(function (){$('#modal_endgame').modal('show')}, 2000)
+                                    }else{
+                                        if (this.row == this.tries){
+                                            if (SHRM.workle.clue != ''){
+                                                $('#Clue').addClass('key_clue_enabled')
+                                            }
                                         }
                                     }
+                                } else {
+                                    this.notWord();
                                 }
-                            } else {
-                                notWord();
                             }
-                        }
-                    }                    
-                    // console.log(tile)
-                } else {
-                    // console.log("gameover")
-                }
-            }
-
-            function clearKeyboard(){
-                for (letter of letters){
-                    $("#"+letter).removeClass("none place correct")
-                }
-                $('#Clue').addClass('key_clue_disabled')
-            }
-
-            function notWord(){
-                $('#modal_notaword').modal('show')
-                setTimeout(function(a){$('#modal_notaword').modal('hide')},2000);
-            };
-            
-            function clearURLparams(){
-                baseurl=thisURL.split("?")[0]
-                    console.log(baseurl)
-                if (isInIframe){
-                    window.parent.history.pushState("", "", baseurl);
-                } else {
-                    history.pushState("", "", baseurl);
-                }        
-            }
-
-            function isWord(guess){
-                spacing_location = SHRM.workle.word_original.indexOf(' ')
-                if (spacing_location > -1){
-                    word1 = guess.substring(0,spacing_location)
-                    word2 = guess.substring(spacing_location)
-                    return (wordlist.includes(word1.toLowerCase()) && wordlist.includes(word2.toLowerCase()));
-                }
-
-                dash_location = SHRM.workle.word_original.indexOf('-')
-                if (dash_location > -1){
-                    word1 = guess.substring(0,dash_location)
-                    word2 = guess.substring(dash_location)
-                    return (wordlist.includes(word1.toLowerCase()) && wordlist.includes(word2.toLowerCase()));
-                }
-
-                //return (scrabblewords.includes(guess.toLowerCase())|| wordlist.includes(guess.toLowerCase()));
-                return wordlist.includes(guess.toLowerCase());
-            }
-
-            function makeBoard(){
-                spacing_location = SHRM.workle.word_original.indexOf(' ')
-                dash_location = SHRM.workle.word_original.indexOf('-')
-                
-                $( "#gamecontainer" ).empty();
-                for (var i=0;i<tries;i++){
-                    $("#gamecontainer").append('<div class="row" id="row'+(i+1)+'"></div>');
-                    
-                    for (var j=0;j<wordLength;j++){ 
-                        if (spacing_location == j){
-                            $("#row"+(i+1)).append('<div class="col letter letter_borderless" id="r'+(i+1)+'lspace'+'">&nbsp;</div>');
-                        }
-                        if (dash_location == j){
-                            $("#row"+(i+1)).append('<div class="col letter letter_borderless" id="r'+(i+1)+'ldash'+'"><span class="letter_dash">-</span></div>');
-                        }
-                        $("#row"+(i+1)).append('<div class="col letter" id="r'+(i+1)+'l'+(j+1)+'">&nbsp;</div>');
-                        if (i>0){
-                            $("#r"+(i+1)+"l"+(j+1)).addClass('upcoming');
-                        }  
+                        }                    
+                        // console.log(tile)
+                    } else {
+                        // console.log("gameover")
                     }
-                }
-            }
-            
-            function initStats(){
-                if (typeof localStorage.gameStats == 'undefined'){
-                    gameStats={
-                        winDist:[[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0]],
-                        games:[0,0,0,0,0,0],
-                        losses:[0,0,0,0,0,0],
-                        wins:[0,0,0,0,0,0],
-                        streak:[0,0,0,0,0,0],
-                        beststreak:[0,0,0,0,0,0],
-                        winpct:[0,0,0,0,0,0],
-                        played:[]
+                };
+
+                this.clearKeyboard = function (){
+                    var letters=['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
+                    for (var letter of letters){
+                        $("#"+letter).removeClass("none place correct")
                     }
-                    localStorage.gameStats=JSON.stringify(gameStats);
-                }
-                gameStats=JSON.parse(localStorage.gameStats);
+                    $('#Clue').addClass('key_clue_disabled')
+                };
 
-                $( ".numbertab" ).on( "click", function() {
-                    shownum= $( this ).text();
-                    // console.log(shownum);
-                    showStats(shownum);
-                });
-            }
+                this.notWord = function (){
+                    $('#modal_notaword').modal('show')
+                    setTimeout(function(a){$('#modal_notaword').modal('hide')},2000);
+                };
 
-            function writeStats(numletters){
-                numletters = String(numletters).replace('+','')
-
-                $("#games").html(gameStats.games[numletters-3]);
-                $("#wins").html(gameStats.wins[numletters-3]);
-                $("#winpct").html(gameStats.winpct[numletters-3]+"%");
-                $("#streak").html(gameStats.streak[numletters-3]);
-                $("#beststreak").html(gameStats.beststreak[numletters-3]);
-
-                minwidth=4;
-                maxwidth=95;
-
-                for (var i=0;i<6;i++){
-                    maxlength=maxArray(gameStats.winDist[numletters-3]);
-                    if(maxlength==0){
-                        maxlength=1;
-                    }
-                    tmpwidth=gameStats.winDist[numletters-3][i]/maxlength*maxwidth+minwidth;
-                    // console.log(tmpwidth);
-                    $("#g_"+(i+1)).width(tmpwidth+"%");
-                    $("#g_"+(i+1)).html(gameStats.winDist[numletters-3][i])
-                }
-                $(".guessbar").removeClass('hlguessbar');
-                
-                if (numletters==wordLength||numletters==8){
-                    try{
-                        if (won){
-                            $("#g_"+numtries).addClass('hlguessbar');
-                        }
-                    }catch(err){}
-                }
-            }
-
-            function updateStats(){
-                allindex=5;
-                if (true){
-                    gameStats=JSON.parse(localStorage.gameStats);
-                    if (SHRM.workle.word_original.indexOf(' ') > -1 || SHRM.workle.word_original.indexOf('-') > -1){
-                        wordLength = 7
-                    }
-                    gameStats.games[wordLength-3]++;
-                    gameStats.games[allindex]++;
-                    if (won){
-                        gameStats.wins[wordLength-3]++;
-                        gameStats.wins[allindex]++;
-                        gameStats.streak[wordLength-3]++;
-                        gameStats.streak[allindex]++;
-                        if (gameStats.streak[wordLength-3]>gameStats.beststreak[wordLength-3]){
-                            gameStats.beststreak[wordLength-3]=gameStats.streak[wordLength-3];
-                        }
-                        if (gameStats.streak[allindex]>gameStats.beststreak[allindex]){
-                            gameStats.beststreak[allindex]=gameStats.streak[allindex];
-                        }
-                        gameStats.winDist[wordLength-3][numtries-1]++
-                        gameStats.winDist[allindex][numtries-1]++
+                this.clearURLparams = function (){
+                    var isInIframe = (parent !== window);
+                    if (isInIframe){
+                        var thisURL = document.referrer;
                     } else{
-                        gameStats.losses[wordLength-3]++;
-                        gameStats.losses[allindex]++;
-                        gameStats.streak[wordLength-3]=0;
-                        gameStats.streak[allindex]=0;
+                        var thisURL = window.location.href;
                     }
-                    gameStats.winpct[wordLength-3]=Math.round(gameStats.wins[wordLength-3]/gameStats.games[wordLength-3]*100);
-                    gameStats.winpct[allindex]=Math.round(gameStats.wins[allindex]/gameStats.games[allindex]*100);
-                    if (!(gameStats.played instanceof Array)){
-                        gameStats.played = []
-                    }
-                    gameStats.played.push(SHRM.workle.id)
-                    localStorage.gameStats=JSON.stringify(gameStats);
-                    console.log(gameStats);
-                }
-            }
 
-            function showStats(num){
-                // console.log(num);
-                if (num=="All"){
-                    writeStats(8);
-                } else {
-                    writeStats(num);
-                }
-                $('#modal_stats').modal('show')
-                $(".numbertab").removeClass('highlight');
-                $("#s_"+num).addClass('highlight');   
-            }
-            
-            function playAgainButton(){
-                SHRM.utils.playagain = true
-                clearKeyboard();
-                clearURLparams()
-                startGame();
-            }
-
-            function checkGuess(guess){
-                debugger
-                guessarr=guess.split("");
-                guessarr2=guessarr.slice();
-                wordarr2=wordarr.slice();
-
-                colorarr=fillArray(wordLength,0);
-                
-                for (var i=0;i<guessarr.length;i++){
-                    //check for correct letter placement first
-                    if (guessarr[i]==wordarr[i]){
-                        colorarr[i]=1;
-                        guessarr2[i]='*';
-                        wordarr2[i]='&';
-                        $("#"+guessarr[i].toLowerCase()).addClass('correct');
-                    } 
-                }
-
-                for (var i=0;i<guessarr.length;i++){
-                    if (colorarr[i]==1){
-
-                    } else if (wordarr2.includes(guessarr2[i])){
-                        colorarr[i]=-1;
-                        tmploc=wordarr2.indexOf(guessarr2[i]);
-                        guessarr2[i]='*'; 
-                        wordarr2[tmploc]='&';
-                        $("#"+guessarr[i].toLowerCase()).addClass('place');
+                    var baseurl = thisURL.split("?")[0]
+                        console.log(baseurl)
+                    if (isInIframe){
+                        window.parent.history.pushState("", "", baseurl);
                     } else {
-                        $("#"+guessarr[i].toLowerCase()).addClass('none');
-                    }
-                    // console.log(guessarr2,wordarr2)
-                }
-                
-                for (var i=0;i<guessarr.length;i++){
-                    $("#r"+row+"l"+(i+1)).removeClass("none place correct")
+                        history.pushState("", "", baseurl);
+                    }        
+                };
 
-                    $("#r"+row+"l"+(i+1)).html(guess[i].toUpperCase());
-                    if (colorarr[i]==0){
-                        code="none"
-                    } else if (colorarr[i]==-1){
-                        code="place"
-                    } else {
-                        code="correct"
+                this.isWord = function (guess){
+                    var spacing_location = SHRM.workle.word_original.indexOf(' ')
+                    if (spacing_location > -1){
+                        var word1 = guess.substring(0,spacing_location)
+                        var word2 = guess.substring(spacing_location)
+                        return (SHRM.workle.wordlist.includes(word1.toLowerCase()) && SHRM.workle.wordlist.includes(word2.toLowerCase()));
                     }
-                    $("#r"+row+"l"+(i+1)).addClass(code)
-                }
-                
-                // console.log(colorarr);
-                gamehistory.push(colorarr);
-                if (sumArray(colorarr)==wordLength){
-                    gameover=true;
+
+                    var dash_location = SHRM.workle.word_original.indexOf('-')
+                    if (dash_location > -1){
+                        var word1 = guess.substring(0,dash_location)
+                        var word2 = guess.substring(dash_location)
+                        return (SHRM.workle.wordlist.includes(word1.toLowerCase()) && SHRM.workle.wordlist.includes(word2.toLowerCase()));
+                    }
+
+                    //return (scrabblewords.includes(guess.toLowerCase())|| SHRM.workle.wordlist.includes(guess.toLowerCase()));
+                    return SHRM.workle.wordlist.includes(guess.toLowerCase());
+                };
+
+                this.makeBoard = function (tries){
+                    var spacing_location = SHRM.workle.word_original.indexOf(' ')
+                    var dash_location = SHRM.workle.word_original.indexOf('-')
                     
-                    return true
-                } else{
-                    return false
-                }
-            }
-            
-            function isLetter(guess){
-                return /^[A-Z]$/i.test(guess);
-            }
-            
-            function share(){
-                debugger
-                //custom = false
-                sharestring=`Try SHRM's WORKLE Challenge (${wordLength} letters)\n${(won?"I did it in "+numtries+" out of 6 tries.":"I failed :(")}\n`
-                for (var i=0;i<gamehistory.length;i++){
-                    sharestring+=''
-
-                    for (var j=0;j<wordLength;j++){
-                        sharestring+=getEmoji(gamehistory[i][j])
+                    $( "#gamecontainer" ).empty();
+                    for (var i=0;i < tries;i++){
+                        $("#gamecontainer").append('<div class="row" id="row'+(i+1)+'"></div>');
+                        
+                        for (var j=0;j<SHRM.workle.word.length;j++){ 
+                            if (spacing_location == j){
+                                $("#row"+(i+1)).append('<div class="col letter letter_borderless" id="r'+(i+1)+'lspace'+'">&nbsp;</div>');
+                            }
+                            if (dash_location == j){
+                                $("#row"+(i+1)).append('<div class="col letter letter_borderless" id="r'+(i+1)+'ldash'+'"><span class="letter_dash">-</span></div>');
+                            }
+                            $("#row"+(i+1)).append('<div class="col letter" id="r'+(i+1)+'l'+(j+1)+'">&nbsp;</div>');
+                            if (i>0){
+                                $("#r"+(i+1)+"l"+(j+1)).addClass('upcoming');
+                            }  
+                        }
                     }
-                    sharestring+='\n'
-                }
-                sharestring+='\nTry the same exact puzzle here:\n'   
-                debugger
-                baseurl=thisURL.split("?")[0];
+                };
+                
+                this.initStats = function (){
+                    var gameStats = {}
+                    if (typeof localStorage.gameStats == 'undefined'){
+                        gameStats={
+                            winDist:[[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0]],
+                            games:[0,0,0,0,0,0],
+                            losses:[0,0,0,0,0,0],
+                            wins:[0,0,0,0,0,0],
+                            streak:[0,0,0,0,0,0],
+                            beststreak:[0,0,0,0,0,0],
+                            winpct:[0,0,0,0,0,0],
+                            played:[]
+                        }
+                        localStorage.gameStats=JSON.stringify(gameStats);
+                    }
+                    gameStats=JSON.parse(localStorage.gameStats);
 
-                urlstring=thisURL + '?challenge=' + SHRM.workle.id;
+                    $( ".numbertab" ).on( "click", function() {
+                        // console.log(shownum);
+                        SHRM.utils.showStats($( this ).text());
+                    });
+                };
 
-                console.log(urlstring);
-                sharestring+=urlstring;
-                console.log("copying "+sharestring)
-                $("#sharearea").show();
-                $("#sharearea").val(sharestring);
-                $("#sharearea").select();
-                document.execCommand("copy");
-                $('#copy').show();
-            } 
+                this.writeStats = function (numletters){
+                    var numletters = String(numletters).replace('+','')
+                    if (SHRM.workle.word.length > 8){
+                        numletters = 8
+                    }
+                    var gameStats=JSON.parse(localStorage.gameStats);
 
-            function getEmoji(guess){
-                gbox='&#128998;'
-                obox="&#128999;"
-                bbox="&#11035;"
-                gbox='🟦'
-                obox="🟧"
-                bbox="⬛"
+                    $("#games").html(gameStats.games[numletters-3]);
+                    $("#wins").html(gameStats.wins[numletters-3]);
+                    $("#winpct").html(gameStats.winpct[numletters-3]+"%");
+                    $("#streak").html(gameStats.streak[numletters-3]);
+                    $("#beststreak").html(gameStats.beststreak[numletters-3]);
 
-                if (guess==1){
-                    return gbox
-                } else if (guess==-1){
-                    return obox
-                } else {
-                    return bbox
-                }
-            }
+                    var minwidth=4;
+                    var maxwidth=95;
+                    
+                    for (var i=0;i<6;i++){
+                        var maxlength=this.maxArray(gameStats.winDist[numletters-3]);
+                        if(maxlength==0){
+                            maxlength=1;
+                        }
+                        var tmpwidth=gameStats.winDist[numletters-3][i]/maxlength*maxwidth+minwidth;
+                        // console.log(tmpwidth);
+                        $("#g_"+(i+1)).width(tmpwidth+"%");
+                        $("#g_"+(i+1)).html(gameStats.winDist[numletters-3][i])
+                    }
+                    $(".guessbar").removeClass('hlguessbar');
+                    
+                    if (numletters==SHRM.workle.word.length||numletters==8){
+                        try{
+                            if (won){
+                                $("#g_"+this.numtries).addClass('hlguessbar');
+                            }
+                        }catch(err){}
+                    }
+                };
 
+                this.updateStats = function (){
+                    var allindex=5;
+                    if (true){
+                        var wordLength = SHRM.workle.word.length
+                        var gameStats=JSON.parse(localStorage.gameStats);
+                        if (SHRM.workle.word_original.indexOf(' ') > -1 || SHRM.workle.word_original.indexOf('-') > -1){
+                            wordLength = 7
+                        }
+                        gameStats.games[wordLength-3]++;
+                        gameStats.games[allindex]++;
+                        if (this.won){
+                            gameStats.wins[wordLength-3]++;
+                            gameStats.wins[allindex]++;
+                            gameStats.streak[wordLength-3]++;
+                            gameStats.streak[allindex]++;
+                            if (gameStats.streak[wordLength-3]>gameStats.beststreak[wordLength-3]){
+                                gameStats.beststreak[wordLength-3]=gameStats.streak[wordLength-3];
+                            }
+                            if (gameStats.streak[allindex]>gameStats.beststreak[allindex]){
+                                gameStats.beststreak[allindex]=gameStats.streak[allindex];
+                            }
+                            gameStats.winDist[wordLength-3][this.numtries-1]++
+                            gameStats.winDist[allindex][this.numtries-1]++
+                        } else{
+                            gameStats.losses[wordLength-3]++;
+                            gameStats.losses[allindex]++;
+                            gameStats.streak[wordLength-3]=0;
+                            gameStats.streak[allindex]=0;
+                        }
+                        gameStats.winpct[wordLength-3]=Math.round(gameStats.wins[wordLength-3]/gameStats.games[wordLength-3]*100);
+                        gameStats.winpct[allindex]=Math.round(gameStats.wins[allindex]/gameStats.games[allindex]*100);
+                        if (!(gameStats.played instanceof Array)){
+                            gameStats.played = []
+                        }
+                        gameStats.played.push(SHRM.workle.id)
+                        localStorage.gameStats=JSON.stringify(gameStats);
+                        console.log(gameStats);
+                    }
+                };
+
+                this.showStats = function (num){
+                    // console.log(num);
+                    if (num=="All"){
+                        this.writeStats(8);
+                    } else {
+                        this.writeStats(num);
+                    }
+                    $('#modal_stats').modal('show')
+                    $(".numbertab").removeClass('highlight');
+                    $("#s_"+num).addClass('highlight');   
+                };
+                
+                this.playAgainButton = function (){
+                    SHRM.workle = null
+                    this.playagain = true
+                    this.clearKeyboard();
+                    this.clearURLparams()
+                    this.startGame();
+                };
+
+                this.checkGuess = function (guess){
+                    var guessarr = guess.split("");
+                    var guessarr2 = guessarr.slice();
+                    var wordarr2 = SHRM.workle.wordarr.slice();
+                    var tmploc = -1;
+                    var colorarr = this.fillArray(SHRM.workle.word.length,0);
+                    var code = '';
+                    
+                    for (var i=0;i<guessarr.length;i++){
+                        //check for correct letter placement first
+                        if (guessarr[i]==SHRM.workle.wordarr[i]){
+                            colorarr[i]=1;
+                            guessarr2[i]='*';
+                            wordarr2[i]='&';
+                            $("#"+guessarr[i].toLowerCase()).addClass('correct');
+                        } 
+                    }
+
+                    for (var i=0;i<guessarr.length;i++){
+                        if (colorarr[i]==1){
+
+                        } else if (wordarr2.includes(guessarr2[i])){
+                            colorarr[i]=-1;
+                            tmploc=wordarr2.indexOf(guessarr2[i]);
+                            guessarr2[i]='*'; 
+                            wordarr2[tmploc]='&';
+                            $("#"+guessarr[i].toLowerCase()).addClass('place');
+                        } else {
+                            $("#"+guessarr[i].toLowerCase()).addClass('none');
+                        }
+                        // console.log(guessarr2,wordarr2)
+                    }
+                    
+                    for (var i=0;i<guessarr.length;i++){
+                        $("#r"+this.row+"l"+(i+1)).removeClass("none place correct")
+
+                        $("#r"+this.row+"l"+(i+1)).html(guess[i].toUpperCase());
+                        if (colorarr[i]==0){
+                            code="none"
+                        } else if (colorarr[i]==-1){
+                            code="place"
+                        } else {
+                            code="correct"
+                        }
+                        $("#r"+this.row+"l"+(i+1)).addClass(code)
+                    }
+                    
+                    // console.log(colorarr);
+                    this.gamehistory.push(colorarr);
+                    if (this.sumArray(colorarr)==SHRM.workle.word.length){
+                        this.gameover=true;
+                        
+                        return true
+                    } else{
+                        return false
+                    }
+                };
+                
+                this.isLetter = function (guess){
+                    return /^[A-Z]$/i.test(guess);
+                };
+                
+                this.share = function (){
+                    debugger
+                    //custom = false
+                    sharestring=`Try SHRM's WORKLE Challenge (${SHRM.workle.word.length} letters)\n${(won?"I did it in "+this.numtries+" out of 6 tries.":"I failed :(")}\n`
+                    for (var i=0;i<gamehistory.length;i++){
+                        sharestring+=''
+
+                        for (var j=0;j<SHRM.workle.word.length;j++){
+                            sharestring+=getEmoji(gamehistory[i][j])
+                        }
+                        sharestring+='\n'
+                    }
+                    sharestring+='\nTry the same exact puzzle here:\n'   
+                    debugger
+                    baseurl=thisURL.split("?")[0];
+
+                    urlstring=thisURL + '?challenge=' + SHRM.workle.id;
+
+                    console.log(urlstring);
+                    sharestring+=urlstring;
+                    console.log("copying "+sharestring)
+                    $("#sharearea").show();
+                    $("#sharearea").val(sharestring);
+                    $("#sharearea").select();
+                    document.execCommand("copy");
+                    $('#copy').show();
+                };
+
+                this.getEmoji = function (guess){
+                    var gbox='&#128998;'
+                    var obox="&#128999;"
+                    var bbox="&#11035;"
+                    gbox='🟦'
+                    obox="🟧"
+                    bbox="⬛"
+
+                    if (guess==1){
+                        return gbox
+                    } else if (guess==-1){
+                        return obox
+                    } else {
+                        return bbox
+                    }
+                };
+
+                this.sleep = function(ms){
+                    return new Promise(resolve => setTimeout(resolve, ms));
+                };
+        
+            }).apply(SHRM.utils);
+
+            //SHRM.utils.sleep(2000).then(() => { showSpinner(false); });
+            
             $(this).on('keydown', function(event) {
-                onKeyPress(event.key)
+                SHRM.utils.onKeyPress(event.key)
             })
 
             $(document).ready(function(){
-                initStats();
-                startGame();
+                SHRM.utils.initStats();
+                SHRM.utils.startGame();
                 $('#modal_info').modal('show')
             });
         </script>
