@@ -4,27 +4,17 @@
         <title>WORKLE</title>
         <meta_remove name="description" content="">
         <meta_remove name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" ohref="wordle4.css">
-        <script osrc="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-
+        
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
-        <link rel="preconnect" href="https://fonts.gstatic.com">
         <link rel="stylesheet" href="https://use.typekit.net/tfw4naf.css">
 
         <!-- Latest compiled and minified JavaScript -->
+        <script osrc="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.1/knockout-latest.debug.min.js" integrity="sha512-+9kgaOpvAGdLyaCeMWkYXt4R8m/fRgbGud4wzsJQ1cwhNYrQj+a8E3pstfc6E9zuHhbyzSiC+AHxeZ5SFVyDmQ==" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout.mapping/2.3.2/knockout.mapping.min.js" integrity="sha512-sCLnmp1UrJki3R9zwZMLXg9lXlGxJ6yFVuiSJ1pi1qRST3CJPAkJIhOHEQZz10P2gWgY3H8Y33na5Ak9PV5PLA==" crossorigin="anonymous"></script>
-        
-        <script osrc='scripts/arrayfunctions.js'></script>
         <script src='scripts/words.js'></script>
-        <script osrc='scripts/townshipwords.js'></script>
-        <script src='scripts/scrabblewords.js'></script>
-        <script osrc='scripts/wordle.js'></script>
-
         
         <!--
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -296,7 +286,7 @@
             }
         
             /* -- media styles */
-            @media only screen and (max-width: 1000px) {
+            @media only screen and (max-width: 500px) {
                 .workTxt, .leTxt {
                     font-size: 4rem;
                 }
@@ -316,6 +306,9 @@
                     height: 66px;
                     max-height: inherit;
                     min-height: inherit;
+                }
+                .upcoming {
+                    border: 1px solid #0177BE;
                 }
                 .modal-dialog {
                     max-width: 75%;
@@ -699,20 +692,24 @@
             SHRM.utils.data = {}
             
             var json_schedule = [
-                {"id":"A","date":"03/05/2022","word":"fmla","clue":"","factoid":"","url":""}
-                ,{"id":"B","date":"03/06/2022","word":"expert","clue":"Clue goes here.","factoid":"","url":""}
-                ,{"id":"C","date":"03/07/2022","word":"star","clue":"Service Teamwork and Recognition","factoid":"","url":""}
-                ,{"id":"D","date":"03/08/2022","word":"respect","clue":"With high regard","factoid":"","url":""}
-                ,{"id":"D.1","date":"03/09/2022","word":"core values","clue":"U.S workers said this helped guide their organization through the pandemic.","factoid":"Workers are leaning on their workplace culture and trusting in organizational values, as 74% of working Americans believe their organizational values helped guide them through the pandemic.","url":"https://shrm.org/hr-today/trends-and-forecasting/research-and-surveys/Pages/2021-Workplace-Culture-Report.aspx?_ga=2.199475630.1465254891.1646658387-1459168090.1638458997&_gac=1.170664212.1643650642.EAIaIQobChMIoIiX4sPc9QIVzgaICR2QlA20EAAYASAAEgJZnPD_BwE"}
-                ,{"id":"E","date":"03/10/2022","word":"left","clue":"U.S. workers said they did this at a job because of a negative relationship with a manager.","factoid":"53%|of U.S. workers have left a job due to their relationship with their manager.","url":"https://shrm.org/hr-today/trends-and-forecasting/research-and-surveys/Pages/2021-Workplace-Culture-Report.aspx?_ga=2.199475630.1465254891.1646658387-1459168090.1638458997&_gac=1.170664212.1643650642.EAIaIQobChMIoIiX4sPc9QIVzgaICR2QlA20EAAYASAAEgJZnPD_BwE"}
-                ,{"id":"F","date":"03/11/2022","word":"hours","clue":"A unit of time","factoid":"52%|of people managers spend an average of 1 to 10 hours per week managing their workplace culture.","url":"https://shrm.org/hr-today/trends-and-forecasting/research-and-surveys/Pages/2021-Workplace-Culture-Report.aspx?_ga=2.199475630.1465254891.1646658387-1459168090.1638458997&_gac=1.170664212.1643650642.EAIaIQobChMIoIiX4sPc9QIVzgaICR2QlA20EAAYASAAEgJZnPD_BwE"}
-                ,{"id":"G","date":"03/12/2022","word":"tired","clue":"Another word for exhausted","factoid":"54%|of people managers report that they leave work feeling exhausted.","url":"https://shrm.org/hr-today/trends-and-forecasting/research-and-surveys/Pages/2021-Workplace-Culture-Report.aspx?_ga=2.199475630.1465254891.1646658387-1459168090.1638458997&_gac=1.170664212.1643650642.EAIaIQobChMIoIiX4sPc9QIVzgaICR2QlA20EAAYASAAEgJZnPD_BwE"}
-                ,{"id":"H","date":"03/13/2022","word":"impact","clue":"Executives agree that they can make an ______ on workplace culture.","factoid":"97%|of executives agree that their actions have a direct impact on workplace culture.","url":"https://shrm.org/hr-today/trends-and-forecasting/research-and-surveys/Pages/2021-Workplace-Culture-Report.aspx?_ga=2.199475630.1465254891.1646658387-1459168090.1638458997&_gac=1.170664212.1643650642.EAIaIQobChMIoIiX4sPc9QIVzgaICR2QlA20EAAYASAAEgJZnPD_BwE"}
-                ,{"id":"E.1","date":"03/14/2022","word":"people","clue":"A company's most important resource","factoid":"","url":""}
-                ,{"id":"F.1","date":"03/15/2022","word":"raise","clue":"Clue goes here.","factoid":"","url":""}
-                ,{"id":"G.1","date":"03/16/2022","word":"union","clue":"Clue goes here.","factoid":"","url":""}
-                ,{"id":"H.1","date":"03/17/2022","word":"leave","clue":"Clue goes here.","factoid":"","url":""}
-                ,{"id":"I.1","date":"03/18/2022","word":"covid","clue":"Clue goes here.","factoid":"","url":""}
+                {"id":"10.1","date":"03/07/2022","word":"star","clue":"Service Teamwork and Recognition","factoid":"","url":""}
+                ,{"id":"10.2","date":"03/08/2022","word":"respect","clue":"With high regard","factoid":"","url":""}
+                ,{"id":"10.3","date":"03/09/2022","word":"core values","clue":"U.S workers said this helped guide their organization through the pandemic.","factoid":"Workers are leaning on their workplace culture and trusting in organizational values, as 74% of working Americans believe their organizational values helped guide them through the pandemic.","url":"https://shrm.org/hr-today/trends-and-forecasting/research-and-surveys/Pages/2021-Workplace-Culture-Report.aspx?_ga=2.199475630.1465254891.1646658387-1459168090.1638458997&_gac=1.170664212.1643650642.EAIaIQobChMIoIiX4sPc9QIVzgaICR2QlA20EAAYASAAEgJZnPD_BwE"}
+                ,{"id":"10.4","date":"03/10/2022","word":"left","clue":"U.S. workers said they did this at a job because of a negative relationship with a manager.","factoid":"53%|of U.S. workers have left a job due to their relationship with their manager.","url":"https://shrm.org/hr-today/trends-and-forecasting/research-and-surveys/Pages/2021-Workplace-Culture-Report.aspx?_ga=2.199475630.1465254891.1646658387-1459168090.1638458997&_gac=1.170664212.1643650642.EAIaIQobChMIoIiX4sPc9QIVzgaICR2QlA20EAAYASAAEgJZnPD_BwE"}
+                ,{"id":"10.5","date":"03/11/2022","word":"hours","clue":"A unit of time","factoid":"52%|of people managers spend an average of 1 to 10 hours per week managing their workplace culture.","url":"https://shrm.org/hr-today/trends-and-forecasting/research-and-surveys/Pages/2021-Workplace-Culture-Report.aspx?_ga=2.199475630.1465254891.1646658387-1459168090.1638458997&_gac=1.170664212.1643650642.EAIaIQobChMIoIiX4sPc9QIVzgaICR2QlA20EAAYASAAEgJZnPD_BwE"}
+                ,{"id":"11.1","date":"03/14/2022","word":"tired","clue":"Another word for exhausted","factoid":"54%|of people managers report that they leave work feeling exhausted.","url":"https://shrm.org/hr-today/trends-and-forecasting/research-and-surveys/Pages/2021-Workplace-Culture-Report.aspx?_ga=2.199475630.1465254891.1646658387-1459168090.1638458997&_gac=1.170664212.1643650642.EAIaIQobChMIoIiX4sPc9QIVzgaICR2QlA20EAAYASAAEgJZnPD_BwE"}
+                ,{"id":"11.2","date":"03/15/2022","word":"impact","clue":"Executives agree that they can make an ______ on workplace culture.","factoid":"97%|of executives agree that their actions have a direct impact on workplace culture.","url":"https://shrm.org/hr-today/trends-and-forecasting/research-and-surveys/Pages/2021-Workplace-Culture-Report.aspx?_ga=2.199475630.1465254891.1646658387-1459168090.1638458997&_gac=1.170664212.1643650642.EAIaIQobChMIoIiX4sPc9QIVzgaICR2QlA20EAAYASAAEgJZnPD_BwE"}
+                ,{"id":"11.3","date":"03/16/2022","word":"people","clue":"A company's most important resource","factoid":"","url":"http://shrm.org"}
+                ,{"id":"11.4","date":"03/17/2022","word":"empathy","clue":"A clue could go here","factoid":"21% of those who quit their jobs in the past 9 months did so because their organization’s leadership lacked empathy toward employees","url":"http://shrm.org"}
+                ,{"id":"11.5","date":"03/18/2022","word":"remote","clue":"A clue could go here","factoid":"40% of U.S. workers would prefer to work remotely in some capacity, either fully remote (23%) or mostly remote, but sometimes in-person (17%).","url":"http://shrm.org"}
+                ,{"id":"12.1","date":"03/21/2022","word":"resign","clue":"A clue could go here","factoid":"Nearly half (49%) of U.S. workers are actively searching for a new job right now or plan to over the next few months.","url":"http://shrm.org"}
+                ,{"id":"12.2","date":"03/22/2022","word":"balance","clue":"A clue could go here","factoid":"58% of U.S. workers believe a healthy work-life balance is more important than higher pay or salary.","url":"http://shrm.org"}
+                ,{"id":"12.3","date":"03/23/2022","word":"romance","clue":"A clue could go here","factoid":"A third of U.S. workers (33%) report that they’re currently involved or have been involved in a workplace romance","url":"http://shrm.org"}
+                ,{"id":"12.4","date":"03/24/2022","word":"disclose","clue":"A clue could go here","factoid":"77% of U.S. workers say that their employer does not require employees to disclose if they are involved in a workplace romance","url":"http://shrm.org"}
+                ,{"id":"12.5","date":"03/25/2022","word":"equity","clue":"A clue could go here","factoid":"Only half (52%) of HR professionals believe that senior leaders in their organization are held accountable for ensuring male and female employees have equitable access to career paths or opportunities that lead to leadership roles.","url":"http://shrm.org"}
+                ,{"id":"13.1","date":"03/28/2022","word":"manager","clue":"A clue could go here","factoid":"Female managers with caregiving responsibilities (35%) are more likely to have experienced a pandemic-related career setback than their male counterparts (26%).","url":"http://shrm.org"}
+                ,{"id":"13.2","date":"03/29/2022","word":"culture","clue":"A clue could go here","factoid":"More than 9 out of 10 people managers (94%) agree a positive workplace culture creates a resilient team of employees.","url":"http://shrm.org"}
+                
             ]
 
             if (json_schedule){
@@ -1145,7 +1142,7 @@
                     
                     if (numletters==SHRM.workle.word.length||numletters==8){
                         try{
-                            if (won){
+                            if (this.won){
                                 $("#g_"+this.numtries).addClass('hlguessbar');
                             }
                         }catch(err){}
@@ -1277,7 +1274,7 @@
                 this.share = function (){
                     debugger
                     //custom = false
-                    sharestring=`Try SHRM's WORKLE Challenge (${SHRM.workle.word.length} letters)\n${(won?"I did it in "+this.numtries+" out of 6 tries.":"I failed :(")}\n`
+                    sharestring=`Try SHRM's WORKLE Challenge (${SHRM.workle.word.length} letters)\n${(this.won?"I did it in "+this.numtries+" out of 6 tries.":"I failed :(")}\n`
                     for (var i=0;i<gamehistory.length;i++){
                         sharestring+=''
 
