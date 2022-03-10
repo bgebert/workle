@@ -29,18 +29,17 @@
                 background-image: url(https://shrm-res.cloudinary.com/image/upload/v1646875965/cs-sandbox/Icons_R1_BG_copy.svg);
                 background-size: cover;
                 font-family: 'proxima-soft', Arial, Helvetica, sans-serif;
-                font-size:2rem;
+                font-size:1.5rem;
+            }
+            .hidden {
+                display: none;
             }
 
             /* -- title_bar */
             .icon_instructions { cursor: pointer; }
             .icon_stats { cursor: pointer; }
             .icon_tasks { cursor: pointer; }
-            #title_bar{
-                z-index:1001;
-                display:flex;
-                justify-content:center;
-                margin-bottom:2px;
+            .title_bar{
                 font-weight: bold;
                 font-size: 2.5rem;
             }
@@ -88,6 +87,7 @@
             .none{
                 background-color:black !important;
                 color:white !important;
+                opacity: 15%;
             }
             .place{
                 background-color:#DC6A46 !important;
@@ -125,6 +125,14 @@
 
 
             /* -- modal */
+            .region {
+                background-color: #FFFFFF;
+                border: 1pt solid black;
+                margin-left: 2%;
+                margin-right: 2%;
+                margin-bottom: 2%;
+                padding: 10px;
+            }
             .modal-dialog {
                 max-width: 75%;
                 margin: 1.75rem auto;
@@ -243,7 +251,7 @@
                                             supported by Chrome, Edge, Opera and Firefox */
             }
             .keylong{
-                width:125px;
+                width:175px;
                 height:55px;
                 border:1px solid black;
                 border-radius:4px;
@@ -281,12 +289,21 @@
                 opacity: 100%;
                 cursor: pointer;
                 display: inline-block;
-                background-color: #00AD9D;
+                remove_background-color: #00AD9D;
+                background-color: #000000;
                 color: white;
+            }
+            .img-responsive {
+                width: 85px;
             }
         
             /* -- media styles */
-            @media only screen and (max-width: 500px) {
+            @media only screen and (max-width: 35em) {
+                .navbar {
+                    background-color: #FFFFFF;
+                    z-index: 1;
+                    margin-bottom: 10px;
+                }
                 .workTxt, .leTxt {
                     font-size: 4rem;
                 }
@@ -389,76 +406,6 @@
         <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-        <div class="modal" id="modal_tasks" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">WHAT'S NEW && THINGS TO DO</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div>
-                            <span><b>Note:</b> Please direct all bugs/issue/enhancements/questions to <a href="mailto:brad.gebert@shrm.org">Brad Gebert</a></span>
-                            <hr>
-                            <h3>New fixes/features as of 2022.03.09</h3>
-                            <ul>
-                                <li>Fixed issue where "learn more" hyperlink did not have an href property</li>
-                                <li>Forced "use strict" on javascript</li>
-                                <li>Cleared out the factoid and clue areas at the start of each game</li>
-                            </ul>
-                            <hr>
-                            <h3>New fixes/features as of 2022.03.08</h3>
-                            <ul>
-                                <li>Factoids now appear on the "end game" window</li>
-                                <li>Answer can be a compound word with a space or a dash.  The only exception is neither word can be less than 3 letters or more than 7 letters.</li>
-                            </ul>
-                            <hr>
-                            <h3>New fixes/features as of 2022.03.07</h3>
-                            <ul>
-                                <li>The gameboard is now always centered over the keyboard depending on the screen width</li>
-                                <li>Increased the size of the keyboard</li>
-                                <li>Only 1 unique game per day, so everyone plays the same game on the same day.</li>
-                                <li>User's can play past games after they play today's game.</li>
-                                <li>Based on the previous 2 bullet points, the game selection order of precendence is...
-                                    <ul>
-                                        <li>1. Any game requested via URL parameter (sharing with a friend)</li>
-                                        <li>2. Today's game</li>
-                                        <li>3. An previous day's game that had NOT been played by the user.  Repeat as desired</li>
-                                        <li>4. Once all previous games have been played, the user would be presented with today's game again.</li>
-                                    </ul>
-                                </li>
-                                <li>Show a clue when present in the scheduler.  The clue button becomes visible when the user only has 1 try remaining.</li>
-                                <li>When validating if a user's input is a word, WORKLE now compares against the word list dictionary AND the scheduler.
-                                </li>
-                                <li>Created a scheduler file that contains the following:</li>
-                                <li>Word of the day is now pulled from the scheduler.</li>
-                                <li>Adjust gameboard size, word list comparison, and number of tries based off the word of the day</li>
-                                <li>Present a clue, if present in the scheduler file AND the user is down to 1 guess remaining </li>
-                                <li>Present a shout out to Alex and the Research team for all of their amazing help and ideas.</li>
-                            </ul>
-                            <hr>
-                            <h3>Bug Fixes/Features not yet added</h3>
-                            <ul>
-                                <li>Create a leaderboard</li>
-                                <li>Built out a year's worth of words for the scheduler</li>
-                                <li>Ability to toggle light/dark mode
-                                    <ul>
-                                        <li>Default to system setting</li>
-                                        <li>Add toggle to change from light/dark</li>
-                                    </ul>
-                                </li>
-                                <li>Find, clean, and create a word list dictionary with lengths of 4, 5, and 6.</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="modal-footer"">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <div class="modal" id="modal_info" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
@@ -617,73 +564,186 @@
             </div>
         </div>
 
-        <div id="title_bar">
-            <div>
-                <span class="workTxt">WORK</span><span class="leTxt"">LE</span>
+        <style>
+            /* Style the navbar */
+            .mynavbar {
+                overflow: hidden;
+                background-color: #FFFFFF;
+                position: fixed;
+                top: 0;
+                width: 100%;
+            }
+
+            .navbar {
+                obackground-color: #FFFFFF;
+                z-index: 1;
+                margin-bottom: 10px;
+            }
+
+            .left-links{
+               flex:1 1 200px;
+            }
+
+            /* Navbar links */
+            .navbar a {
+                remove_float: left;
+                display: inline-flex;
+                color: #000000;
+                text-align: center;
+                remove_remove_padding: 14px;
+                text-decoration: none;
+                remove_width: 32%;
+                justify-content: center;
+                padding-right: 20px;
+            }
+
+            /* Page content */
+            .content {
+                padding: 16px;
+            }
+
+            /* The sticky class is added to the navbar with JS when it reaches its scroll position */
+            .sticky {
+                position: fixed;
+                top: 0;
+                width: 100%;
+            }
+
+            /* Add some top padding to the page content to prevent sudden quick movement (as the navigation bar gets a new position at the top of the page (position:fixed and top:0) */
+            .sticky + .content {
+                padding-top: 60px;
+            }
+        </style>        
+
+        <div class="main_container">
+            <div class="navbar">
+                <div class="title_bar left-links">
+                    <a href="#"><span class="workTxt icon_home">WORK</span><span class="leTxt icon_home">LE</span></a>
+                </div>
+                <div class="right-links">
+                    <a href="#"><i class="fa fa-info-circle icon_instructions" title="Instructions"></i>&nbsp;</a>
+                    <a href="#"><i class="fa fa-chart-bar icon_stats" aria-hidden="true" title="Stats"></i>&nbsp;</a>
+                </div>
             </div>
-            <!--
-            <div>
-                <i class="fa fa-info-circle icon_instructions" title="Instructions"></i>
-                <i class="fa fa-chart-bar icon_stats" aria-hidden="true" title="Stats"></i>
-                <i class="fas fa-tasks icon_tasks" aria-hidden="true" title="What's New and Left to Do"></i>
+            
+            <div id="gamecontainer" class="container"></div>
+
+            <div id="keyboard">
+                <div id="keyboardrow3">
+                    <div class="key" id="q" onclick="SHRM.utils.onKeyPress(this.id)">Q</div>
+                    <div class="key" id="w" onclick="SHRM.utils.onKeyPress(this.id)">W</div>
+                    <div class="key" id="e" onclick="SHRM.utils.onKeyPress(this.id)">E</div>
+                    <div class="key" id="r" onclick="SHRM.utils.onKeyPress(this.id)">R</div>
+                    <div class="key" id="t" onclick="SHRM.utils.onKeyPress(this.id)">T</div>
+                    <div class="key" id="y" onclick="SHRM.utils.onKeyPress(this.id)">Y</div>
+                    <div class="key" id="u" onclick="SHRM.utils.onKeyPress(this.id)">U</div>
+                    <div class="key" id="i" onclick="SHRM.utils.onKeyPress(this.id)">I</div>
+                    <div class="key" id="o" onclick="SHRM.utils.onKeyPress(this.id)">O</div>
+                    <div class="key" id="p" onclick="SHRM.utils.onKeyPress(this.id)">P</div>
+                </div>
+                <div id="keyboardrow2">
+                    <div class="key" id="a" onclick="SHRM.utils.onKeyPress(this.id)">A</div>
+                    <div class="key" id="s" onclick="SHRM.utils.onKeyPress(this.id)">S</div>
+                    <div class="key" id="d" onclick="SHRM.utils.onKeyPress(this.id)">D</div>
+                    <div class="key" id="f" onclick="SHRM.utils.onKeyPress(this.id)">F</div>
+                    <div class="key" id="g" onclick="SHRM.utils.onKeyPress(this.id)">G</div>
+                    <div class="key" id="h" onclick="SHRM.utils.onKeyPress(this.id)">H</div>
+                    <div class="key" id="j" onclick="SHRM.utils.onKeyPress(this.id)">J</div>
+                    <div class="key" id="k" onclick="SHRM.utils.onKeyPress(this.id)">K</div>
+                    <div class="key" id="l" onclick="SHRM.utils.onKeyPress(this.id)">L</div>    
+                </div>
+                <div id="keyboardrow1">
+                    <div class="key" id="z" onclick="SHRM.utils.onKeyPress(this.id)">Z</div>
+                    <div class="key" id="x" onclick="SHRM.utils.onKeyPress(this.id)">X</div>
+                    <div class="key" id="c" onclick="SHRM.utils.onKeyPress(this.id)">C</div>
+                    <div class="key" id="v" onclick="SHRM.utils.onKeyPress(this.id)">V</div>
+                    <div class="key" id="b" onclick="SHRM.utils.onKeyPress(this.id)">B</div>
+                    <div class="key" id="n" onclick="SHRM.utils.onKeyPress(this.id)">N</div>
+                    <div class="key" id="m" onclick="SHRM.utils.onKeyPress(this.id)">M</div>   
+                </div>
+                <div id="keyboardrow0">
+                    <div class="keylong" id="Enter" onclick="SHRM.utils.onKeyPress(this.id)">Enter</div>
+                    <div class="keylong" id="Backspace" onclick="SHRM.utils.onKeyPress(this.id)">Delete</div>
+                    <div class="keylong key_clue_disabled" id="Clue" onclick="SHRM.utils.onKeyPress(this.id)"><img class="img-responsive logo-small" src="https://d11p36kvaeudqt.cloudfront.net/logos/SHRM_Blocks_KO.svg" alt="SHRM Logo"> Help</div>
+                </div>
             </div>
-            -->
-            <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-                <div class="btn-group" role="group">
-                  <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fas fa-bars icon_instructions" title="Instructions"></i>
-                  </button>
-                  <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                    <a class="dropdown-item icon_instructions" href="#">Instructions</a>
-                    <a class="dropdown-item icon_stats" href="#">Stats</a>
-                    <a class="dropdown-item icon_tasks " href="#">What's New</a>
-                  </div>
+        </div>
+ 
+        
+        
+        <div class="hidden region" id="region_info" tabindex="-1" role="region">
+            <div oclass="region-dialog" role="document">
+                <div class="region-content">
+                    <div class="region-header">
+                        <h3 class="region-title">HOW TO PLAY</h3>
+                    </div>
+                    <div class="region-body">
+                        <div>
+                            <ul>
+                                <li>Guess the correct word in 6 tries.</li>
+                                <li>Each guess is submitted by pressing the 'ENTER' button.</li>
+                                <li>The tiles will change color to show how close your guess was to the answer.</li>
+                            </ul>
+                            <hr>
+                            <b>Examples:</b>
+                            <div style="text-align: left;">
+                                <span class="icon correct">R</span>
+                                <span class="icon tbd">A</span>
+                                <span class="icon tbd">I</span>
+                                <span class="icon tbd">S</span>
+                                <span class="icon tbd">E</span></br>
+                                The letter <b>R</b> is in the answer and in the correct place.
+                            </div>
+                            </br>
+                            <div style="text-align: left;">
+                                <span class="icon tbd">V</span>
+                                <span class="icon tbd">A</span>
+                                <span class="icon place">L</span>
+                                <span class="icon tbd">U</span>
+                                <span class="icon tbd">E</span></br>
+                                The letter <b>L</b> is in the answer but in the wrong place.
+                            </div>
+                            </br>
+                            <div style="text-align: left;">
+                                <span class="icon tbd">U</span>
+                                <span class="icon tbd">N</span>
+                                <span class="icon tbd">I</span>
+                                <span class="icon tbd">T</span>
+                                <span class="icon none">Y</span></br>
+                                The letter <b>Y</b> is in not the answer.
+                            </div>
+                            <hr>
+                            <div>
+                                <span>WORKLE is brought to you by Alex and SHRM Research.</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div id="gamecontainer" class="container"></div>
+        <script>
+            // When the user scrolls the page, execute myFunction
+            window.onscroll = function() {myFunction()};
 
-        <div id="keyboard">
-            <div id="keyboardrow3">
-                <div class="key" id="q" onclick="SHRM.utils.onKeyPress(this.id)">Q</div>
-                <div class="key" id="w" onclick="SHRM.utils.onKeyPress(this.id)">W</div>
-                <div class="key" id="e" onclick="SHRM.utils.onKeyPress(this.id)">E</div>
-                <div class="key" id="r" onclick="SHRM.utils.onKeyPress(this.id)">R</div>
-                <div class="key" id="t" onclick="SHRM.utils.onKeyPress(this.id)">T</div>
-                <div class="key" id="y" onclick="SHRM.utils.onKeyPress(this.id)">Y</div>
-                <div class="key" id="u" onclick="SHRM.utils.onKeyPress(this.id)">U</div>
-                <div class="key" id="i" onclick="SHRM.utils.onKeyPress(this.id)">I</div>
-                <div class="key" id="o" onclick="SHRM.utils.onKeyPress(this.id)">O</div>
-                <div class="key" id="p" onclick="SHRM.utils.onKeyPress(this.id)">P</div>
-            </div>
-            <div id="keyboardrow2">
-                <div class="key" id="a" onclick="SHRM.utils.onKeyPress(this.id)">A</div>
-                <div class="key" id="s" onclick="SHRM.utils.onKeyPress(this.id)">S</div>
-                <div class="key" id="d" onclick="SHRM.utils.onKeyPress(this.id)">D</div>
-                <div class="key" id="f" onclick="SHRM.utils.onKeyPress(this.id)">F</div>
-                <div class="key" id="g" onclick="SHRM.utils.onKeyPress(this.id)">G</div>
-                <div class="key" id="h" onclick="SHRM.utils.onKeyPress(this.id)">H</div>
-                <div class="key" id="j" onclick="SHRM.utils.onKeyPress(this.id)">J</div>
-                <div class="key" id="k" onclick="SHRM.utils.onKeyPress(this.id)">K</div>
-                <div class="key" id="l" onclick="SHRM.utils.onKeyPress(this.id)">L</div>    
-            </div>
-            <div id="keyboardrow1">
-                <div class="key" id="z" onclick="SHRM.utils.onKeyPress(this.id)">Z</div>
-                <div class="key" id="x" onclick="SHRM.utils.onKeyPress(this.id)">X</div>
-                <div class="key" id="c" onclick="SHRM.utils.onKeyPress(this.id)">C</div>
-                <div class="key" id="v" onclick="SHRM.utils.onKeyPress(this.id)">V</div>
-                <div class="key" id="b" onclick="SHRM.utils.onKeyPress(this.id)">B</div>
-                <div class="key" id="n" onclick="SHRM.utils.onKeyPress(this.id)">N</div>
-                <div class="key" id="m" onclick="SHRM.utils.onKeyPress(this.id)">M</div>   
-            </div>
-            <div id="keyboardrow0">
-                <div class="keylong" id="Enter" onclick="SHRM.utils.onKeyPress(this.id)">Enter</div>
-                <div class="keylong" id="Backspace" onclick="SHRM.utils.onKeyPress(this.id)">Delete</div>
-                <div class="keylong key_clue_disabled" id="Clue" onclick="SHRM.utils.onKeyPress(this.id)">Clue</div>
-            </div>
-        </div>
- 
+            // Get the navbar
+            var navbar = $('.navbar')[0]
+
+            // Get the offset position of the navbar
+            var sticky = navbar.offsetTop;
+
+            // Add the sticky class to the navbar when you reach its scroll position. Remove "sticky" when you leave the scroll position
+            function myFunction() {
+                if (window.pageYOffset >= sticky) {
+                    //navbar.classList.add("sticky")
+                    $('.navbar').addClass('sticky')
+                } else {
+                    //navbar.classList.remove("sticky");
+                    $('.navbar').removeClass('sticky')
+                }
+            }
+        </script>
+
         <script>
             
             
@@ -823,6 +883,7 @@
                         $('#clue_text').html('');
                     }else{
                         $('#clue_text').html(SHRM.workle.clue);
+                        $('#Clue').addClass('key_clue_enabled')
                     }
 
                     //add factoid if present
@@ -925,7 +986,17 @@
                     this.makeBoard(this.tries);
                     
                     $( ".icon_instructions" ).click(function() {
-                        $('#modal_info').modal('show')
+                        $('#gamecontainer').hide()
+                        $('#keyboard').hide()
+                        $('#region_stats').hide()
+                        $('#region_info').show()
+                    });
+
+                    $( ".icon_home" ).click(function() {
+                        $('#region_info').hide()
+                        $('#region_stats').hide()
+                        $('#gamecontainer').show()
+                        $('#keyboard').show()
                     });
 
                     $( ".icon_stats" ).click(function() {
@@ -933,9 +1004,6 @@
                         SHRM.utils.showStats('All');
                     });
 
-                    $( ".icon_tasks" ).click(function() {
-                        $('#modal_tasks').modal('show')
-                    });
                 };
 
                 this.onKeyPress = function (key){
@@ -1331,7 +1399,7 @@
             $(document).ready(function(){
                 SHRM.utils.initStats();
                 SHRM.utils.startGame();
-                $('#modal_info').modal('show')
+                //$('#modal_info').modal('show')
             });
         </script>
     </body>
