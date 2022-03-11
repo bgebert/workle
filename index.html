@@ -345,6 +345,7 @@
                 height:220px;
                 border: none;
                 resize: none;
+                line-height: 1;
             }
 
             /* -- modal_notaword */
@@ -1289,12 +1290,12 @@
                     //var newline_char = '<br>'
                     //var sharestring=`Try SHRM's WORKLE Challenge (${SHRM.workle.word.length} letters)\n${(this.won?"I did it in "+this.numtries+" out of 6 tries.":"I failed :(")}\n`
                     //var sharestring=`Try SHRM's WORKLE Challenge #${SHRM.workle.id} (${SHRM.workle.word.length} letters)${newline_char}${(this.won?"I did it in "+this.numtries+" out of 6 tries.":"I failed :(")}${newline_char}`
-
-                    var sharestring = "Try SHRM's WORKLE Challenge #" + SHRM.workle.id + " (" + SHRM.workle.word.length + " letters)"
+                    
+                    var sharestring = "SHRM's WORKLE Challenge #" + SHRM.workle.id + " (" + SHRM.workle.word.length + " letters)"
                     if (this.won) {
-                        sharestring += newline_char + "I did it in " + this.numtries + " out of 6 tries."
+                        sharestring += newline_char + "I did it in " + this.numtries + " out of 6 tries." + newline_char + newline_char
                     }else{
-                        sharestring += newline_char + "I was stumped."
+                        sharestring += newline_char + "I was stumped." + newline_char + newline_char
                     }
 
                     for (var i=0;i<this.gamehistory.length;i++){
@@ -1303,9 +1304,27 @@
                         for (var j=0;j<SHRM.workle.word.length;j++){
                             sharestring+=this.getEmoji(this.gamehistory[i][j])
                         }
-                        sharestring+=newline_char
+                        if (i < this.gamehistory.length-1){
+                            sharestring+=newline_char
+                        }
                     }
-                    sharestring+= newline_char + 'Try the same exact puzzle here:' + newline_char
+                    sharestring+= newline_char + newline_char + 'Try the same exact puzzle here:' + newline_char
+                    
+
+                    /*
+                    var sharestring=`Try SHRM's WORKLE Challenge (${SHRM.workle.word.length} letters)\n${(this.won?"I did it in "+this.numtries+" out of 6 tries.":"I failed :(")}\n\n`
+                    for (var i=0;i < this.gamehistory.length; i++){
+                        sharestring+=''
+
+                        for (var j=0;j<SHRM.workle.word.length;j++){
+                            sharestring += this.getEmoji(this.gamehistory[i][j])
+                        }
+                        if (i < this.gamehistory.length-1){
+                            sharestring+='\n'
+                        }
+                    }
+                    sharestring+='\n\nTry the same exact puzzle here:'
+                    */
                     
                     var isInIframe = (parent !== window);
                     if (isInIframe){
@@ -1349,16 +1368,7 @@
                     $('#sharearea').focus();
                     $('#sharearea').select();
                     navigator.clipboard.writeText($('#sharearea').text());
-
-                    //$("#sharearea").focus();
-                    //$("#sharearea").select();
                     
-                    //window.getSelection()
-                    //    .selectAllChildren(
-                        //    document.getElementById('sharearea') 
-                        //);
-
-                        //document.execCommand("copy");
                 }
 
                 this.getEmoji = function (guess){
