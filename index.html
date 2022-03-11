@@ -548,7 +548,7 @@
                             <a class="nav-link active" id="stats-tab-overall" data-toggle="tab" href="#stats_overall" role="tab" aria-controls="stats_overall" aria-selected="true">Overall</a>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <a class="nav-link disabled_tab" id="stats-tab-last-played" data-toggle="tab" href="#stats_last_played" role="tab" aria-controls="stats_last_played" aria-selected="false">Last Played</a>
+                            <a class="nav-link disabled_tab" id="stats-tab-last-played" data-toggle="" href="#stats_last_played" role="tab" aria-controls="stats_last_played" aria-selected="false">Last Played</a>
                         </li>
                     </ul>
                     <div class="tab-content" id="myTabContent">
@@ -593,6 +593,7 @@
                                 <button type="button" onclick="SHRM.utils.playAgainButton();" class="btn btn-primary">Play Another</button>
                                 <fieldset class="fact">
                                     <hr></hr>
+                                    <h5><b>Did You Know?</b></h5>
                                     <span class="fact_percent" style="font-size: 36pt;"></span> <span class="fact_text" ></span>
                                     <span><a class="fact_url">Learn more</a></span>
                                 </fieldset>
@@ -905,10 +906,11 @@
                 };
 
                 this.show_results = function (){
-                    $('#modal_stats').modal('show');
+                    $('#stats-tab-last-played').attr('data-toggle', 'tab');
                     $('#stats-tab-last-played').removeClass('disabled_tab');
-                    $('#stats-tab-last-played').trigger('click')
+                    $('#modal_stats').modal('show');
                     SHRM.utils.share()
+                    $('#stats-tab-last-played').trigger('click')
                 }
 
                 this.startGame = function (startword){
@@ -921,7 +923,9 @@
                         this.playagain = false;
                     }
                     
-                    //$("#sharearea").hide();
+                    //$('#stats-tab-last-played').addClass('disabled_tab');
+                    $('#stats-tab-last-played').attr('data-toggle', '');
+                    $('#stats-tab-last-played').addClass('disabled_tab');
                     $('#modal_stats').modal('hide');
                     
                     this.getWord()
@@ -1207,7 +1211,7 @@
                     } else {
                         this.writeStats(num);
                     }
-                    $('#stats-tab-last-played').addClass('disabled_tab');
+                    
                     $('#stats-tab-overall').trigger('click');
                     $('#modal_stats').modal('show');
                     $(".numbertab").removeClass('highlight');
@@ -1398,6 +1402,18 @@
             
             $(this).on('keydown', function(event) {
                 SHRM.utils.onKeyPress(event.key)
+            });
+
+            $(this).on('show.bs.tab', function(event) {
+                var tab = $(event.target).prop('id')
+
+                if (tab == 'stats-tab-overall'){
+                    
+                }else{
+                    if ($('#sharearea').text() == ''){
+                        return false
+                    }
+                }
             });
 
             $(this).on('shown.bs.tab', function(event) {
