@@ -34,7 +34,6 @@
                 font-size:1.5rem;
             }
             fieldset{
-                text-align: center;
                 width: 100%;
             }
             .hidden {
@@ -46,6 +45,13 @@
             }
             .img-responsive {
                 width: 85px;
+                padding-bottom: 3px;
+            }
+
+            /* -- tabs */
+            .disabled_tab{
+                pointer-events: none;
+                color: gray; 
             }
 
             /* -- navbar */
@@ -307,6 +313,9 @@
                 font-size:14px;
                 padding:1px 0px;
             }
+            .guesscontainer_tries{
+                width: 10px;
+            }
             .guessbar{
                 background-color: #3D3D3E;
                 text-align:right;
@@ -330,24 +339,40 @@
                 color:white;
             }
 
-            /* -- modal_endgame */
+            /* -- modal_stats_last_played */
             #sharearea{
                 width:80%;
                 height:220px;
+                border: none;
+                resize: none;
             }
 
             /* -- modal_notaword */
             #modal_notaword{ text-align: center; }
 
             /* -- media styles */
-            @media only screen and (max-width: 600px) {
+            @media only screen and (max-width: 1000px) {
+                .btn{
+                    font-size: 2rem;
+                }
                 .navbar {
-                    background-color: #FFFFFF;
+                    background-color: #ACACAC;
                     z-index: 1;
                     margin-bottom: 10px;
+                    border-bottom: 1pt solid black;
                 }
                 .workTxt, .leTxt {
                     font-size: 4rem;
+                }
+                .img-pinwheel{
+                    width: 3rem;
+                }
+                .img-responsive{
+                    width: 2.1em;
+                    padding-bottom: 10px;
+                }
+                .close{
+                    font-size: 3rem;
                 }
                 .key {
                     width:85px;
@@ -356,9 +381,9 @@
                     margin: 10px 0px;
                 }
                 .keylong{
-                    width:200px;
+                    width:240px;
                     height:75px;
-                    font-size: 36pt;
+                    font-size: 3rem;
                     margin: 10px 10px;
                 }
                 .letter {
@@ -466,7 +491,7 @@
                                 <li>The tiles will change color to show how close your guess was to the answer.</li>
                             </ul>
                             <hr>
-                            <b>Examples:</b></br></br>
+                            <b>Examples:</b></br>
                             <div style="text-align: left;">
                                 <span class="icon correct">R</span>
                                 <span class="icon tbd">A</span>
@@ -493,8 +518,8 @@
                                 <span class="icon none">Y</span></br>
                                 The letter <b>Y</b> is in not the answer.
                             </div>
-                            <br><br>
                             <div>
+                                <hr></hr>
                                 <span>WORKLE is brought to you by Alex and SHRM Research.</span>
                             </div>
                         </div>
@@ -517,62 +542,63 @@
                   </button>
                 </div>
                 <div class="modal-body">
-                    <div id="numberbar">
-                        <div class="numbertab" id="s_4">4</div>
-                        <div class="numbertab" id="s_5">5</div>
-                        <div class="numbertab" id="s_6">6</div>
-                        <div class="numbertab" id="s_7">7+</div>
-                        <div class="numbertab" id="s_All">All</div>
+                    <ul class="nav nav-tabs" id="statsTabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link active" id="stats-tab-overall" data-toggle="tab" href="#stats_overall" role="tab" aria-controls="stats_overall" aria-selected="true">Overall</a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link disabled_tab" id="stats-tab-last-played" data-toggle="tab" href="#stats_last_played" role="tab" aria-controls="stats_last_played" aria-selected="false">Last Played</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="stats_overall" role="tabpanel" aria-labelledby="stats-tab-overall">
+                            <div id="numberbar">
+                                <div class="numbertab" id="s_4">4</div>
+                                <div class="numbertab" id="s_5">5</div>
+                                <div class="numbertab" id="s_6">6</div>
+                                <div class="numbertab" id="s_7">7+</div>
+                                <div class="numbertab" id="s_All">All</div>
+                            </div>
+                            <div id="statsmessage">
+                            <div class="statblock"><span id="games" class="statnum"></span><br><span >games<br>played</span></div>
+                            <div class="statblock"><span id="wins" class="statnum"></span><br><span >wins</span></div>
+                            <div class="statblock"><span id="winpct" class="statnum"></span><br><span >win<br>rate</span></div>
+                            <div class="statblock"><span id="streak" class="statnum"></span><br><span >current<br>streak</span></div>
+                            <div class="statblock"><span id="beststreak" class="statnum"></span><br><span >best<br>streak</span></div>
+                            </div>
+                            <br>
+                            <div id="guessdisplay">
+                                Guess Distribution
+                                <div class="guesscontainer"><span class="guesscontainer_tries">1</span><div class="guessbar" id="g_1">0</div></div>
+                                <div class="guesscontainer"><span class="guesscontainer_tries">2</span><div class="guessbar" id="g_2">0</div></div>
+                                <div class="guesscontainer"><span class="guesscontainer_tries">3</span><div class="guessbar" id="g_3">0</div></div>
+                                <div class="guesscontainer"><span class="guesscontainer_tries">4</span><div class="guessbar" id="g_4">0</div></div>
+                                <div class="guesscontainer"><span class="guesscontainer_tries">5</span><div class="guessbar" id="g_5">0</div></div>
+                                <div class="guesscontainer"><span class="guesscontainer_tries">6</span><div class="guessbar" id="g_6">0</div></div>
+                            </div>    
+                        </div>
+                        <div class="tab-pane fade" id="stats_last_played" role="tabpanel" aria-labelledby="stats-tab-last-played">
+                            <div>
+                                <div style="display: none;">
+                                    <br><span id="resultsstring"></span>
+                                </div>
+                                <textarea id="sharearea" readonly></textarea>
+                                </br>
+                                <!--<button id="copy" type="button" class="btn btn-info btn-clipboard" data-clipboard-action="copy" data-clipboard-target="#sharearea">Copy</button>-->
+                            </div>
+                            <div>
+                                <button id="copy" onclick="SHRM.utils.copyResults();" type="button" class="btn btn-info btn-clipboard" data-clipboard-action="copy" data-clipboard-target="#sharearea">Copy</button>
+                                <!--<button type="button" onclick="SHRM.utils.share()" class="btn btn-primary" id="share">Share Results</button>-->
+                                <button type="button" onclick="SHRM.utils.playAgainButton();" class="btn btn-primary">Play Another</button>
+                                <fieldset class="fact">
+                                    <hr></hr>
+                                    <span class="fact_percent" style="font-size: 36pt;"></span> <span class="fact_text" ></span>
+                                    <span><a class="fact_url">Learn more</a></span>
+                                </fieldset>
+                            </div>
+                        </div>
                     </div>
-                    <div id="statsmessage">
-                    <div class="statblock"><span id="games" class="statnum"></span><br><span >games played</span></div>
-                    <div class="statblock"><span id="wins" class="statnum"></span><br><span >wins</span></div>
-                    <div class="statblock"><span id="winpct" class="statnum"></span><br><span >win rate</span></div>
-                    <div class="statblock"><span id="streak" class="statnum"></span><br><span >current streak</span></div>
-                    <div class="statblock"><span id="beststreak" class="statnum"></span><br><span >best streak</span></div>
-                    </div>
-                    <br>
-                    <div id="guessdisplay">
-                        Guess Distribution
-                        <div class="guesscontainer">1<div class="guessbar" id="g_1">0</div></div>
-                        <div class="guesscontainer">2<div class="guessbar" id="g_2">0</div></div>
-                        <div class="guesscontainer">3<div class="guessbar" id="g_3">0</div></div>
-                        <div class="guesscontainer">4<div class="guessbar" id="g_4">0</div></div>
-                        <div class="guesscontainer">5<div class="guessbar" id="g_5">0</div></div>
-                        <div class="guesscontainer">6<div class="guessbar" id="g_6">0</div></div>
-                    </div>
-                </div>
-              </div>
-            </div>
-        </div>
-
-        <div class="modal" id="modal_endgame" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">GAME OVER</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                <div class="modal-body">
-                    <div>
-                        <br><span id="resultsstring"></span>
-                    </div>
-                    <br>
-                    <textarea id="sharearea"></textarea>
-                    </br>
-                    <button id="copy" type="button" class="btn btn-info btn-clipboard" data-clipboard-action="copy" data-clipboard-target="#sharearea">Copy</button>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" onclick="SHRM.utils.playAgainButton();" class="btn btn-primary">Play Another</button>
-                    <button type="button" onclick="SHRM.utils.share()" class="btn btn-primary" id="share">Share Results</button>
-                    <button type="button" onclick="SHRM.utils.showStats(SHRM.workle.word.length);" class="btn btn-primary" data-dismiss="modal">Show Stats</button>
-                    <hr>
-                    <fieldset class="fact" style="display: none;">
-                        <span class="fact_percent" style="font-size: 36pt;"></span> <span class="fact_text" ></span>
-                        <span style="font-size: 14pt;"><a class="fact_url">Learn more</a></span>
-                    </fieldset>
+                    
                 </div>
               </div>
             </div>
@@ -653,84 +679,13 @@
                     <div class="key" id="m" onclick="SHRM.utils.onKeyPress(this.id)">M</div>   
                 </div>
                 <div id="keyboardrow0">
-                    <div class="keylong" id="Enter" onclick="SHRM.utils.onKeyPress(this.id)">Enter</div>
                     <div class="keylong" id="Backspace" onclick="SHRM.utils.onKeyPress(this.id)">Delete</div>
                     <div class="keylong key_clue_disabled" id="Clue" onclick="SHRM.utils.onKeyPress(this.id)"><img class="img-responsive logo-small" src="https://d11p36kvaeudqt.cloudfront.net/logos/SHRM_Blocks_KO.svg" alt="SHRM Logo"> Help</div>
+                    <div class="keylong" id="Enter" onclick="SHRM.utils.onKeyPress(this.id)">Enter</div> 
                 </div>
             </div>
         </div>
  
-        <div class="hidden region" id="region_info" tabindex="-1" role="region">
-            <div oclass="region-dialog" role="document">
-                <div class="region-content">
-                    <div class="region-header">
-                        <h3 class="region-title">HOW TO PLAY</h3>
-                    </div>
-                    <div class="region-body">
-                        <div>
-                            <ul>
-                                <li>Guess the correct word in 6 tries.</li>
-                                <li>Each guess is submitted by pressing the 'ENTER' button.</li>
-                                <li>The tiles will change color to show how close your guess was to the answer.</li>
-                            </ul>
-                            <hr>
-                            <b>Examples:</b>
-                            <div style="text-align: left;">
-                                <span class="icon correct">R</span>
-                                <span class="icon tbd">A</span>
-                                <span class="icon tbd">I</span>
-                                <span class="icon tbd">S</span>
-                                <span class="icon tbd">E</span></br>
-                                The letter <b>R</b> is in the answer and in the correct place.
-                            </div>
-                            </br>
-                            <div style="text-align: left;">
-                                <span class="icon tbd">V</span>
-                                <span class="icon tbd">A</span>
-                                <span class="icon place">L</span>
-                                <span class="icon tbd">U</span>
-                                <span class="icon tbd">E</span></br>
-                                The letter <b>L</b> is in the answer but in the wrong place.
-                            </div>
-                            </br>
-                            <div style="text-align: left;">
-                                <span class="icon tbd">U</span>
-                                <span class="icon tbd">N</span>
-                                <span class="icon tbd">I</span>
-                                <span class="icon tbd">T</span>
-                                <span class="icon none">Y</span></br>
-                                The letter <b>Y</b> is in not the answer.
-                            </div>
-                            <hr>
-                            <div>
-                                <span>WORKLE is brought to you by Alex and SHRM Research.</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <script>
-            // When the user scrolls the page, execute myFunction
-            window.onscroll = function() {myFunction()};
-
-            // Get the navbar
-            var navbar = $('.navbar')[0]
-
-            // Get the offset position of the navbar
-            var sticky = navbar.offsetTop;
-
-            // Add the sticky class to the navbar when you reach its scroll position. Remove "sticky" when you leave the scroll position
-            function myFunction() {
-                if (window.pageYOffset >= sticky) {
-                    $('.navbar').addClass('sticky')
-                } else {
-                    $('.navbar').removeClass('sticky')
-                }
-            }
-        </script>
-
         <script>
             
             
@@ -742,10 +697,10 @@
                 {"id":"10.1","date":"03/07/2022","word":"star","clue":"Service Teamwork and Recognition","factoid":"","url":""}
                 ,{"id":"10.2","date":"03/08/2022","word":"respect","clue":"With high regard","factoid":"","url":""}
                 ,{"id":"10.3","date":"03/09/2022","word":"core values","clue":"U.S workers said this helped guide their organization through the pandemic.","factoid":"Workers are leaning on their workplace culture and trusting in organizational values, as 74% of working Americans believe their organizational values helped guide them through the pandemic.","url":"https://shrm.org/hr-today/trends-and-forecasting/research-and-surveys/Pages/2021-Workplace-Culture-Report.aspx?_ga=2.199475630.1465254891.1646658387-1459168090.1638458997&_gac=1.170664212.1643650642.EAIaIQobChMIoIiX4sPc9QIVzgaICR2QlA20EAAYASAAEgJZnPD_BwE"}
-                ,{"id":"10.4","date":"03/10/2022","word":"left","clue":"U.S. workers said they did this at a job because of a negative relationship with a manager.","factoid":"53%|of U.S. workers have left a job due to their relationship with their manager.","url":"https://shrm.org/hr-today/trends-and-forecasting/research-and-surveys/Pages/2021-Workplace-Culture-Report.aspx?_ga=2.199475630.1465254891.1646658387-1459168090.1638458997&_gac=1.170664212.1643650642.EAIaIQobChMIoIiX4sPc9QIVzgaICR2QlA20EAAYASAAEgJZnPD_BwE"}
-                ,{"id":"10.5","date":"03/11/2022","word":"hours","clue":"A unit of time","factoid":"52%|of people managers spend an average of 1 to 10 hours per week managing their workplace culture.","url":"https://shrm.org/hr-today/trends-and-forecasting/research-and-surveys/Pages/2021-Workplace-Culture-Report.aspx?_ga=2.199475630.1465254891.1646658387-1459168090.1638458997&_gac=1.170664212.1643650642.EAIaIQobChMIoIiX4sPc9QIVzgaICR2QlA20EAAYASAAEgJZnPD_BwE"}
-                ,{"id":"11.1","date":"03/14/2022","word":"tired","clue":"Another word for exhausted","factoid":"54%|of people managers report that they leave work feeling exhausted.","url":"https://shrm.org/hr-today/trends-and-forecasting/research-and-surveys/Pages/2021-Workplace-Culture-Report.aspx?_ga=2.199475630.1465254891.1646658387-1459168090.1638458997&_gac=1.170664212.1643650642.EAIaIQobChMIoIiX4sPc9QIVzgaICR2QlA20EAAYASAAEgJZnPD_BwE"}
-                ,{"id":"11.2","date":"03/15/2022","word":"impact","clue":"Executives agree that they can make an ______ on workplace culture.","factoid":"97%|of executives agree that their actions have a direct impact on workplace culture.","url":"https://shrm.org/hr-today/trends-and-forecasting/research-and-surveys/Pages/2021-Workplace-Culture-Report.aspx?_ga=2.199475630.1465254891.1646658387-1459168090.1638458997&_gac=1.170664212.1643650642.EAIaIQobChMIoIiX4sPc9QIVzgaICR2QlA20EAAYASAAEgJZnPD_BwE"}
+                ,{"id":"10.4","date":"03/10/2022","word":"left","clue":"U.S. workers said they did this at a job because of a negative relationship with a manager.","factoid":"53% of U.S. workers have left a job due to their relationship with their manager.","url":"https://shrm.org/hr-today/trends-and-forecasting/research-and-surveys/Pages/2021-Workplace-Culture-Report.aspx?_ga=2.199475630.1465254891.1646658387-1459168090.1638458997&_gac=1.170664212.1643650642.EAIaIQobChMIoIiX4sPc9QIVzgaICR2QlA20EAAYASAAEgJZnPD_BwE"}
+                ,{"id":"10.5","date":"03/11/2022","word":"hours","clue":"A unit of time","factoid":"52% of people managers spend an average of 1 to 10 hours per week managing their workplace culture.","url":"https://shrm.org/hr-today/trends-and-forecasting/research-and-surveys/Pages/2021-Workplace-Culture-Report.aspx?_ga=2.199475630.1465254891.1646658387-1459168090.1638458997&_gac=1.170664212.1643650642.EAIaIQobChMIoIiX4sPc9QIVzgaICR2QlA20EAAYASAAEgJZnPD_BwE"}
+                ,{"id":"11.1","date":"03/14/2022","word":"tired","clue":"Another word for exhausted","factoid":"54% of people managers report that they leave work feeling exhausted.","url":"https://shrm.org/hr-today/trends-and-forecasting/research-and-surveys/Pages/2021-Workplace-Culture-Report.aspx?_ga=2.199475630.1465254891.1646658387-1459168090.1638458997&_gac=1.170664212.1643650642.EAIaIQobChMIoIiX4sPc9QIVzgaICR2QlA20EAAYASAAEgJZnPD_BwE"}
+                ,{"id":"11.2","date":"03/15/2022","word":"impact","clue":"Executives agree that they can make an ______ on workplace culture.","factoid":"97% of executives agree that their actions have a direct impact on workplace culture.","url":"https://shrm.org/hr-today/trends-and-forecasting/research-and-surveys/Pages/2021-Workplace-Culture-Report.aspx?_ga=2.199475630.1465254891.1646658387-1459168090.1638458997&_gac=1.170664212.1643650642.EAIaIQobChMIoIiX4sPc9QIVzgaICR2QlA20EAAYASAAEgJZnPD_BwE"}
                 ,{"id":"11.3","date":"03/16/2022","word":"people","clue":"A company's most important resource","factoid":"","url":"http://shrm.org"}
                 ,{"id":"11.4","date":"03/17/2022","word":"empathy","clue":"A clue could go here","factoid":"21% of those who quit their jobs in the past 9 months did so because their organization’s leadership lacked empathy toward employees","url":"http://shrm.org"}
                 ,{"id":"11.5","date":"03/18/2022","word":"remote","clue":"A clue could go here","factoid":"40% of U.S. workers would prefer to work remotely in some capacity, either fully remote (23%) or mostly remote, but sometimes in-person (17%).","url":"http://shrm.org"}
@@ -948,6 +903,13 @@
                     }
                 };
 
+                this.show_results = function (){
+                    $('#modal_stats').modal('show');
+                    $('#stats-tab-last-played').removeClass('disabled_tab');
+                    $('#stats-tab-last-played').trigger('click')
+                    SHRM.utils.share()
+                }
+
                 this.startGame = function (startword){
                     this.won=false;
                     this.gamehistory=[];
@@ -958,10 +920,9 @@
                         this.playagain = false;
                     }
                     
-                    $("#sharearea").hide();
-                    $('#modal_endgame').modal('hide');
+                    //$("#sharearea").hide();
                     $('#modal_stats').modal('hide');
-
+                    
                     this.getWord()
 
                     console.log('WORKLE - ' + SHRM.workle.word)
@@ -973,36 +934,19 @@
                     this.makeBoard(this.tries);
                     
                     $( ".icon_instructions" ).click(function(e) {
-                        //$('.maincontainer').hide()
-                        $('#region_stats').hide()
-                        $('#region_info').show()
-                        e.stopPropagation();
+                        $('#modal_info').modal('show')
                     });
 
                     $( ".icon_home" ).click(function(e) {
-                        $('#region_info').hide()
-                        $('#region_stats').hide()
-                        //$('.maincontainer').show()
-                        e.stopPropagation();
+                        $('#modal_info').modal('hide')
+                        $('#modal_stats').modal('hide')
                     });
 
                     $( ".icon_stats" ).click(function() {
-                        $('#modal_stats').modal('show')
                         SHRM.utils.showStats('All');
                     });
 
                 };
-
-                this.showGameBoard = function (){
-                    $('#modal_clue').modal('hide')
-                    $('#modal_endgame').modal('hide')
-                    $('#modal_notaword').modal('hide')
-                    $('#modal_stats').modal('hide')
-                    $('#modal_info').modal('hide')
-                    $('#region_info').hide()
-                    $('#region_stats').hide()
-                    //$('#maincontainer').show()
-                }
 
                 this.onKeyPress = function (key){
                     var letter = '';
@@ -1062,9 +1006,9 @@
                                         } 
                                         
                                         this.updateStats();
-                                        $('#copy').hide()
+                                        //$('#copy').hide()
                                         
-                                        window.setTimeout(function (){$('#modal_endgame').modal('show')}, 2000)
+                                        window.setTimeout(function (){ SHRM.utils.show_results()}, 1500)
                                     }else{
                                         if (this.row == this.tries){
                                             if (SHRM.workle.clue != ''){
@@ -1262,9 +1206,11 @@
                     } else {
                         this.writeStats(num);
                     }
-                    $('#modal_stats').modal('show')
+                    $('#stats-tab-last-played').addClass('disabled_tab');
+                    $('#stats-tab-overall').trigger('click');
+                    $('#modal_stats').modal('show');
                     $(".numbertab").removeClass('highlight');
-                    $("#s_"+num).addClass('highlight');   
+                    $("#s_"+num.replace('+','')).addClass('highlight');
                 };
                 
                 this.playAgainButton = function (){
@@ -1338,18 +1284,28 @@
                 };
                 
                 this.share = function (){
-                    debugger
                     //custom = false
-                    var sharestring=`Try SHRM's WORKLE Challenge (${SHRM.workle.word.length} letters)\n${(this.won?"I did it in "+this.numtries+" out of 6 tries.":"I failed :(")}\n`
+                    var newline_char = '\n'
+                    //var newline_char = '<br>'
+                    //var sharestring=`Try SHRM's WORKLE Challenge (${SHRM.workle.word.length} letters)\n${(this.won?"I did it in "+this.numtries+" out of 6 tries.":"I failed :(")}\n`
+                    //var sharestring=`Try SHRM's WORKLE Challenge #${SHRM.workle.id} (${SHRM.workle.word.length} letters)${newline_char}${(this.won?"I did it in "+this.numtries+" out of 6 tries.":"I failed :(")}${newline_char}`
+
+                    var sharestring = "Try SHRM's WORKLE Challenge #" + SHRM.workle.id + " (" + SHRM.workle.word.length + " letters)"
+                    if (this.won) {
+                        sharestring += newline_char + "I did it in " + this.numtries + " out of 6 tries."
+                    }else{
+                        sharestring += newline_char + "I was stumped."
+                    }
+
                     for (var i=0;i<this.gamehistory.length;i++){
                         sharestring+=''
 
                         for (var j=0;j<SHRM.workle.word.length;j++){
                             sharestring+=this.getEmoji(this.gamehistory[i][j])
                         }
-                        sharestring+='\n'
+                        sharestring+=newline_char
                     }
-                    sharestring+='\nTry the same exact puzzle here:\n'   
+                    sharestring+= newline_char + 'Try the same exact puzzle here:' + newline_char
                     
                     var isInIframe = (parent !== window);
                     if (isInIframe){
@@ -1366,11 +1322,44 @@
                     sharestring+=urlstring;
                     console.log("copying "+sharestring)
                     $("#sharearea").show();
-                    $("#sharearea").val(sharestring);
-                    $("#sharearea").select();
-                    document.execCommand("copy");
-                    $('#copy').show();
+                    if (newline_char == '<br>'){
+                        $("#sharearea").html(sharestring);
+                    }else{
+                        $("#sharearea").text(sharestring);
+                    }
+                    
+                    $('#sharearea').focus();
+                    $('#sharearea').select();
+                    navigator.clipboard.writeText($('#sharearea').text());
                 };
+
+                this.copyResults = function() {
+                    if (document.selection) { // IE
+                        var range = document.body.createTextRange();
+                        range.moveToElementText(document.getElementById('sharearea'));
+                        range.select();
+                    } else if (window.getSelection) {
+                        var range = document.createRange();
+                        range.selectNode(document.getElementById('sharearea'));
+                        window.getSelection().removeAllRanges();
+                        window.getSelection().addRange(range);
+                    }
+                    
+                    //document.execCommand("copy");
+                    $('#sharearea').focus();
+                    $('#sharearea').select();
+                    navigator.clipboard.writeText($('#sharearea').text());
+
+                    //$("#sharearea").focus();
+                    //$("#sharearea").select();
+                    
+                    //window.getSelection()
+                    //    .selectAllChildren(
+                        //    document.getElementById('sharearea') 
+                        //);
+
+                        //document.execCommand("copy");
+                }
 
                 this.getEmoji = function (guess){
                     var gbox='&#128998;'
@@ -1399,10 +1388,14 @@
             
             $(this).on('keydown', function(event) {
                 SHRM.utils.onKeyPress(event.key)
-            })
+            });
 
-            $('body').on('click', function(event) {
-                //SHRM.utils.showGameBoard();
+            $(this).on('shown.bs.tab', function(event) {
+                var tab = $(event.target).prop('id')
+
+                if (tab == 'stats-tab-overall'){
+                    SHRM.utils.showStats('All');
+                }
             });
 
             $(document).ready(function(){
