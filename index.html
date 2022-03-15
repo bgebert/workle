@@ -972,6 +972,12 @@
                     var letter = '';
                     var resultsstring = '';
 
+                    $("#modal_info").modal('hide')
+                    $("#modal_stats").modal('hide')
+                    $("#modal_notaword").modal('hide')
+                    $("#modal_clue").modal('hide')
+
+
                     if (!this.gameover){
                         if (event.key) {
                             $('#' + event.key).delay(1).queueAddClass('key_pressed')
