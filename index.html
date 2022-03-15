@@ -233,6 +233,9 @@
                 background-color: #000000;
                 color: white;
             }
+            .key_pressed {
+                background-color: silver;
+            }
 
             /* -- hamburger menu */
             .btn-secondary:not(:disabled):not(.disabled).active:focus, .btn-secondary:not(:disabled):not(.disabled):active:focus, .show>.btn-secondary.dropdown-toggle:focus {
@@ -970,6 +973,12 @@
                     var resultsstring = '';
 
                     if (!this.gameover){
+                        if (event.key) {
+                            $('#' + event.key).delay(1).queueAddClass('key_pressed')
+                        }else{
+                            $('#' + key).delay(1).queueAddClass('key_pressed')
+                        }
+
                         // console.log(event.key);
                         if (this.isLetter(key)){
                             letter = key.toUpperCase();
@@ -984,7 +993,7 @@
                                 $('#modal_clue').modal('show')
                             }
                             // console.log('Clue')
-                        } else if (key=="Backspace"){   
+                        } else if (key=="Backspace"){
                             $("#r"+this.row+"l"+this.tile).html("&nbsp;");
                             this.guess = this.guess.slice(0,-1);
                             if(this.tile>0){
@@ -1039,6 +1048,11 @@
                             }
                         }                    
                         // console.log(tile)
+                        if (event.key) {
+                            $('#' + event.key).delay(250).queueRemoveClass('key_pressed')
+                        }else{
+                            $('#' + key).delay(250).queueRemoveClass('key_pressed')
+                        }
                     } else {
                         // console.log("gameover")
                     }
@@ -1454,7 +1468,8 @@
             //SHRM.utils.sleep(2000).then(() => { showSpinner(false); });
             
             $(this).on('keydown', function(event) {
-                SHRM.utils.onKeyPress(event.key)
+                $('#' + event.key).trigger('click')
+                //SHRM.utils.onKeyPress(event.key)
             });
 
             $(this).on('show.bs.tab', function(event) {
