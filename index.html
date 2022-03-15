@@ -97,7 +97,8 @@
                 font-size: 2.5rem;
             }
             .workTxt { 
-                background: -webkit-linear-gradient(#233151, #8B1377);  
+                remove_background: -webkit-linear-gradient(#233151, #8B1377);  
+                background-color: #1A3B67;
                 -webkit-background-clip: text;  
                 -webkit-text-fill-color: transparent;
             }
@@ -1252,7 +1253,8 @@
                             guessarr2[i]='*';
                             wordarr2[i]='&';
                             //$("#"+guessarr[i].toLowerCase()).addClass('correct');
-                            $("#"+guessarr[i].toLowerCase()).queueFadeOut(i * 500).queueAddClass('correct').queueFadeIn(i * 350)
+                            //$("#"+guessarr[i].toLowerCase()).queueFadeOut(i * 500).queueAddClass('correct').queueFadeIn(i * 350)
+                            $("#"+guessarr[i].toLowerCase()).delay(3000).queueAddClass('correct')
                         } 
                     }
 
@@ -1265,10 +1267,12 @@
                             guessarr2[i]='*'; 
                             wordarr2[tmploc]='&';
                             //$("#"+guessarr[i].toLowerCase()).addClass('place');
-                            $("#"+guessarr[i].toLowerCase()).queueFadeOut(i * 500).queueAddClass('place').queueFadeIn(i * 350)
+                            //$("#"+guessarr[i].toLowerCase()).queueFadeOut(i * 500).queueAddClass('place').queueFadeIn(i * 350)
+                            $("#"+guessarr[i].toLowerCase()).delay(3000).queueAddClass('place')
                         } else {
                             //$("#"+guessarr[i].toLowerCase()).addClass('none');
-                            $("#"+guessarr[i].toLowerCase()).queueFadeOut(i * 500).queueAddClass('none').queueFadeIn(i * 350)
+                            //$("#"+guessarr[i].toLowerCase()).queueFadeOut(i * 500).queueAddClass('none').queueFadeIn(i * 350)
+                            $("#"+guessarr[i].toLowerCase()).delay(3000).queueAddClass('none')
                         }
                         // console.log(guessarr2,wordarr2)
                     }
