@@ -1251,7 +1251,8 @@
                             colorarr[i]=1;
                             guessarr2[i]='*';
                             wordarr2[i]='&';
-                            $("#"+guessarr[i].toLowerCase()).addClass('correct');
+                            //$("#"+guessarr[i].toLowerCase()).addClass('correct');
+                            $("#"+guessarr[i].toLowerCase()).queueFadeOut(i * 500).queueAddClass('correct').queueFadeIn(i * 350)
                         } 
                     }
 
@@ -1263,15 +1264,17 @@
                             tmploc=wordarr2.indexOf(guessarr2[i]);
                             guessarr2[i]='*'; 
                             wordarr2[tmploc]='&';
-                            $("#"+guessarr[i].toLowerCase()).addClass('place');
+                            //$("#"+guessarr[i].toLowerCase()).addClass('place');
+                            $("#"+guessarr[i].toLowerCase()).queueFadeOut(i * 500).queueAddClass('place').queueFadeIn(i * 350)
                         } else {
-                            $("#"+guessarr[i].toLowerCase()).addClass('none');
+                            //$("#"+guessarr[i].toLowerCase()).addClass('none');
+                            $("#"+guessarr[i].toLowerCase()).queueFadeOut(i * 500).queueAddClass('none').queueFadeIn(i * 350)
                         }
                         // console.log(guessarr2,wordarr2)
                     }
                     
                     for (var i=0;i<guessarr.length;i++){
-                        $("#r"+this.row+"l"+(i+1)).removeClass("none place correct")
+                        //$("#r"+this.row+"l"+(i+1)).removeClass("none place correct")
 
                         $("#r"+this.row+"l"+(i+1)).html(guess[i].toUpperCase());
                         if (colorarr[i]==0){
@@ -1281,9 +1284,12 @@
                         } else {
                             code="correct"
                         }
-                        $("#r"+this.row+"l"+(i+1)).addClass(code)
+                        //$("#r"+this.row+"l"+(i+1)).addClass(code)
+
+                        $("#r"+this.row+"l"+(i+1)).queueFadeOut(i * 500).queueRemoveClass("none place correct").queueAddClass(code).queueFadeIn(i * 250)
+                                                
                     }
-                    
+
                     // console.log(colorarr);
                     this.gamehistory.push(colorarr);
                     if (this.sumArray(colorarr)==SHRM.workle.word.length){
@@ -1294,6 +1300,38 @@
                         return false
                     }
                 };
+
+                $.fn.queueAddClass = function (className){
+                    this.queue('fx', function(next) {
+                        $(this).addClass(className);
+                        next();
+                    });
+                    return this;
+                }
+
+                $.fn.queueRemoveClass = function (className){
+                    this.queue('fx', function(next) {
+                        $(this).removeClass(className);
+                        next();
+                    });
+                    return this;
+                }
+
+                $.fn.queueFadeIn = function (ms){
+                    this.queue('fx', function(next) {
+                        $(this).fadeIn(ms);
+                        next();
+                    });
+                    return this;
+                }
+
+                $.fn.queueFadeOut = function (ms){
+                    this.queue('fx', function(next) {
+                        $(this).fadeOut(ms);
+                        next();
+                    });
+                    return this;
+                }
                 
                 this.isLetter = function (guess){
                     return /^[A-Z]$/i.test(guess);
