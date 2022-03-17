@@ -230,11 +230,14 @@
                 opacity: 100%;
                 cursor: pointer;
                 display: inline-block;
-                background-color: #000000;
+                background-color: #0177BE;
                 color: white;
             }
             .key_pressed {
                 background-color: silver;
+            }
+            .key_clue {
+                background-color: #A19F30;
             }
 
             /* -- hamburger menu */
@@ -634,14 +637,24 @@
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Clue</h5>
+                    <h5 class="modal-title"></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <br>
-                    <p id="clue_text"></p>
+                    <div id="clue_ad">
+                        <center><a target="_blank" href="https://www.betterworkplaceschallengecup.com/"><img src="./images/SHRM_ad.png" alt="SHRM Ad"></a>
+                            <br>Skip add will dissappear in <span id="countdown">5</span> seconds.</center>
+                    </div>
+                    <div id="press_your_luck">
+                        <center>
+                            <span id="begin_clue">Press the ENTER key to select a letter.</span>
+                            <span id="end_clue" style="display:none">Here is your clue</span><br>
+                            <div class="letter"><span id="random_letter">&nbsp;</span></div>
+                        </center>
+                        <p id="clue_text" style="display:none"></p>
+                    </div>
                 </div>
               </div>
             </div>
@@ -653,7 +666,7 @@
                     <a href="#"><i class="fa fa-info-circle icon_instructions" title="Instructions"></i>&nbsp;</a>
                 </div>
                 <div class="title_bar">
-                    <a href="#"><span class="workTxt icon_home">W<img class="img-pinwheel" src="./images/SHRM_Icon.svg" alt="SHRM Pinwheel">RK</span><span class="leTxt icon_home">LE</span></a>
+                    <a href="#"><span class="leTxt icon_home">W<img class="img-pinwheel" src="./images/SHRM_Icon.svg" alt="SHRM Pinwheel">RDS</span><span class="workTxt icon_home">W<img class="img-pinwheel" src="./images/SHRM_Icon.svg" alt="SHRM Pinwheel">RK</span></a>
                 </div>
                 <div class="right-links">
                     <a href="#"><i class="fa fa-chart-bar icon_stats" aria-hidden="true" title="Stats"></i>&nbsp;</a>
@@ -697,7 +710,7 @@
                 </div>
                 <div id="keyboardrow0">
                     <div class="keylong" id="Backspace" onclick="SHRM.utils.onKeyPress(this.id)">Delete</div>
-                    <div class="keylong key_clue_disabled" id="Clue" onclick="SHRM.utils.onKeyPress(this.id)"><img class="img-responsive logo-small" src="https://d11p36kvaeudqt.cloudfront.net/logos/SHRM_Blocks_KO.svg" alt="SHRM Logo"> Help</div>
+                    <div class="keylong key_clue_disabled" id="Clue" onclick="SHRM.utils.onKeyPress(this.id)"><img class="img-responsive logo-small" src="https://d11p36kvaeudqt.cloudfront.net/logos/SHRM_Blocks_KO.svg" alt="SHRM Logo"> Clue</div>
                     <div class="keylong" id="Enter" onclick="SHRM.utils.onKeyPress(this.id)">Enter</div> 
                 </div>
             </div>
@@ -975,7 +988,7 @@
                     $("#modal_info").modal('hide')
                     $("#modal_stats").modal('hide')
                     $("#modal_notaword").modal('hide')
-                    $("#modal_clue").modal('hide')
+                    //$("#modal_clue").modal('hide')
 
 
                     if (!this.gameover){
@@ -996,7 +1009,10 @@
                             // console.log(row,tile,letter)
                         } else if (key=="Clue"){   
                             if ($( "#Clue" ).hasClass( "key_clue_enabled" )){
+                                $('#clue_ad').show()
+                                $('#press_your_luck').hide()
                                 $('#modal_clue').modal('show')
+                                this.begin_countdown(2)
                             }
                             // console.log('Clue')
                         } else if (key=="Backspace"){
@@ -1008,6 +1024,24 @@
                             // console.log('Backspace')
                         } else if (key=="Enter"){
                             // console.log('Enter')
+                            
+                            if (this.show_random_letter == true){
+                                this.show_random_letter = false
+                                var remaining_letters = SHRM.workle.word_original
+                                for (var i = 0; i < $('.key.place').length; i++){
+                                    remaining_letters = remaining_letters.replace($($('.key.place')[i]).attr('id'), '')
+                                }
+                                for (var i = 0; i < $('.key.correct').length; i++){
+                                    remaining_letters = remaining_letters.replace($($('.key.correct')[i]).attr('id'), '')
+                                }
+                                var arr_remaining_letters = remaining_letters.split("")
+                                
+                                this.letter_help = arr_remaining_letters[Math.floor(Math.random()*arr_remaining_letters.length)]
+                                $("#begin_clue").hide()
+                                $("#end_clue").show()
+                                $("#Clue").hide()
+                            }
+                            
                             if (this.guess.length==SHRM.workle.word.length){
                                 if (this.isWord(this.guess)){
                                     this.won=this.checkGuess(this.guess);
@@ -1063,6 +1097,58 @@
                         // console.log("gameover")
                     }
                 };
+
+                this.begin_countdown = function (sec){
+                    $('#countdown').html(sec)
+                    
+                    window.setTimeout(() => {
+                        var countdown = sec
+                        if (countdown > 0){
+                            $('#countdown').html(countdown);
+                            countdown--;
+                            SHRM.utils.begin_countdown(countdown);
+                        }else{
+                            $('#clue_ad').hide()
+                            var letters=['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
+                            $('#random_letter').html(letters[Math.floor(Math.random()*letters.length)])
+                            $("#begin_clue").show()
+                            $("#end_clue").hide()
+                            $('#press_your_luck').show()
+                            this.show_random_letter = true
+                            this.show_random_letters()
+                        }
+                    }, 1000)       
+                }
+
+                this.show_random_letters = function (letter){
+                    //
+                    
+                    var letters=['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
+                    
+                    //if (this.show_random_letter){
+                        //    $('#random_letter').html(letters[Math.floor(Math.random()*letters.length)]).queueFadeIn(250).queueFadeOut(250)
+                        //    window.setTimeout(SHRM.utils.show_random_letters(), 500)
+                        //}else{
+                        //    $('#random_letter').html(this.letter_help).queueFadeIn(250)
+                    //}
+                    
+                    window.setTimeout(() => {
+                        
+                        if (this.show_random_letter){
+                            if($("#random_letter").is(":visible")){
+                                $("#random_letter").queueFadeOut(150)
+                            }else{
+                                $('#random_letter').html(letters[Math.floor(Math.random()*letters.length)])
+                                $("#random_letter").queueFadeIn(150)
+                            }
+                            SHRM.utils.show_random_letters();
+                        }else{
+                            $('#' + this.letter_help).addClass('key_clue')
+                            $('#random_letter').html(this.letter_help.toUpperCase()).queueFadeIn(250)
+                        }
+                    }, 150)
+                    
+                }
 
                 this.clearKeyboard = function (){
                     var letters=['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
@@ -1287,12 +1373,14 @@
                             guessarr2[i]='*'; 
                             wordarr2[tmploc]='&';
                             //$("#"+guessarr[i].toLowerCase()).addClass('place');
-                            //$("#"+guessarr[i].toLowerCase()).queueFadeOut(i * 500).queueAddClass('place').queueFadeIn(i * 350)
                             $("#"+guessarr[i].toLowerCase()).delay(3000).queueAddClass('place')
                         } else {
                             //$("#"+guessarr[i].toLowerCase()).addClass('none');
-                            //$("#"+guessarr[i].toLowerCase()).queueFadeOut(i * 500).queueAddClass('none').queueFadeIn(i * 350)
-                            $("#"+guessarr[i].toLowerCase()).delay(3000).queueAddClass('none')
+                            if (SHRM.workle.word.toLowerCase().includes(guessarr[i].toLowerCase())){
+                                console.log(guessarr[i].toLowerCase())
+                            }else{
+                                $("#"+guessarr[i].toLowerCase()).delay(3000).queueAddClass('none')
+                            }
                         }
                         // console.log(guessarr2,wordarr2)
                     }
@@ -1310,10 +1398,10 @@
                         }
                         //$("#r"+this.row+"l"+(i+1)).addClass(code)
 
-                        $("#r"+this.row+"l"+(i+1)).queueFadeOut(i * 500).queueRemoveClass("none place correct").queueAddClass(code).queueFadeIn(i * 250)
+                        $("#r"+this.row+"l"+(i+1)).queueFadeOut(i * 300).queueRemoveClass("none place correct").queueAddClass(code).queueFadeIn(i * 250)
                                                 
                     }
-
+                    
                     // console.log(colorarr);
                     this.gamehistory.push(colorarr);
                     if (this.sumArray(colorarr)==SHRM.workle.word.length){
@@ -1365,10 +1453,10 @@
                     //custom = false
                     var newline_char = '\n'
                     //var newline_char = '<br>'
-                    //var sharestring=`Try SHRM's WORKLE Challenge (${SHRM.workle.word.length} letters)\n${(this.won?"I did it in "+this.numtries+" out of 6 tries.":"I failed :(")}\n`
-                    //var sharestring=`Try SHRM's WORKLE Challenge #${SHRM.workle.id} (${SHRM.workle.word.length} letters)${newline_char}${(this.won?"I did it in "+this.numtries+" out of 6 tries.":"I failed :(")}${newline_char}`
+                    //var sharestring=`Try SHRM's WORKWORDS Challenge (${SHRM.workle.word.length} letters)\n${(this.won?"I did it in "+this.numtries+" out of 6 tries.":"I failed :(")}\n`
+                    //var sharestring=`Try SHRM's WORKWORDS Challenge #${SHRM.workle.id} (${SHRM.workle.word.length} letters)${newline_char}${(this.won?"I did it in "+this.numtries+" out of 6 tries.":"I failed :(")}${newline_char}`
                     
-                    var sharestring = "SHRM's WORKLE Challenge #" + SHRM.workle.id + " (" + SHRM.workle.word.length + " letters)"
+                    var sharestring = "SHRM's WORKWORDS Challenge #" + SHRM.workle.id + " (" + SHRM.workle.word.length + " letters)"
                     if (this.won) {
                         sharestring += newline_char + "I did it in " + this.numtries + " out of 6 tries." + newline_char + newline_char
                     }else{
@@ -1389,7 +1477,7 @@
                     
 
                     /*
-                    var sharestring=`Try SHRM's WORKLE Challenge (${SHRM.workle.word.length} letters)\n${(this.won?"I did it in "+this.numtries+" out of 6 tries.":"I failed :(")}\n\n`
+                    var sharestring=`Try SHRM's WORKWORDS Challenge (${SHRM.workle.word.length} letters)\n${(this.won?"I did it in "+this.numtries+" out of 6 tries.":"I failed :(")}\n\n`
                     for (var i=0;i < this.gamehistory.length; i++){
                         sharestring+=''
 
