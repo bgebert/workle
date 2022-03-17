@@ -1012,7 +1012,7 @@
                                 $('#clue_ad').show()
                                 $('#press_your_luck').hide()
                                 $('#modal_clue').modal('show')
-                                this.begin_countdown(2)
+                                this.begin_countdown(3)
                             }
                             // console.log('Clue')
                         } else if (key=="Backspace"){
@@ -1103,7 +1103,7 @@
                     
                     window.setTimeout(() => {
                         var countdown = sec
-                        if (countdown > 0){
+                        if (countdown > 1){
                             $('#countdown').html(countdown);
                             countdown--;
                             SHRM.utils.begin_countdown(countdown);
@@ -1121,32 +1121,24 @@
                 }
 
                 this.show_random_letters = function (letter){
-                    //
-                    
                     var letters=['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
-                    
-                    //if (this.show_random_letter){
-                        //    $('#random_letter').html(letters[Math.floor(Math.random()*letters.length)]).queueFadeIn(250).queueFadeOut(250)
-                        //    window.setTimeout(SHRM.utils.show_random_letters(), 500)
-                        //}else{
-                        //    $('#random_letter').html(this.letter_help).queueFadeIn(250)
-                    //}
                     
                     window.setTimeout(() => {
                         
                         if (this.show_random_letter){
                             if($("#random_letter").is(":visible")){
-                                $("#random_letter").queueFadeOut(150)
+                                $("#random_letter").queueFadeOut(100)
                             }else{
                                 $('#random_letter').html(letters[Math.floor(Math.random()*letters.length)])
-                                $("#random_letter").queueFadeIn(150)
+                                $("#random_letter").queueFadeIn(100)
                             }
                             SHRM.utils.show_random_letters();
                         }else{
+                            $('#random_letter').parent().addClass('key_clue')
                             $('#' + this.letter_help).addClass('key_clue')
                             $('#random_letter').html(this.letter_help.toUpperCase()).queueFadeIn(250)
                         }
-                    }, 150)
+                    }, 100)
                     
                 }
 
