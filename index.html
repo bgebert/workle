@@ -47,6 +47,15 @@
                 width: 85px;
                 padding-bottom: 3px;
             }
+            #begin_clue_mobile {
+                display: none;
+            }
+            #begin_clue_desktop {
+                display: inline-flex;
+            }
+            #is_mobile {
+                display: none;
+            }
 
             /* -- tabs */
             .disabled_tab{
@@ -360,6 +369,15 @@
 
             /* -- media styles */
             @media only screen and (max-width: 980px) and (min-device-width: 375px) {
+                #begin_clue_mobile {
+                    display: inline-flex;
+                }
+                #begin_clue_desktop {
+                    display: none;
+                }
+                #is_mobile {
+                    display: inline-flex;
+                }
                 .btn{
                     font-size: 2rem;
                 }
@@ -649,7 +667,7 @@
                     </div>
                     <div id="press_your_luck">
                         <center>
-                            <span id="begin_clue">Press the ENTER key to select a letter.</span>
+                            <div id="begin_clue"><span id="begin_clue_desktop">Press the ENTER key to select a letter.</span><span id="begin_clue_mobile">Tap the screen to select a letter.</span></div>
                             <span id="end_clue" style="display:none">Here is your clue</span><br>
                             <div class="letter"><span id="random_letter">&nbsp;</span></div>
                         </center>
@@ -714,6 +732,8 @@
                     <div class="keylong" id="Enter" onclick="SHRM.utils.onKeyPress(this.id)">Enter</div> 
                 </div>
             </div>
+
+            <div id="is_mobile">&nbsp;</div>
         </div>
  
         <script>
@@ -1111,9 +1131,9 @@
                             $('#clue_ad').hide()
                             var letters=['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
                             $('#random_letter').html(letters[Math.floor(Math.random()*letters.length)])
-                            $("#begin_clue").show()
+                            $("#press_your_luck").show()
                             $("#end_clue").hide()
-                            $('#press_your_luck').show()
+                            $('#begin_clue').show()
                             this.show_random_letter = true
                             this.show_random_letters()
                         }
@@ -1552,6 +1572,12 @@
             }).apply(SHRM.utils);
 
             //SHRM.utils.sleep(2000).then(() => { showSpinner(false); });
+            
+            $('#modal_clue').on('click', function (event) {
+                if (SHRM.utils.show_random_letter == true) {
+                    $('#Enter').trigger('click')
+                }
+            });
             
             $(this).on('keydown', function(event) {
                 $('#' + event.key).trigger('click')
