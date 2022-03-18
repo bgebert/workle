@@ -53,9 +53,6 @@
             #begin_clue_desktop {
                 display: inline-flex;
             }
-            #is_mobile {
-                display: none;
-            }
 
             /* -- tabs */
             .disabled_tab{
@@ -374,9 +371,6 @@
                 }
                 #begin_clue_desktop {
                     display: none;
-                }
-                #is_mobile {
-                    display: inline-flex;
                 }
                 .btn{
                     font-size: 2rem;
@@ -733,8 +727,6 @@
                     <div class="keylong" id="Enter" onclick="SHRM.utils.onKeyPress(this.id)">Enter</div> 
                 </div>
             </div>
-
-            <div id="is_mobile">&nbsp;</div>
         </div>
  
         <script>
@@ -754,7 +746,7 @@
                 ,{"id":"11.2","date":"03/15/2022","word":"impact","clue":"Executives agree that they can make an ______ on workplace culture.","factoid":"97% of executives agree that their actions have a direct impact on workplace culture.","url":"https://shrm.org/hr-today/trends-and-forecasting/research-and-surveys/Pages/2021-Workplace-Culture-Report.aspx?_ga=2.199475630.1465254891.1646658387-1459168090.1638458997&_gac=1.170664212.1643650642.EAIaIQobChMIoIiX4sPc9QIVzgaICR2QlA20EAAYASAAEgJZnPD_BwE"}
                 ,{"id":"11.3","date":"03/16/2022","word":"people","clue":"A company's most important resource","factoid":"","url":"http://shrm.org"}
                 ,{"id":"11.4","date":"03/17/2022","word":"empathy","clue":"A clue could go here","factoid":"21% of those who quit their jobs in the past 9 months did so because their organization’s leadership lacked empathy toward employees","url":"http://shrm.org"}
-                ,{"id":"11.5","date":"03/18/2022","word":"remote","clue":"Put a clue here to help educate the user.","factoid":"40% of U.S. workers would prefer to work remotely in some capacity, either fully remote (23%) or mostly remote, but sometimes in-person (17%).","url":"http://shrm.org"}
+                ,{"id":"11.5","date":"03/18/2022","word":"remote-work","clue":"Put a clue here to help educate the user.","factoid":"40% of U.S. workers would prefer to work remotely in some capacity, either fully remote (23%) or mostly remote, but sometimes in-person (17%).","url":"http://shrm.org"}
                 ,{"id":"12.1","date":"03/21/2022","word":"resign","clue":"A clue could go here","factoid":"Nearly half (49%) of U.S. workers are actively searching for a new job right now or plan to over the next few months.","url":"http://shrm.org"}
                 ,{"id":"12.2","date":"03/22/2022","word":"balance","clue":"A clue could go here","factoid":"58% of U.S. workers believe a healthy work-life balance is more important than higher pay or salary.","url":"http://shrm.org"}
                 ,{"id":"12.3","date":"03/23/2022","word":"romance","clue":"A clue could go here","factoid":"A third of U.S. workers (33%) report that they’re currently involved or have been involved in a workplace romance","url":"http://shrm.org"}
@@ -1476,11 +1468,21 @@
                         sharestring += newline_char + "I was stumped." + newline_char + newline_char
                     }
 
+                    var ndx = 1
                     for (var i=0;i<this.gamehistory.length;i++){
                         sharestring+=''
-
+                        ndx = 1
                         for (var j=0;j<SHRM.workle.word.length;j++){
                             sharestring+=this.getEmoji(this.gamehistory[i][j])
+                            if (SHRM.workle.word_original.split("")[j + ndx] == ' '){
+                               sharestring+=' '
+                               ndx = ndx + 1
+                            }
+                            if (SHRM.workle.word_original.split("")[j + ndx] == '-'){
+                               sharestring+='-'
+                               ndx = ndx + 1
+                            }
+
                         }
                         if (i < this.gamehistory.length-1){
                             sharestring+=newline_char
