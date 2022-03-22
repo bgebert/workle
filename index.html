@@ -573,7 +573,7 @@
                             <a class="nav-link active" id="stats-tab-overall" data-toggle="tab" href="#stats_overall" role="tab" aria-controls="stats_overall" aria-selected="true">Overall</a>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <a class="nav-link disabled_tab" id="stats-tab-last-played" data-toggle="" href="#stats_last_played" role="tab" aria-controls="stats_last_played" aria-selected="false">Last Played</a>
+                            <a class="nav-link disabled_tab id="stats-tab-last-played" data-toggle="" href="#stats_last_played" role="tab" aria-controls="stats_last_played" aria-selected="false">Last Played</a>
                         </li>
                     </ul>
                     <div class="tab-content" id="myTabContent">
@@ -943,8 +943,9 @@
                     }
                     
                     //$('#stats-tab-last-played').addClass('disabled_tab');
-                    $('#stats-tab-last-played').attr('data-toggle', '');
-                    $('#stats-tab-last-played').addClass('disabled_tab');
+                    debugger
+                    //$('#stats-tab-last-played').attr('data-toggle', '');
+                    //$('#stats-tab-last-played').addClass('disabled_tab');
                     $('#modal_stats').modal('hide');
                     
                     this.getWord()
@@ -1216,7 +1217,8 @@
                             streak:[0,0,0,0,0,0],
                             beststreak:[0,0,0,0,0,0],
                             winpct:[0,0,0,0,0,0],
-                            played:[]
+                            played:[],
+                            sharestring:''
                         }
                         localStorage.gameStats=JSON.stringify(gameStats);
                     }
@@ -1504,6 +1506,12 @@
                     }else{
                         $("#sharearea").text(sharestring);
                     }
+
+                    if (this.won) {
+                        var gameStats=JSON.parse(localStorage.gameStats);
+                        gameStats.sharestring = sharestring
+                        localStorage.gameStats=JSON.stringify(gameStats);
+                    }
                     
                     $('#sharearea').focus();
                     $('#sharearea').select();
@@ -1587,8 +1595,19 @@
 
             $(document).ready(function(){
                 SHRM.utils.initStats();
+
+                if (typeof localStorage.gameStats != 'undefined'){
+                    var gameStats=JSON.parse(localStorage.gameStats);
+
+                    if (typeof gameStats.sharestring != 'undefined' && gameStats.sharestring != ''){
+                        $("#sharearea").text(gameStats.sharestring);
+                        $('#stats-tab-last-played').attr('data-toggle', 'tab');
+                        $('#stats-tab-last-played').removeClass('disabled_tab');
+                    }
+                }
+                
                 SHRM.utils.startGame();
-                //$('#modal_info').modal('show')
+                $('#modal_info').modal('show')
             });
         </script>
     </body>
