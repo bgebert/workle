@@ -943,7 +943,6 @@
                     }
                     
                     //$('#stats-tab-last-played').addClass('disabled_tab');
-                    debugger
                     //$('#stats-tab-last-played').attr('data-toggle', '');
                     //$('#stats-tab-last-played').addClass('disabled_tab');
                     $('#modal_stats').modal('hide');
@@ -1020,6 +1019,7 @@
                             if (this.show_random_letter == true){
                                 this.show_random_letter = false
                                 var remaining_letters = SHRM.workle.word_original
+                                var remaining_letters = SHRM.workle.word
                                 for (var i = 0; i < $('.key.place').length; i++){
                                     remaining_letters = remaining_letters.replace($($('.key.place')[i]).attr('id'), '')
                                 }
@@ -1103,6 +1103,7 @@
                             $('#clue_ad').hide()
                             var letters=['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
                             $('#random_letter').html(letters[Math.floor(Math.random()*letters.length)])
+                            $('#random_letter').text(letters[Math.floor(Math.random()*letters.length)])
                             $("#press_your_luck").show()
                             $("#end_clue").hide()
                             $('#begin_clue').show()
