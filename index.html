@@ -643,6 +643,23 @@
             </div>
         </div>
 
+        <div id="modal_maintenance" class="modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Oops</h5>
+                </div>
+                <div class="modal-body">
+                    <br>
+                    <div id="no_word_today" class="hidden"><p>We're making Workle even more awesome, so please check back a little later.</p></div>
+                    <div id="word_too_long" class="hidden"><p>We seemed to have misplaced our dictonary, so please give us a minute to find it.
+                        <br><br>Now where could we have left a few thousand words?
+                        </p></div>
+                </div>
+              </div>
+            </div>
+        </div>
+
         <div id="modal_clue" class="modal" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
@@ -819,9 +836,13 @@
                             }else{
                                 filtered_by = SHRM.utils.data.schedule.filter(a => a.id == available_game_index)
                             }
-                        }else{
-                            
+                        }else{   
                             filtered_by = SHRM.utils.data.schedule.filter(a => a.date == new Date().toLocaleString("en-US", {year: 'numeric', month: '2-digit', day: '2-digit'}));
+                        }
+
+                        if (typeof filtered_by == 'undefined' || filtered_by.length == 0){
+                            this.show_maintenance_modal('no_word_today')
+                            return
                         }
 
                         if (filtered_by.length == 1){
@@ -890,10 +911,23 @@
                     }
                     if (arr.length == 1){
                         wordlist = window["words" + SHRM.workle.word.length]
+                        if (typeof wordlist == 'undefined' || wordlist.length == 0){
+                            this.show_maintenance_modal('word_too_long')
+                            return
+                        }
                         wordlist.push(SHRM.workle.word)
                     }else{
                         wordlist = window["words" + arr[0].length]
+                        if (typeof wordlist == 'undefined' || wordlist.length == 0){
+                            this.show_maintenance_modal('word_too_long')
+                            return
+                        }
                         if (arr[0].length != arr[1].length) {
+                            var wordlist_2temp = window["words" + arr[1].length]
+                            if (typeof wordlist_2temp == 'undefined' || wordlist_2temp.length == 0){
+                                this.show_maintenance_modal('word_too_long')
+                                return
+                            }
                             wordlist = wordlist.concat(window["words" + arr[1].length])
                         }
                         wordlist.push(arr[0])
@@ -923,6 +957,22 @@
                         return
                     }
                 };
+
+                this.show_maintenance_modal = function(reason){
+                    $('#modal_maintenance').modal('show');
+                    if (reason == 'no_word_today'){
+                        $('#no_word_today').show();
+                        $('#word_too_long').hide();
+                    }
+                    if (reason == 'word_too_long'){
+                        $('#word_too_long').show();
+                        $('#no_word_today').hide();
+                    }
+                    
+                    $('#modal_info').remove()
+                    $('#modal_stats').remove()
+                    $('.maincontainer').hide();
+                }
 
                 this.show_results = function (){
                     $('#stats-tab-last-played').attr('data-toggle', 'tab');
@@ -1018,7 +1068,6 @@
                             
                             if (this.show_random_letter == true){
                                 this.show_random_letter = false
-                                var remaining_letters = SHRM.workle.word_original
                                 var remaining_letters = SHRM.workle.word
                                 for (var i = 0; i < $('.key.place').length; i++){
                                     remaining_letters = remaining_letters.replace($($('.key.place')[i]).attr('id'), '')
