@@ -15,6 +15,7 @@
         <!-- Latest compiled and minified JavaScript -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+        <script src='scripts/scrabblewords.js'></script>
         <script src='scripts/words.js'></script>
         <script src="scripts/schedule.json"></script>
         
@@ -909,26 +910,31 @@
                     if (SHRM.workle.word_original.indexOf('-') > -1){
                         arr = SHRM.workle.word_original.split('-')
                     }
+
                     if (arr.length == 1){
-                        wordlist = window["words" + SHRM.workle.word.length]
+                        //wordlist = window["words" + SHRM.workle.word.length]
+                        wordlist = this.get_wordlist(SHRM.workle.word.length)
                         if (typeof wordlist == 'undefined' || wordlist.length == 0){
                             this.show_maintenance_modal('word_too_long')
                             return
                         }
                         wordlist.push(SHRM.workle.word)
                     }else{
-                        wordlist = window["words" + arr[0].length]
+                        //wordlist = window["words" + arr[0].length]
+                        wordlist = this.get_wordlist(arr[0].length)
                         if (typeof wordlist == 'undefined' || wordlist.length == 0){
                             this.show_maintenance_modal('word_too_long')
                             return
                         }
                         if (arr[0].length != arr[1].length) {
-                            var wordlist_2temp = window["words" + arr[1].length]
+                            //var wordlist_2temp = window["words" + arr[1].length]
+                            wordlist_2temp = this.get_wordlist(arr[1].length)
                             if (typeof wordlist_2temp == 'undefined' || wordlist_2temp.length == 0){
                                 this.show_maintenance_modal('word_too_long')
                                 return
                             }
-                            wordlist = wordlist.concat(window["words" + arr[1].length])
+                            //wordlist = wordlist.concat(window["words" + arr[1].length])
+                            wordlist = wordlist.concat(wordlist_2temp)
                         }
                         wordlist.push(arr[0])
                         wordlist.push(arr[1])
@@ -936,6 +942,14 @@
                     
                     SHRM.workle.wordlist = wordlist
                     return SHRM.workle.word
+                };
+
+                this.get_wordlist = function (word_length) {
+                    var arr = scrabblewords.filter(function(val) {
+                        return val.length == word_length ? val : false
+                    });
+
+                    return arr
                 };
 
                 this.getURLparam = function (parameter){
