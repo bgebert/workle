@@ -617,12 +617,12 @@
                                 <button id="copy" onclick="SHRM.utils.copyResults();" type="button" class="btn btn-info btn-clipboard" data-clipboard-action="copy" data-clipboard-target="#sharearea">Copy</button>
                                 <!--<button type="button" onclick="SHRM.utils.share()" class="btn btn-primary" id="share">Share Results</button>-->
                                 <!--<button type="button" onclick="SHRM.utils.playAgainButton();" class="btn btn-primary">Play Another</button>-->
-                                <fieldset class="fact">
+                                <fieldset class="fact hidden">
                                     <hr></hr>
                                     <h5><b>Did You Know?</b></h5>
                                     <span class="fact_percent"></span> <span class="fact_text" ></span>
                                     <br>
-                                    <span><a class="fact_url">Learn more</a></span>
+                                    <span><a class="fact_url" target="_blank">Learn more</a></span>
                                 </fieldset>
                             </div>
                         </div>
@@ -871,32 +871,6 @@
                     }
                     $('#Clue').addClass('key_clue_enabled')
 
-                    //add factoid if present
-                    if (SHRM.workle.factoid == ''){
-                        $('.fact_text').html('');
-                        $('.fact_percent').html('');
-                        $('.fact_url').html('');
-                        $('.fact_text').hide()
-                        $('.fact_percent').hide()
-                        $('.fact_url').hide()
-                        $('.fact').hide()
-                    }else{
-                        var factoid_arr = SHRM.workle.factoid.split("|")
-                        if (factoid_arr.length == 1){
-                            $('.fact_text').html(factoid_arr[0]);
-                        }else{
-                            $('.fact_percent').html(factoid_arr[0]);
-                            $('.fact_text').html(factoid_arr[1]);
-                            $('.fact_percent').show()
-                        }
-                        $('.fact_text').show()
-                        if (SHRM.workle.url != ''){
-                            $('.fact_url').prop('href', SHRM.workle.url);
-                            $('.fact_url').show()
-                        }
-                        $('.fact').show()
-                    }
-
                     SHRM.workle.word_original = SHRM.workle.word
                     SHRM.workle.word = SHRM.workle.word.replace(' ', '').replace('-', '')
                     SHRM.workle.wordarr = SHRM.workle.word.toUpperCase().split("");
@@ -942,6 +916,34 @@
                     
                     SHRM.workle.wordlist = wordlist
                     return SHRM.workle.word
+                };
+
+                this.show_factoid = function () {
+                    //add factoid if present
+                    if (SHRM.workle.factoid == ''){
+                        $('.fact_text').html('');
+                        $('.fact_percent').html('');
+                        $('.fact_url').html('');
+                        $('.fact_text').hide()
+                        $('.fact_percent').hide()
+                        $('.fact_url').hide()
+                        $('.fact').hide()
+                    }else{
+                        var factoid_arr = SHRM.workle.factoid.split("|")
+                        if (factoid_arr.length == 1){
+                            $('.fact_text').html(factoid_arr[0]);
+                        }else{
+                            $('.fact_percent').html(factoid_arr[0]);
+                            $('.fact_text').html(factoid_arr[1]);
+                            $('.fact_percent').show()
+                        }
+                        $('.fact_text').show()
+                        if (SHRM.workle.url != ''){
+                            $('.fact_url').prop('href', SHRM.workle.url);
+                            $('.fact_url').show()
+                        }
+                        $('.fact').show()
+                    }
                 };
 
                 this.get_wordlist = function (word_length) {
@@ -1114,6 +1116,8 @@
                                         $("#r"+(this.row)+"l"+(j+1)).toggleClass('upcoming');
                                     }
                                     if (this.gameover){
+                                        this.show_factoid()
+
                                         if (!this.won){
                                             resultsstring = "The word is " + SHRM.workle.word_original.toUpperCase();
                                             $("#resultsstring").html(resultsstring);
