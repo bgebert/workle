@@ -1112,9 +1112,6 @@
                                     this.row++;
                                     this.guess="";
                                     this.tile=0;
-                                    for (var j=0;j<SHRM.workle.word.length;j++){
-                                        $("#r"+(this.row)+"l"+(j+1)).toggleClass('upcoming');
-                                    }
                                     if (this.gameover){
                                         this.show_factoid()
 
@@ -1135,6 +1132,9 @@
                                         
                                         window.setTimeout(function (){ SHRM.utils.show_results()}, 3500)
                                     }else{
+                                        for (var j=0;j<SHRM.workle.word.length;j++){
+                                            $("#r"+(this.row)+"l"+(j+1)).toggleClass('upcoming');
+                                        }
                                         if (this.row == this.tries){
                                             if (SHRM.workle.clue != ''){
                                                 $('#Clue').addClass('key_clue_enabled')
