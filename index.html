@@ -825,7 +825,7 @@
                     
                     var filtered_by = null
                     SHRM.workle = null
-                    filtered_by = SHRM.utils.data.schedule.filter(a => a.id == code)
+                    filtered_by = SHRM.utils.data.schedule.filter(a => a.id == code && a.date <= new Date().toLocaleString("en-US", {year: 'numeric', month: '2-digit', day: '2-digit'}))
                     if (filtered_by.length == 1){
                         // do nothing
                     }else{
@@ -851,7 +851,8 @@
                         }else if (filtered_by.length > 1){
                             filtered_by = filtered_by[Math.floor(Math.random()*filtered_by.length)]
                         }else{
-                            filtered_by = SHRM.utils.data.schedule[Math.floor(Math.random()*SHRM.utils.data.schedule.length)]
+                            this.show_maintenance_modal('no_word_today')
+                            return
                         }
                     }
 
