@@ -903,7 +903,7 @@
                         }
                         if (arr[0].length != arr[1].length) {
                             //var wordlist_2temp = window["words" + arr[1].length]
-                            wordlist_2temp = this.get_wordlist(arr[1].length)
+                            var wordlist_2temp = this.get_wordlist(arr[1].length)
                             if (typeof wordlist_2temp == 'undefined' || wordlist_2temp.length == 0){
                                 this.show_maintenance_modal('word_too_long')
                                 return
