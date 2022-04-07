@@ -921,6 +921,7 @@
 
                 this.show_factoid = function () {
                     //add factoid if present
+                    debugger
                     if (SHRM.workle.factoid == ''){
                         $('.fact_text').html('');
                         $('.fact_percent').html('');
@@ -942,6 +943,8 @@
                         if (SHRM.workle.url != ''){
                             $('.fact_url').prop('href', SHRM.workle.url);
                             $('.fact_url').show()
+                        }else{
+                            $('.fact_url').hide()
                         }
                         $('.fact').show()
                     }
