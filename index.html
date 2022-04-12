@@ -8,13 +8,13 @@
         <meta_remove name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
         
         <!-- Latest compiled and minified CSS -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
         <link rel="stylesheet" href="https://use.typekit.net/tfw4naf.css">
 
         <!-- Latest compiled and minified JavaScript -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
         <script src='scripts/scrabblewords.js'></script>
         <script src='scripts/words.js'></script>
         <script src="scripts/schedule.json"></script>
@@ -26,10 +26,8 @@
         <style>
             /* -- general styles */
             body{
-                omin-width: 850px;
                 min-height: 700px;
                 max-height: 700px;
-                remove_background-image: url(https://shrm-res.cloudinary.com/image/upload/v1646875965/cs-sandbox/Icons_R1_BG_copy.svg);
                 background-image: url(https://shrm-res.cloudinary.com/image/upload/cs-sandbox/Icons_R1_BG_copy.svg);
                 background-size: cover;
                 font-family: 'proxima-soft', Arial, Helvetica, sans-serif;
@@ -39,7 +37,7 @@
                 width: 100%;
             }
             .hidden {
-                display: none;
+                display: none !important;
             }
             .img-pinwheel {
                 vertical-align: inherit;
@@ -48,6 +46,7 @@
             .img-responsive {
                 width: 85px;
                 padding-bottom: 3px;
+                display: inline-block
             }
             #begin_clue_mobile {
                 display: none;
@@ -67,9 +66,17 @@
                 obackground-color: #FFFFFF;
                 z-index: 1;
                 margin-bottom: 10px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
             }
             .left-links{
-               remove_flex:1 1 200px;
+               text-align: left;
+               width: 30%;
+            }
+            .right-links{
+               text-align: right;
+               width: 30%;
             }
             .navbar a {
                 remove_float: left;
@@ -80,6 +87,7 @@
                 text-decoration: none;
                 remove_width: 32%;
                 justify-content: center;
+                padding-left: 20px;
                 padding-right: 20px;
             }
             .content {
@@ -103,6 +111,8 @@
             .title_bar{
                 font-weight: bold;
                 font-size: 2.5rem;
+                text-align: center;
+                width: 40%;
             }
             .workTxt { 
                 remove_background: -webkit-linear-gradient(#233151, #8B1377);  
@@ -133,10 +143,11 @@
                 text-align:center;
                 color:black;
                 font-size:2rem;
-                padding:5px 0px;
+                padding:10px 0px;
                 font-weight:bold;
                 margin-left:6px;
                 margin-right:6px;
+                position: relative;
             }
             .upcoming{
                 border:1px solid rgb(167, 167, 167);
@@ -190,7 +201,7 @@
                 text-align:center;
                 remove_color:black;
                 remove_font-size:16px;
-                padding:1px;
+                padding:10px 0px;
                 font-weight:bold;
                 cursor: pointer;
                 -webkit-touch-callout: none; /* iOS Safari */
@@ -211,7 +222,7 @@
                 text-align:center;
                 remove_color:black;
                 remove_font-size:16px;
-                padding:1px;
+                padding:10px 0px;
                 font-weight:bold;
                 cursor: pointer;
                 -webkit-touch-callout: none; /* iOS Safari */
@@ -357,7 +368,7 @@
             /* -- modal_stats_last_played */
             #sharearea{
                 width:80%;
-                height:220px;
+                height:150px;
                 border: none;
                 resize: none;
                 line-height: 1;
@@ -509,10 +520,8 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         <h5 class="modal-title">HOW TO PLAY</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
                     </div>
                     <div class="modal-body">
                         <div>
@@ -551,7 +560,7 @@
                             </div>
                             <div>
                                 <hr></hr>
-                                <span>WORKLE is brought to you by Alex and SHRM Research.</span>
+                                <span>WORKLE is brought to you SHRM Research.</span>
                             </div>
                         </div>
                     </div>
@@ -563,10 +572,8 @@
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                   <h5 class="modal-title">STATISTICS</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
                 </div>
                 <div class="modal-body">
                     <ul class="nav nav-tabs" id="statsTabs" role="tablist">
@@ -644,7 +651,7 @@
             </div>
         </div>
 
-        <div id="modal_maintenance" class="modal" tabindex="-1" role="dialog">
+        <div id="modal_no_word_today" class="modal" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
@@ -652,10 +659,21 @@
                 </div>
                 <div class="modal-body">
                     <br>
-                    <div id="no_word_today" class="hidden"><p>We're making Workle even more awesome, so please check back a little later.</p></div>
-                    <div id="word_too_long" class="hidden"><p>We seemed to have misplaced our dictonary, so please give us a minute to find it.
-                        <br><br>Now where could we have left a few thousand words?
-                        </p></div>
+                    <p>We're making Workle even more awesome, so please check back a little later.</p>
+                </div>
+              </div>
+            </div>
+        </div>
+
+        <div id="modal_word_too_long" class="modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Oops</h5>
+                </div>
+                <div class="modal-body">
+                    <br>
+                    <p>We seemed to have misplaced our dictonary, so please give us a minute to find it.<br><br>Now where could we have left a few thousand words?</p>
                 </div>
               </div>
             </div>
@@ -665,10 +683,8 @@
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h5 class="modal-title"></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
                 </div>
                 <div class="modal-body">
                     <div id="clue_ad">
@@ -921,7 +937,6 @@
 
                 this.show_factoid = function () {
                     //add factoid if present
-                    debugger
                     if (SHRM.workle.factoid == ''){
                         $('.fact_text').html('');
                         $('.fact_percent').html('');
@@ -979,24 +994,22 @@
                 };
 
                 this.show_maintenance_modal = function(reason){
-                    $('#modal_maintenance').modal('show');
-                    if (reason == 'no_word_today'){
-                        $('#no_word_today').show();
-                        $('#word_too_long').hide();
-                    }
-                    if (reason == 'word_too_long'){
-                        $('#word_too_long').show();
-                        $('#no_word_today').hide();
-                    }
-                    
                     $('#modal_info').remove()
                     $('#modal_stats').remove()
                     $('.maincontainer').hide();
+
+                    if (reason == 'no_word_today'){
+                        $('#modal_no_word_today').modal('show');
+                    }
+                    if (reason == 'word_too_long'){
+                        $('#modal_word_too_long').modal('show');
+                    }
                 }
 
                 this.show_results = function (){
                     $('#stats-tab-last-played').attr('data-toggle', 'tab');
                     $('#stats-tab-last-played').removeClass('disabled_tab');
+                    $('#stats_overall').addClass('hidden');
                     $('#modal_stats').modal('show');
                     SHRM.utils.share()
                     $('#stats-tab-last-played').trigger('click')
@@ -1344,7 +1357,7 @@
                     if (true){
                         var wordLength = SHRM.workle.word.length
                         var gameStats=JSON.parse(localStorage.gameStats);
-                        if (SHRM.workle.word_original.indexOf(' ') > -1 || SHRM.workle.word_original.indexOf('-') > -1){
+                        if (SHRM.workle.word_original.indexOf(' ') > -1 || SHRM.workle.word_original.indexOf('-') > -1 || typeof gameStats.winDist[wordLength-3] == 'undefined'){
                             wordLength = 7
                         }
                         gameStats.games[wordLength-3]++;
@@ -1649,11 +1662,12 @@
                 var tab = $(event.target).prop('id')
 
                 if (tab == 'stats-tab-overall'){
-                    
+                    $('#stats_overall').removeClass('hidden');
                 }else{
                     if ($('#sharearea').text() == ''){
                         return false
                     }
+                    $('#stats_overall').addClass('hidden');
                 }
             });
 
