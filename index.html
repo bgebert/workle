@@ -10,7 +10,7 @@
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://use.typekit.net/tfw4naf.css">
+        <!--<link rel="stylesheet" href="https://use.typekit.net/tfw4naf.css">-->
 
         <!-- Latest compiled and minified JavaScript -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -54,13 +54,13 @@
             #begin_clue_desktop {
                 display: inline-flex;
             }
-
+        
             /* -- tabs */
             .disabled_tab{
                 pointer-events: none;
                 color: gray; 
             }
-
+        
             /* -- navbar */
             .navbar {
                 obackground-color: #FFFFFF;
@@ -103,7 +103,7 @@
             .sticky + .content {
                 padding-top: 60px;
             }
-
+        
             /* -- title_bar */
             .icon_instructions { cursor: pointer; }
             .icon_stats { cursor: pointer; }
@@ -123,7 +123,7 @@
             .leTxt {
                 color:#0177BE;
             }
-
+        
             /* -- game container */
             #gamecontainer {
                 text-align: center;
@@ -177,9 +177,9 @@
             .row{
                 position:relative;
                 transition:transform .7s;
-                display: inherit !important;
+                remove_display: inherit !important;
             }
-
+        
             /* -- keyboard */
             #keyboardrow3, #keyboardrow2, #keyboardrow1, #keyboardrow0{
                 width:100%;
@@ -258,7 +258,7 @@
             .key_clue {
                 background-color: #A19F30;
             }
-
+        
             /* -- hamburger menu */
             .btn-secondary:not(:disabled):not(.disabled).active:focus, .btn-secondary:not(:disabled):not(.disabled):active:focus, .show>.btn-secondary.dropdown-toggle:focus {
                 box-shadow: none;
@@ -274,7 +274,7 @@
             .dropdown-item {
                 font-size: 1.5rem;
             }
-
+        
             /* -- modal */
             .region {
                 background-color: #FFFFFF;
@@ -289,7 +289,7 @@
                 width: 95%;
             }
             .modal-dialog {
-                max-width: 75%;
+                remove_max-width: 75%;
                 margin: 1.75rem auto;
                 font-size: 1em;
             }
@@ -300,7 +300,7 @@
                 font-size: 2rem;
             }
             /* -- modal_info */
-            .icon{
+            .icon_tile{
                 height:1.5em;
                 width:1.5em !important;
                 border:1px solid gray;
@@ -314,7 +314,7 @@
                 display: inline-block;
                 width: 20px;
             }
-
+        
             /* -- modal_stats */
             #numberbar{
                 display:flex;
@@ -364,7 +364,7 @@
                 background-color:#0076be;
                 color:white;
             }
-
+        
             /* -- modal_stats_last_played */
             #sharearea{
                 width:80%;
@@ -373,10 +373,10 @@
                 resize: none;
                 line-height: 1;
             }
-
+        
             /* -- modal_notaword */
             #modal_notaword{ text-align: center; }
-
+        
             /* -- media styles */
             @media only screen and (max-width: 980px) and (min-device-width: 375px) {
                 #begin_clue_mobile {
@@ -441,80 +441,12 @@
                 .icon_stats {
                     font-size: 3rem;
                 }
-            /*
-            @media only screen and (max-width: 600px) {
-                .letter {
-                    width:56px;
-                    height:30px;
-                    font-size:26px;
-                    margin-left:3px;
-                    margin-right:3px;
-                }
-            }
-            @media only screen and (max-width: 500px) {
-                .letter {
-                    width:50px;
-                    height:24px;
-                    font-size:22px;
-                    padding:10px 0px;
-                    margin-left:2px;
-                    margin-right:2px;
-                }
-            }
-            @media only screen and (max-width: 420px) {
-                .letter {
-                    width:10%;
-                    height:24px;
-                    font-size:22px;
-                    padding:10px 0px;
-                    margin-left:2px;
-                    margin-right:2px;
-                }
-                #keyboardrow3, #keyboardrow2, #keyboardrow1{
-                    display:flex;
-                    justify-content:center;
-                    max-width: 1100px;
-                    min-width: 412px;
-                }
-                .key{
-                    box-sizing: border-box;
-                    width:8.8%;
-                    margin:2px 0px;
-                    height:45px;
-                    flex: 1;
-                    
-                }
-                .keylong{
-                    width:33%;
-                    height:28px;
-                }
-                
-            }
-            */
-            /*@media (prefers-color-scheme: dark) {
-                .key, .keylong{
-                    color:white;
-                    background-color:black;
-                    border:1px solid grey;
-                }
-                body{
-                    background-color:black;
-                }
-                .letter{
-                    color:white;
-                    border-color:white;
-                }
-                .none{
-                    background-color:rgb(75, 75, 75);
-                }
-            }
-            */
         </style>
     </head>
     <body>
         <!--[if lt IE 11]>
-            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
+    <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+<![endif]-->
 
         <div class="modal" id="modal_info" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
@@ -533,34 +465,34 @@
                             <hr>
                             <b>Examples:</b></br>
                             <div>
-                                <span class="icon correct">R</span>
-                                <span class="icon tbd">A</span>
-                                <span class="icon tbd">I</span>
-                                <span class="icon tbd">S</span>
-                                <span class="icon tbd">E</span></br>
+                                <span class="icon_tile correct">R</span>
+                                <span class="icon_tile tbd">A</span>
+                                <span class="icon_tile tbd">I</span>
+                                <span class="icon_tile tbd">S</span>
+                                <span class="icon_tile tbd">E</span></br>
                                 The letter <b>R</b> is in the answer and in the correct place.
                             </div>
                             </br>
                             <div>
-                                <span class="icon tbd">V</span>
-                                <span class="icon tbd">A</span>
-                                <span class="icon place">L</span>
-                                <span class="icon tbd">U</span>
-                                <span class="icon tbd">E</span></br>
+                                <span class="icon_tile tbd">V</span>
+                                <span class="icon_tile tbd">A</span>
+                                <span class="icon_tile place">L</span>
+                                <span class="icon_tile tbd">U</span>
+                                <span class="icon_tile tbd">E</span></br>
                                 The letter <b>L</b> is in the answer but in the wrong place.
                             </div>
                             </br>
                             <div>
-                                <span class="icon tbd">U</span>
-                                <span class="icon tbd">N</span>
-                                <span class="icon tbd">I</span>
-                                <span class="icon tbd">T</span>
-                                <span class="icon none">Y</span></br>
+                                <span class="icon_tile tbd">U</span>
+                                <span class="icon_tile tbd">N</span>
+                                <span class="icon_tile tbd">I</span>
+                                <span class="icon_tile tbd">T</span>
+                                <span class="icon_tile none">Y</span></br>
                                 The letter <b>Y</b> is in not the answer.
                             </div>
                             <div>
                                 <hr></hr>
-                                <span>WORKLE is brought to you SHRM Research.</span>
+                                <span>WORKLE is brought to you by SHRM Research.</span>
                             </div>
                         </div>
                     </div>
@@ -570,10 +502,10 @@
 
         <div class="modal" id="modal_stats" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
-              <div class="modal-content">
+            <div class="modal-content">
                 <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                  <h5 class="modal-title">STATISTICS</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h5 class="modal-title">STATISTICS</h5>
                 </div>
                 <div class="modal-body">
                     <ul class="nav nav-tabs" id="statsTabs" role="tablist">
@@ -634,26 +566,26 @@
                             </div>
                         </div>
                     </div>
-                    
+
                 </div>
-              </div>
+            </div>
             </div>
         </div>
 
         <div id="modal_notaword" class="modal" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
-              <div class="modal-content">
+            <div class="modal-content">
                 <div class="modal-body">
                     <br>
                     <p>Not a word.</p>
                 </div>
-              </div>
+            </div>
             </div>
         </div>
 
         <div id="modal_no_word_today" class="modal" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
-              <div class="modal-content">
+            <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Oops</h5>
                 </div>
@@ -661,13 +593,13 @@
                     <br>
                     <p>We're making Workle even more awesome, so please check back a little later.</p>
                 </div>
-              </div>
+            </div>
             </div>
         </div>
 
         <div id="modal_word_too_long" class="modal" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
-              <div class="modal-content">
+            <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Oops</h5>
                 </div>
@@ -675,20 +607,20 @@
                     <br>
                     <p>We seemed to have misplaced our dictonary, so please give us a minute to find it.<br><br>Now where could we have left a few thousand words?</p>
                 </div>
-              </div>
+            </div>
             </div>
         </div>
 
         <div id="modal_clue" class="modal" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
-              <div class="modal-content">
+            <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h5 class="modal-title"></h5>
                 </div>
                 <div class="modal-body">
                     <div id="clue_ad">
-                        <center><a target="_blank" href="https://www.betterworkplaceschallengecup.com/"><img src="./images/SHRM_ad.png" alt="SHRM Ad"></a>
+                        <center><a target="_blank" href="https://www.betterworkplaceschallengecup.com/"><img src="https://raw.githubusercontent.com/bgebert/workle/main/images/SHRM_ad.png" alt="SHRM Ad"></a>
                             <br>The ad will disappear in <span id="countdown">5</span> seconds.</center>
                     </div>
                     <div id="press_your_luck">
@@ -700,7 +632,7 @@
                         </center>
                     </div>
                 </div>
-              </div>
+            </div>
             </div>
         </div>
 
@@ -710,13 +642,13 @@
                     <a href="#"><i class="fa fa-info-circle icon_instructions" title="Instructions"></i>&nbsp;</a>
                 </div>
                 <div class="title_bar">
-                    <a href="#"><span class="leTxt icon_home">ALL THINGS</span>&nbsp;<span class="workTxt icon_home">W<img class="img-pinwheel" src="./images/SHRM_Icon.svg" alt="SHRM Pinwheel">RK</span><span class="leTxt icon_home">LE</span></a>
+                    <a href="#"><span class="leTxt icon_home">ALL THINGS</span>&nbsp;<span class="workTxt icon_home">W<img class="img-pinwheel" src="https://raw.githubusercontent.com/bgebert/workle/main/images/SHRM_Icon.svg" alt="SHRM Pinwheel">RK</span><span class="leTxt icon_home">LE</span></a>
                 </div>
                 <div class="right-links">
                     <a href="#"><i class="fa fa-chart-bar icon_stats" aria-hidden="true" title="Stats"></i>&nbsp;</a>
                 </div>
             </div>
-            
+
             <div id="gamecontainer" class="container"></div>
 
             <div id="keyboard">
@@ -761,13 +693,11 @@
         </div>
  
         <script>
-            
-            
             var SHRM = SHRM || {};
             SHRM.utils = {};
             SHRM.utils.data = {}
-            
-            
+
+
 
             if (json_schedule){
                 if (!(SHRM.utils.data.schedule)){
@@ -777,7 +707,7 @@
 
             (function () {
                 'use strict';
-                
+
                 this.getRemoteData = function (path_to_csv){
                     if (this.ajaxResults[path_to_csv]){
                         return this.ajaxResults[path_to_csv]
@@ -819,7 +749,7 @@
 
                 this.getPrevAvailableGameID = function (current_game_index){
                     var gameStats=JSON.parse(localStorage.gameStats)
-                    
+
                     if (gameStats.played.includes(this.data.schedule[current_game_index].id) &&  current_game_index > 0){
                         return this.getPrevAvailableGameID(--current_game_index)
                     }else{
@@ -832,13 +762,13 @@
                     // 1. Challenge code via URL params, then by
                     // 2. Today's date, then by
                     // 3. Most recent to least recent games NOT played
-                    
+
                     var code = this.getURLparam('challenge')   //get value from URL parameters
 
                     if (typeof code == 'undefined'){
                         code = -1
                     }
-                    
+
                     var filtered_by = null
                     SHRM.workle = null
                     filtered_by = SHRM.utils.data.schedule.filter(a => a.id == code && a.date <= new Date().toLocaleString("en-US", {year: 'numeric', month: '2-digit', day: '2-digit'}))
@@ -930,7 +860,7 @@
                         wordlist.push(arr[0])
                         wordlist.push(arr[1])
                     }
-                    
+
                     SHRM.workle.wordlist = wordlist
                     return SHRM.workle.word
                 };
@@ -980,11 +910,11 @@
                     } else{
                         var thisURL = window.location.href;
                     }
-                    
+
                     var parseUrl = new URL(thisURL);
 
                     var parameter_value=parseUrl.searchParams.get(parameter);
-                    
+
                     if (parameter_value !== null){
                         console.log(parameter_value)
                         return parameter_value
@@ -1024,22 +954,22 @@
                     if (typeof this.playagain == 'undefined'){
                         this.playagain = false;
                     }
-                    
+
                     //$('#stats-tab-last-played').addClass('disabled_tab');
                     //$('#stats-tab-last-played').attr('data-toggle', '');
                     //$('#stats-tab-last-played').addClass('disabled_tab');
                     $('#modal_stats').modal('hide');
-                    
+
                     this.getWord()
 
                     console.log('WORKLE - ' + SHRM.workle.word)
-                    
+
                     this.row=1;
                     this.tile=0;
                     this.guess="";
 
                     this.makeBoard(this.tries);
-                    
+
                     $( ".icon_instructions" ).click(function(e) {
                         $('#modal_info').modal('show')
                     });
@@ -1098,7 +1028,7 @@
                             // console.log('Backspace')
                         } else if (key=="Enter"){
                             // console.log('Enter')
-                            
+
                             if (this.show_random_letter == true){
                                 this.show_random_letter = false
                                 var remaining_letters = SHRM.workle.word
@@ -1109,13 +1039,13 @@
                                     remaining_letters = remaining_letters.replace($($('.key.correct')[i]).attr('id'), '')
                                 }
                                 var arr_remaining_letters = remaining_letters.split("")
-                                
+
                                 this.letter_help = arr_remaining_letters[Math.floor(Math.random()*arr_remaining_letters.length)]
                                 $("#begin_clue").hide()
                                 $("#end_clue").show()
                                 $("#Clue").hide()
                             }
-                            
+
                             if (this.guess.length==SHRM.workle.word.length){
                                 if (this.isWord(this.guess)){
                                     this.won=this.checkGuess(this.guess);
@@ -1143,10 +1073,10 @@
                                             }
                                             $("#resultsstring").html(resultsstring);
                                         } 
-                                        
+
                                         this.updateStats();
                                         //$('#copy').hide()
-                                        
+
                                         window.setTimeout(function (){ SHRM.utils.show_results()}, 3500)
                                     }else{
                                         for (var j=0;j<SHRM.workle.word.length;j++){
@@ -1176,7 +1106,7 @@
 
                 this.begin_countdown = function (sec){
                     $('#countdown').html(sec)
-                    
+
                     window.setTimeout(() => {
                         var countdown = sec
                         if (countdown > 1){
@@ -1199,9 +1129,9 @@
 
                 this.show_random_letters = function (letter){
                     var letters=['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
-                    
+
                     window.setTimeout(() => {
-                        
+
                         if (this.show_random_letter){
                             if($("#random_letter").is(":visible")){
                                 $("#random_letter").queueFadeOut(100)
@@ -1216,7 +1146,7 @@
                             $('#random_letter').html(this.letter_help.toUpperCase()).queueFadeIn(250)
                         }
                     }, 100)
-                    
+
                 }
 
                 this.clearKeyboard = function (){
@@ -1271,11 +1201,11 @@
                 this.makeBoard = function (tries){
                     var spacing_location = SHRM.workle.word_original.indexOf(' ')
                     var dash_location = SHRM.workle.word_original.indexOf('-')
-                    
+
                     $( "#gamecontainer" ).empty();
                     for (var i=0;i < tries;i++){
                         $("#gamecontainer").append('<div class="row" id="row'+(i+1)+'"></div>');
-                        
+
                         for (var j=0;j<SHRM.workle.word.length;j++){ 
                             if (spacing_location == j){
                                 $("#row"+(i+1)).append('<div class="col letter letter_borderless" id="r'+(i+1)+'lspace'+'">&nbsp;</div>');
@@ -1290,7 +1220,7 @@
                         }
                     }
                 };
-                
+
                 this.initStats = function (){
                     var gameStats = {}
                     if (typeof localStorage.gameStats == 'undefined'){
@@ -1330,7 +1260,7 @@
 
                     var minwidth=4;
                     var maxwidth=95;
-                    
+
                     for (var i=0;i<6;i++){
                         var maxlength=this.maxArray(gameStats.winDist[numletters-3]);
                         if(maxlength==0){
@@ -1342,7 +1272,7 @@
                         $("#g_"+(i+1)).html(gameStats.winDist[numletters-3][i])
                     }
                     $(".guessbar").removeClass('hlguessbar');
-                    
+
                     if (numletters==SHRM.workle.word.length||numletters==8){
                         try{
                             if (this.won){
@@ -1399,13 +1329,13 @@
                     } else {
                         this.writeStats(num);
                     }
-                    
+
                     $('#stats-tab-overall').trigger('click');
                     $('#modal_stats').modal('show');
                     $(".numbertab").removeClass('highlight');
                     $("#s_"+num.replace('+','')).addClass('highlight');
                 };
-                
+
                 this.playAgainButton = function (){
                     SHRM.workle = null
                     this.playagain = true
@@ -1421,7 +1351,7 @@
                     var tmploc = -1;
                     var colorarr = this.fillArray(SHRM.workle.word.length,0);
                     var code = '';
-                    
+
                     for (var i=0;i<guessarr.length;i++){
                         //check for correct letter placement first
                         if (guessarr[i]==SHRM.workle.wordarr[i]){
@@ -1454,7 +1384,7 @@
                         }
                         // console.log(guessarr2,wordarr2)
                     }
-                    
+
                     for (var i=0;i<guessarr.length;i++){
                         //$("#r"+this.row+"l"+(i+1)).removeClass("none place correct")
 
@@ -1469,14 +1399,14 @@
                         //$("#r"+this.row+"l"+(i+1)).addClass(code)
 
                         $("#r"+this.row+"l"+(i+1)).queueFadeOut(i * 300).queueRemoveClass("none place correct").queueAddClass(code).queueFadeIn(i * 250)
-                                                
+
                     }
-                    
+
                     // console.log(colorarr);
                     this.gamehistory.push(colorarr);
                     if (this.sumArray(colorarr)==SHRM.workle.word.length){
                         this.gameover=true;
-                        
+
                         return true
                     } else{
                         return false
@@ -1514,18 +1444,18 @@
                     });
                     return this;
                 }
-                
+
                 this.isLetter = function (guess){
                     return /^[A-Z]$/i.test(guess);
                 };
-                
+
                 this.share = function (){
                     //custom = false
                     var newline_char = '\n'
                     //var newline_char = '<br>'
                     //var sharestring=`Try SHRM's WORKWORDS Challenge (${SHRM.workle.word.length} letters)\n${(this.won?"I did it in "+this.numtries+" out of 6 tries.":"I failed :(")}\n`
                     //var sharestring=`Try SHRM's WORKWORDS Challenge #${SHRM.workle.id} (${SHRM.workle.word.length} letters)${newline_char}${(this.won?"I did it in "+this.numtries+" out of 6 tries.":"I failed :(")}${newline_char}`
-                    
+
                     var sharestring = "SHRM's ALL THINGS WORKLE Challenge #" + SHRM.workle.id + " (" + SHRM.workle.word.length + " letters)"
                     if (this.won) {
                         sharestring += newline_char + "I did it in " + this.numtries + " out of 6 tries." + newline_char + newline_char
@@ -1554,7 +1484,7 @@
                         }
                     }
                     sharestring+= newline_char + newline_char + 'Try the same exact puzzle here:' + newline_char
-                    
+
 
                     /*
                     var sharestring=`Try SHRM's WORKWORDS Challenge (${SHRM.workle.word.length} letters)\n${(this.won?"I did it in "+this.numtries+" out of 6 tries.":"I failed :(")}\n\n`
@@ -1570,7 +1500,7 @@
                     }
                     sharestring+='\n\nTry the same exact puzzle here:'
                     */
-                    
+
                     var isInIframe = (parent !== window);
                     if (isInIframe){
                         var thisURL = document.referrer;
@@ -1597,7 +1527,7 @@
                         gameStats.sharestring = sharestring
                         localStorage.gameStats=JSON.stringify(gameStats);
                     }
-                    
+
                     $('#sharearea').focus();
                     $('#sharearea').select();
                     navigator.clipboard.writeText($('#sharearea').text());
@@ -1614,12 +1544,12 @@
                         window.getSelection().removeAllRanges();
                         window.getSelection().addRange(range);
                     }
-                    
+
                     //document.execCommand("copy");
                     $('#sharearea').focus();
                     $('#sharearea').select();
                     navigator.clipboard.writeText($('#sharearea').text());
-                    
+
                 }
 
                 this.getEmoji = function (guess){
@@ -1642,17 +1572,17 @@
                 this.sleep = function(ms){
                     return new Promise(resolve => setTimeout(resolve, ms));
                 };
-        
+
             }).apply(SHRM.utils);
 
             //SHRM.utils.sleep(2000).then(() => { showSpinner(false); });
-            
-            $('#modal_clue').on('click', function (event) {
+
+            $('#modal_clue_').on('click', function (event) {
                 if (SHRM.utils.show_random_letter == true) {
                     $('#Enter').trigger('click')
                 }
             });
-            
+
             $(this).on('keydown', function(event) {
                 $('#' + event.key).trigger('click')
                 //SHRM.utils.onKeyPress(event.key)
@@ -1691,7 +1621,7 @@
                         $('#stats-tab-last-played').removeClass('disabled_tab');
                     }
                 }
-                
+
                 SHRM.utils.startGame();
                 $('#modal_info').modal('show')
             });
