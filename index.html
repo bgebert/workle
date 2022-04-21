@@ -986,6 +986,58 @@
 
                 };
 
+                this.onDeletePress = function (key){
+                    // Make the keyboard show a key press
+                    if (event.key) {
+                        $('#' + event.key).queueAddClass('key_pressed')     //$('#' + event.key).delay(1).queueAddClass('key_pressed')
+                    }else{
+                        $('#' + key).queueAddClass('key_pressed')           //$('#' + key).delay(1).queueAddClass('key_pressed')
+                    }
+
+                    $("#r"+this.row+"l"+this.tile).html("&nbsp;");
+                    this.guess = this.guess.slice(0,-1);
+                    if(this.tile>0){
+                        this.tile--;
+                    }
+                    // console.log('Backspace')
+                }
+
+                this.onCluePress = function (key){
+                    // Make the keyboard show a key press
+                    if (event.key) {
+                        $('#' + event.key).queueAddClass('key_pressed')     //$('#' + event.key).delay(1).queueAddClass('key_pressed')
+                    }else{
+                        $('#' + key).queueAddClass('key_pressed')           //$('#' + key).delay(1).queueAddClass('key_pressed')
+                    }
+
+                    if (key=="Clue"){   
+                        if ($( "#Clue" ).hasClass( "key_clue_enabled" )){
+                            $('#clue_ad').show()
+                            $('#press_your_luck').hide()
+                            $('#modal_clue').modal('show')
+                            this.begin_countdown(3)
+                        }
+                    } 
+                }
+
+                this.onEnterPress = function (key){
+                    // Make the keyboard show a key press
+                    if (event.key) {
+                        $('#' + event.key).queueAddClass('key_pressed')     //$('#' + event.key).delay(1).queueAddClass('key_pressed')
+                    }else{
+                        $('#' + key).queueAddClass('key_pressed')           //$('#' + key).delay(1).queueAddClass('key_pressed')
+                    }
+
+                    if (key=="Clue"){   
+                        if ($( "#Clue" ).hasClass( "key_clue_enabled" )){
+                            $('#clue_ad').show()
+                            $('#press_your_luck').hide()
+                            $('#modal_clue').modal('show')
+                            this.begin_countdown(3)
+                        }
+                    } 
+                }
+
                 this.onKeyPress = function (key){
                     var letter = '';
                     var resultsstring = '';
@@ -997,12 +1049,13 @@
 
 
                     if (!this.gameover){
+                        // Make the keyboard show a key press
                         if (event.key) {
-                            $('#' + event.key).delay(1).queueAddClass('key_pressed')
+                            $('#' + event.key).queueAddClass('key_pressed')     //$('#' + event.key).delay(1).queueAddClass('key_pressed')
                         }else{
-                            $('#' + key).delay(1).queueAddClass('key_pressed')
+                            $('#' + key).queueAddClass('key_pressed')           //$('#' + key).delay(1).queueAddClass('key_pressed')
                         }
-
+                        
                         // console.log(event.key);
                         if (this.isLetter(key)){
                             letter = key.toUpperCase();
@@ -1096,9 +1149,9 @@
                         }                    
                         // console.log(tile)
                         if (event.key) {
-                            $('#' + event.key).delay(250).queueRemoveClass('key_pressed')
+                            $('#' + event.key).delay(10).queueRemoveClass('key_pressed')
                         }else{
-                            $('#' + key).delay(250).queueRemoveClass('key_pressed')
+                            $('#' + key).delay(10).queueRemoveClass('key_pressed')
                         }
                     } else {
                         // console.log("gameover")
