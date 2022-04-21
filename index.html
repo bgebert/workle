@@ -131,7 +131,7 @@
             }
             .letter {
                 width:66px;
-                min-width:66px;
+                min-width:46px;
                 max-width:66px;
                 height:56px;
                 min-height:56px;
@@ -181,6 +181,9 @@
             }
         
             /* -- keyboard */
+            #keyboard {
+                touch-action: manipulation;
+            }
             #keyboardrow3, #keyboardrow2, #keyboardrow1, #keyboardrow0{
                 width:100%;
                 text-align:center;
@@ -420,11 +423,11 @@
                     margin: 10px 10px;
                 }
                 .letter {
-                    height: 80px;
+                    height: 65px;
                     max-height: inherit;
                     min-height: inherit;
                     font-size: 3rem;
-                    width: 65px;
+                    width: 55px;
                     padding: none !important;
                 }
                 .upcoming {
@@ -1149,9 +1152,9 @@
                         }                    
                         // console.log(tile)
                         if (event.key) {
-                            $('#' + event.key).delay(10).queueRemoveClass('key_pressed')
+                            $('#' + event.key).delay(100).queueRemoveClass('key_pressed')
                         }else{
-                            $('#' + key).delay(10).queueRemoveClass('key_pressed')
+                            $('#' + key).delay(100).queueRemoveClass('key_pressed')
                         }
                     } else {
                         // console.log("gameover")
